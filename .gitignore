@@ -1,7 +1,7 @@
 *.class
 bin/*
 gen/*
-
+android-support-v4.jar
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
