@@ -1,5 +1,10 @@
 package unb.mdsgpp.qualcurso;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import models.Course;
+import models.Institution;
 import unb.mdsgpp.qualcurso.NavigationDrawerFragment.NavigationDrawerCallbacks;
 import android.app.Activity;
 import android.os.Bundle;
@@ -37,15 +42,15 @@ public class InstitutionListFragment extends ListFragment{
 		View rootView = inflater.inflate(R.layout.fragment_list, container,
 				false);
 		ListView listView = (ListView) rootView.findViewById(R.id.list_view);
-		listView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+		try {
+			listView.setAdapter(new ArrayAdapter<String>(
+			        getActionBar().getThemedContext(),
+			        android.R.layout.simple_list_item_1,
+			        android.R.id.text1,
+			        getInstitutionNamesList(getArguments().getInt(ID_COURSE))));
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 		return rootView;
 	}
 
@@ -69,6 +74,14 @@ public class InstitutionListFragment extends ListFragment{
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance((int)id+1));
 		super.onListItemClick(l, v, position, id);
+	}
+	
+	private ArrayList<String> getInstitutionNamesList(int idCourse) throws SQLException, ClassNotFoundException{
+		ArrayList<String> list = new ArrayList<String>();
+		for(Institution i : Course.get(idCourse).getInstitutions()){
+			list.add(i.getAcronym());
+		}
+		return list;
 	}
 	
 	private ActionBar getActionBar() {
