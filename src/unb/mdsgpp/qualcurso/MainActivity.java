@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
@@ -19,7 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements
-		NavigationDrawerFragment.NavigationDrawerCallbacks {
+		NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks {
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -54,8 +55,7 @@ public class MainActivity extends ActionBarActivity implements
 		fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,
-						PlaceholderFragment.newInstance(position + 1)).commit();
-	}
+						PlaceholderFragment.newInstance(position + 1)).commit();}
 
 	public void onSectionAttached(int number) {
 		switch (number) {
@@ -70,6 +70,8 @@ public class MainActivity extends ActionBarActivity implements
 			break;
 		}
 	}
+	
+	
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
@@ -146,5 +148,17 @@ public class MainActivity extends ActionBarActivity implements
 					ARG_SECTION_NUMBER));
 		}
 	}
+
+	@Override
+	public void onBeanListItemSelected(Fragment fragment) {
+		// update the main content by replacing fragments
+				FragmentManager fragmentManager = getSupportFragmentManager();
+				fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								fragment).addToBackStack(null).commit();
+		
+	}
+
 
 }
