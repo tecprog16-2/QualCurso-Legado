@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.SQLException;
+import android.database.SQLException;
 import java.util.ArrayList;
 
 public class Article extends Bean {
@@ -46,7 +46,7 @@ public class Article extends Bean {
 	}
 
 
-	public boolean save() throws ClassNotFoundException, SQLException {
+	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.insertBean(this);
@@ -54,7 +54,7 @@ public class Article extends Bean {
 		return result;
 	}
 
-	public static Article get(Integer id) throws ClassNotFoundException, SQLException {
+	public static Article get(Integer id) throws  SQLException {
 		Article result = new Article(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Article) gDB.selectBean(result);
@@ -62,7 +62,7 @@ public class Article extends Bean {
 	}
 
 	public static ArrayList<Article> getAll()
-			throws ClassNotFoundException, SQLException {
+			throws  SQLException {
 		Article type = new Article();
 		ArrayList<Article> result = new ArrayList<Article>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -72,13 +72,13 @@ public class Article extends Bean {
 		return result;
 	}
 
-	public static int count() throws ClassNotFoundException, SQLException {
+	public static int count() throws  SQLException {
 		Article type = new Article();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
-	public static Article first() throws ClassNotFoundException,
+	public static Article first() throws 
 			SQLException {
 		Article result = new Article();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -86,7 +86,7 @@ public class Article extends Bean {
 		return result;
 	}
 
-	public static Article last() throws ClassNotFoundException,
+	public static Article last() throws 
 			SQLException {
 		Article result = new Article();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -95,7 +95,7 @@ public class Article extends Bean {
 	}
 
 	public static ArrayList<Article> getWhere(String field, String value, boolean like) 
-			throws ClassNotFoundException, SQLException {
+			throws  SQLException {
 		Article type = new Article();
 		ArrayList<Article> result = new ArrayList<Article>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -105,7 +105,7 @@ public class Article extends Bean {
 		return result;
 	}
 	
-	public boolean delete() throws ClassNotFoundException, SQLException {
+	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.deleteBean(this);
@@ -114,7 +114,7 @@ public class Article extends Bean {
 
 	@Override
 	public String get(String field) {
-		if(field.equals("id")) {
+		if(field.equals("_id")) {
 			return Integer.toString(this.getId());
 		}
 		
@@ -133,7 +133,7 @@ public class Article extends Bean {
 
 	@Override
 	public void set(String field, String data) {
-		if (field.equals("id")) {
+		if (field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
 		} 
 		
@@ -154,7 +154,7 @@ public class Article extends Bean {
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
-		fields.add("id");
+		fields.add("_id");
 		fields.add("published_journals");
 		fields.add("published_conference_proceedings");
 		return fields;

@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.SQLException;
+import android.database.SQLException;
 import java.util.ArrayList;
 
 public class Book extends Bean {
@@ -62,7 +62,7 @@ public class Book extends Bean {
 		this.entries = entries;
 	}
 
-	public boolean save() throws ClassNotFoundException, SQLException {
+	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.insertBean(this);
@@ -70,7 +70,7 @@ public class Book extends Bean {
 		return result;
 	}
 
-	public static Book get(int id) throws ClassNotFoundException, SQLException {
+	public static Book get(int id) throws  SQLException {
 		Book result = new Book(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Book) gDB.selectBean(result);
@@ -78,7 +78,7 @@ public class Book extends Bean {
 	}
 
 	public static ArrayList<Book> getAll()
-			throws ClassNotFoundException, SQLException {
+			throws  SQLException {
 		Book type = new Book();
 		ArrayList<Book> result = new ArrayList<Book>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -88,13 +88,13 @@ public class Book extends Bean {
 		return result;
 	}
 
-	public static int count() throws ClassNotFoundException, SQLException {
+	public static int count() throws  SQLException {
 		Book type = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
-	public static Book first() throws ClassNotFoundException,
+	public static Book first() throws 
 			SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -102,7 +102,7 @@ public class Book extends Bean {
 		return result;
 	}
 
-	public static Book last() throws ClassNotFoundException,
+	public static Book last() throws 
 			SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -111,7 +111,7 @@ public class Book extends Bean {
 	}
 
 	public static ArrayList<Book> getWhere(String field, String value, boolean like) 
-			throws ClassNotFoundException, SQLException {
+			throws  SQLException {
 		Book type = new Book();
 		ArrayList<Book> result = new ArrayList<Book>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -121,7 +121,7 @@ public class Book extends Bean {
 		return result;
 	}
 	
-	public boolean delete() throws ClassNotFoundException, SQLException {
+	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.deleteBean(this);
@@ -130,7 +130,7 @@ public class Book extends Bean {
 
 	@Override
 	public String get(String field) {
-		if(field.equals("id")) {
+		if(field.equals("_id")) {
 			return Integer.toString(this.getId());
 		}
 		
@@ -157,7 +157,7 @@ public class Book extends Bean {
 
 	@Override
 	public void set(String field, String data) {
-		if (field.equals("id")) {
+		if (field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
 		} 
 		
@@ -186,7 +186,7 @@ public class Book extends Bean {
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
-		fields.add("id");
+		fields.add("_id");
 		fields.add("integral_text");
 		fields.add("chapters");
 		fields.add("collections");

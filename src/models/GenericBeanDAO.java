@@ -1,25 +1,19 @@
 package models;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
-import unb.mdsgpp.qualcurso.QualCurso;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.SQLException;
+import java.util.ArrayList;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import libraries.DataBase;
 
-public class GenericBeanDAO{
+public class GenericBeanDAO extends DataBase{
 
-	private SQLiteDatabase database;
+	private SQLiteStatement pst;
 	
-	public GenericBeanDAO() throws SQLException, ClassNotFoundException {
+	public GenericBeanDAO() throws SQLException {
 		super();
-		database = new DataBase(QualCurso.getContext()).getReadableDatabase();
-		SQLiteStatement test = database.compileStatement("test ?");
-		test.bindString(1, "test");
-		test.e
+		
 	}
 	
 	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table)
@@ -28,14 +22,12 @@ public class GenericBeanDAO{
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT c.* FROM " + table + " as c, " + bean.relationship
 				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
-				+ "AND ci.id_" + table + " = c.id";
-		this.pst = this.conn.prepareStatement(sql);
-		this.pst.setString(1, bean.get(bean.fieldsList().get(0)));
-		ResultSet rs = this.pst.executeQuery();
-		while (rs.next()) {
+				+ "AND ci.id_" + table + " = c._id";
+		Cursor cs = this.database.rawQuery(sql, new String[]{bean.get(bean.fieldsList().get(0))});
+		while (cs.moveToNext()) {
 			Bean object = init(table);
 			for (String s : object.fieldsList()) {
-				object.set(s, rs.getString(s));
+				object.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 			beans.add(object);
 		}
@@ -57,14 +49,15 @@ public class GenericBeanDAO{
 		sql = sql.substring(0, sql.length() - 1);
 		replace = replace.substring(0, replace.length() - 1);
 		sql += ") VALUES(" + replace + ")";
-		this.pst = this.conn.prepareStatement(sql);
+		this.pst = this.database.compileStatement(sql);
 		for (String s : notPrimaryFields) {
-			this.pst.setString(i, bean.get(s));
+			this.pst.bindString(i, bean.get(s));
 			i++;
 		}
-		int result = this.pst.executeUpdate();
+		long result = this.pst.executeInsert();
+		this.pst.clearBindings();
 		this.closeConnection();
-		return (result == 1) ? true : false;
+		return (result != -1) ? true : false;
 	}
 
 	public boolean addBeanRelationship(Bean parentBean, Bean childBean)
@@ -73,12 +66,13 @@ public class GenericBeanDAO{
 		String sql = "INSERT INTO " + parentBean.relationship + "(id_"
 				+ parentBean.identifier + ",id_" + childBean.identifier
 				+ ") VALUES(?,?)";
-		this.pst = this.conn.prepareStatement(sql);
-		this.pst.setString(1, parentBean.get(parentBean.fieldsList().get(0)));
-		this.pst.setString(2, childBean.get(childBean.fieldsList().get(0)));
-		int result = this.pst.executeUpdate();
+		this.pst = this.database.compileStatement(sql);
+		this.pst.bindString(1, parentBean.get(parentBean.fieldsList().get(0)));
+		this.pst.bindString(2, childBean.get(childBean.fieldsList().get(0)));
+		long result = this.pst.executeInsert();
+		this.pst.clearBindings();
 		this.closeConnection();
-		return (result == 1) ? true : false;
+		return (result != -1) ? true : false;
 	}
 	
 	public boolean deleteBeanRelationship(Bean parentBean, Bean childBean)
@@ -87,10 +81,11 @@ public class GenericBeanDAO{
 		String sql = "DELETE FROM " + parentBean.relationship + "  WHERE id_"
 				+ parentBean.identifier + " = ? AND id_" + childBean.identifier
 				+ " = ?";
-		this.pst = this.conn.prepareStatement(sql);
-		this.pst.setString(1, parentBean.get(parentBean.fieldsList().get(0)));
-		this.pst.setString(2, childBean.get(childBean.fieldsList().get(0)));
-		int result = this.pst.executeUpdate();
+		this.pst = this.database.compileStatement(sql);
+		this.pst.bindString(1, parentBean.get(parentBean.fieldsList().get(0)));
+		this.pst.bindString(2, childBean.get(childBean.fieldsList().get(0)));
+		int result = this.pst.executeUpdateDelete();
+		this.pst.clearBindings();
 		this.closeConnection();
 		return (result == 1) ? true : false;
 	}
@@ -100,13 +95,11 @@ public class GenericBeanDAO{
 		Bean result = null;
 		String sql = "SELECT * FROM " + bean.identifier + " WHERE "
 				+ bean.fieldsList().get(0) + " = ?";
-		this.pst = this.conn.prepareStatement(sql);
-		this.pst.setString(1, bean.get(bean.fieldsList().get(0)));
-		ResultSet rs = this.pst.executeQuery();
-		if (rs.next()) {
+		Cursor cs = this.database.rawQuery(sql, new String[]{bean.get(bean.fieldsList().get(0))});
+		if (cs.moveToFirst()) {
 			result = init(bean.identifier);
 			for (String s : bean.fieldsList()) {
-				result.set(s, rs.getString(s));
+				result.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 		}
 		this.closeConnection();
@@ -116,14 +109,11 @@ public class GenericBeanDAO{
 	public ArrayList<Bean> selectAllBeans(Bean type) throws SQLException {
 		this.openConnection();
 		ArrayList<Bean> beans = new ArrayList<Bean>();
-		String sql = "SELECT * FROM " + type.identifier;
-		this.pst = this.conn.prepareStatement(sql);
-
-		ResultSet rs = this.pst.executeQuery();
-		while (rs.next()) {
+		Cursor cs = this.database.query(type.identifier, null, null, null, null, null, null);
+		while (cs.moveToNext()) {
 			Bean bean = init(type.identifier);
 			for (String s : type.fieldsList()) {
-				bean.set(s, rs.getString(s));
+				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 			beans.add(bean);
 		}
@@ -132,18 +122,13 @@ public class GenericBeanDAO{
 	}
 
 	public Integer countBean(Bean type) throws SQLException {
-		Integer count = 0;
-		String sql = "SELECT COUNT(*) FROM " + type.identifier;
-
 		this.openConnection();
-		this.pst = this.conn.prepareStatement(sql);
-
-		ResultSet rs = this.pst.executeQuery();
-		if (rs.next())
-			count = rs.getInt(1);
-
+		Integer count = 0;
+		String sql = "SELECT * FROM " + type.identifier;
+		Cursor cs = this.database.rawQuery(sql, null);
+		if (cs.moveToFirst())
+			count = cs.getCount();
 		this.closeConnection();
-
 		return count;
 	}
 
@@ -158,13 +143,12 @@ public class GenericBeanDAO{
 			sql += " DESC LIMIT 1";
 
 		this.openConnection();
-		this.pst = this.conn.prepareStatement(sql);
-		ResultSet rs = this.pst.executeQuery();
+		Cursor cs = this.database.rawQuery(sql,null);
 
-		if (rs.next()) {
+		if (cs.moveToFirst()) {
 			bean = init(type.identifier);
 			for (String s : type.fieldsList()) {
-				bean.set(s, rs.getString(s));
+				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 		}
 		this.closeConnection();
@@ -174,26 +158,25 @@ public class GenericBeanDAO{
 
 	public ArrayList<Bean> selectBeanWhere(Bean type, String field,
 			String value, boolean use_like) throws SQLException {
+		this.openConnection();
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT * FROM " + type.identifier + " WHERE ";
-
+		Cursor cs;
 		if (!use_like)
-			sql += field+" =?";
+			cs =this.database.query(type.identifier, null, 
+					field+" = ?",
+					new String[]{value},
+					null, null, null);
 		else
-			sql += field+" LIKE ?";
+			cs =this.database.query(type.identifier, null, 
+					field+" LIKE ?",
+					new String[]{"%"+value+"%"},
+					null, null, null);
 
-		this.openConnection();
-		this.pst = this.conn.prepareStatement(sql);
-		if (use_like)
-			this.pst.setString(1, "%" + value + "%");
-		else
-			this.pst.setString(1, value);
-
-		ResultSet rs = this.pst.executeQuery();
-		while (rs.next()) {
+		while (cs.moveToNext()) {
 			Bean bean = init(type.identifier);
 			for (String s : type.fieldsList()) {
-				bean.set(s, rs.getString(s));
+				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 			beans.add(bean);
 		}
@@ -205,9 +188,10 @@ public class GenericBeanDAO{
 	public boolean deleteBean(Bean bean) throws SQLException {
 		this.openConnection();
 		String sql = "DELETE FROM "+bean.identifier+ " WHERE "+bean.fieldsList().get(0)+" = ?";
-		this.pst = this.conn.prepareStatement(sql);
-		this.pst.setString(1, bean.get(bean.fieldsList().get(0)));
-		int result = this.pst.executeUpdate();
+		this.pst = this.database.compileStatement(sql);
+		this.pst.bindString(1, bean.get(bean.fieldsList().get(0)));
+		int result = this.pst.executeUpdateDelete();
+		this.pst.clearBindings();
 		this.closeConnection();
 		return (result == 1) ? true : false;
 	}

@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.SQLException;
+import android.database.SQLException;
 import java.util.ArrayList;
 
 public class Evaluation extends Bean {
@@ -35,7 +35,7 @@ public class Evaluation extends Bean {
 
 	@Override
 	public String get(String field) {
-		if (field.equals("id")) {
+		if (field.equals("_id")) {
 			return Integer.toString(this.getId());
 		} else if (field.equals("id_institution")) {
 			return Integer.toString(this.getIdInstitution());
@@ -70,7 +70,7 @@ public class Evaluation extends Bean {
 
 	@Override
 	public void set(String field, String data){
-		if (field.equals("id")) {
+		if (field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
 		} else if (field.equals("id_institution")) {
 			this.setIdInstitution(Integer.parseInt(data));
@@ -108,7 +108,7 @@ public class Evaluation extends Bean {
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
-		fields.add("id");
+		fields.add("_id");
 		fields.add("id_institution");
 		fields.add("id_course");
 		fields.add("year");
@@ -125,7 +125,7 @@ public class Evaluation extends Bean {
 		return fields;
 	}
 	
-	public boolean save() throws ClassNotFoundException, SQLException {
+	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.insertBean(this);
@@ -133,7 +133,7 @@ public class Evaluation extends Bean {
 		return result;
 	}
 
-	public static Evaluation get(int id) throws ClassNotFoundException, SQLException {
+	public static Evaluation get(int id) throws  SQLException {
 		Evaluation result = new Evaluation(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Evaluation) gDB.selectBean(result);
@@ -141,7 +141,7 @@ public class Evaluation extends Bean {
 	}
 
 	public static ArrayList<Evaluation> getAll()
-			throws ClassNotFoundException, SQLException {
+			throws  SQLException {
 		Evaluation type = new Evaluation();
 		ArrayList<Evaluation> result = new ArrayList<Evaluation>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -151,13 +151,13 @@ public class Evaluation extends Bean {
 		return result;
 	}
 
-	public static int count() throws ClassNotFoundException, SQLException {
+	public static int count() throws  SQLException {
 		Evaluation type = new Evaluation();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
-	public static Evaluation first() throws ClassNotFoundException,
+	public static Evaluation first() throws 
 			SQLException {
 		Evaluation result = new Evaluation();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -165,7 +165,7 @@ public class Evaluation extends Bean {
 		return result;
 	}
 
-	public static Evaluation last() throws ClassNotFoundException,
+	public static Evaluation last() throws 
 			SQLException {
 		Evaluation result = new Evaluation();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -174,7 +174,7 @@ public class Evaluation extends Bean {
 	}
 
 	public static ArrayList<Evaluation> getWhere(String field, String value, boolean like) 
-			throws ClassNotFoundException, SQLException {
+			throws  SQLException {
 		Evaluation type = new Evaluation();
 		ArrayList<Evaluation> result = new ArrayList<Evaluation>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -184,7 +184,7 @@ public class Evaluation extends Bean {
 		return result;
 	}
 	
-	public boolean delete() throws ClassNotFoundException, SQLException {
+	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.deleteBean(this);

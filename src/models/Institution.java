@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.SQLException;
+import android.database.SQLException;
 import java.util.ArrayList;
 
 public class Institution extends Bean {
@@ -35,7 +35,7 @@ public class Institution extends Bean {
 		return id;
 	}
 
-	public boolean save() throws ClassNotFoundException, SQLException {
+	public boolean save() throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.insertBean(this);
@@ -43,23 +43,21 @@ public class Institution extends Bean {
 		return result;
 	}
 	
-	public boolean addCourse(Course course) throws ClassNotFoundException, SQLException {
+	public boolean addCourse(Course course) throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.addBeanRelationship(this, course);
 		return result;
 	}
 
-	public static Institution get(int id) throws ClassNotFoundException,
-			SQLException {
+	public static Institution get(int id) throws SQLException {
 		Institution result = new Institution(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Institution) gDB.selectBean(result);
 		return result;
 	}
 
-	public static ArrayList<Institution> getAll()
-			throws ClassNotFoundException, SQLException {
+	public static ArrayList<Institution> getAll() throws SQLException {
 		Institution type = new Institution();
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -69,21 +67,20 @@ public class Institution extends Bean {
 		return result;
 	}
 
-	public static int count() throws ClassNotFoundException, SQLException {
+	public static int count() throws SQLException {
 		Institution type = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
-	public static Institution first() throws ClassNotFoundException,
-			SQLException {
+	public static Institution first() throws SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Institution) gDB.firstOrLastBean(result, false);
 		return result;
 	}
 
-	public static Institution last() throws ClassNotFoundException,
+	public static Institution last() throws 
 			SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -91,7 +88,7 @@ public class Institution extends Bean {
 		return result;
 	}
 
-	public ArrayList<Course> getCourses() throws ClassNotFoundException,
+	public ArrayList<Course> getCourses() throws 
 			SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -104,7 +101,7 @@ public class Institution extends Bean {
 	
 
 	public static ArrayList<Institution> getWhere(String field, String value,
-			boolean like) throws ClassNotFoundException, SQLException {
+			boolean like) throws  SQLException {
 		Institution type = new Institution();
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -114,7 +111,7 @@ public class Institution extends Bean {
 		return result;
 	}
 	
-	public boolean delete() throws ClassNotFoundException, SQLException {
+	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		for(Course c : this.getCourses()){
@@ -126,7 +123,7 @@ public class Institution extends Bean {
 
 	@Override
 	public String get(String field) {
-		if (field.equals("id")) {
+		if (field.equals("_id")) {
 			return Integer.toString(this.getId());
 		} else if (field.equals("acronym")) {
 			return this.getAcronym();
@@ -137,7 +134,7 @@ public class Institution extends Bean {
 
 	@Override
 	public void set(String field, String data) {
-		if (field.equals("id")) {
+		if (field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
 		} else if (field.equals("acronym")) {
 			this.setAcronym(data);
@@ -150,7 +147,7 @@ public class Institution extends Bean {
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
-		fields.add("id");
+		fields.add("_id");
 		fields.add("acronym");
 		return fields;
 	}
