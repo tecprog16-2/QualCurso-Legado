@@ -9,7 +9,7 @@ public class QualCurso extends Application {
 	private static QualCurso instance;
 	
 	public QualCurso(){
-		context = getApplicationContext();
+		//context = getApplicationContext();
 		instance = this;
 	}
 	

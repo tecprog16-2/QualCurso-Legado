@@ -1,11 +1,10 @@
 package unb.mdsgpp.qualcurso;
 
-import java.sql.SQLException;
+import android.database.SQLException;
 import java.util.ArrayList;
 
 import models.Course;
 import models.Institution;
-import unb.mdsgpp.qualcurso.NavigationDrawerFragment.NavigationDrawerCallbacks;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -48,7 +47,7 @@ public class InstitutionListFragment extends ListFragment{
 			        android.R.layout.simple_list_item_1,
 			        android.R.id.text1,
 			        getInstitutionNamesList(0)));
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return rootView;
@@ -76,7 +75,7 @@ public class InstitutionListFragment extends ListFragment{
 		super.onListItemClick(l, v, position, id);
 	}
 	
-	private ArrayList<String> getInstitutionNamesList(int idCourse) throws SQLException, ClassNotFoundException{
+	private ArrayList<String> getInstitutionNamesList(int idCourse) throws SQLException{
 		ArrayList<String> list = new ArrayList<String>();
 		for(Institution i : Institution.getAll()){
 			list.add(i.getAcronym());

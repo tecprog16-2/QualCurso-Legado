@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity implements
 		fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,
-						PlaceholderFragment.newInstance(position + 1)).commit();}
+						new InstitutionListFragment()).commit();}
 
 	public void onSectionAttached(int number) {
 		switch (number) {
