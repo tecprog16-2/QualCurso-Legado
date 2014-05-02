@@ -39,15 +39,15 @@ public class InstitutionListFragment extends ListFragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_list, container,
+		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
 				false);
-		ListView listView = (ListView) rootView.findViewById(R.id.list_view);
+		rootView = (ListView) rootView.findViewById(android.R.id.list);
 		try {
-			listView.setAdapter(new ArrayAdapter<String>(
+			rootView.setAdapter(new ArrayAdapter<String>(
 			        getActionBar().getThemedContext(),
 			        android.R.layout.simple_list_item_1,
 			        android.R.id.text1,
-			        getInstitutionNamesList(getArguments().getInt(ID_COURSE))));
+			        getInstitutionNamesList(0)));
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -78,8 +78,9 @@ public class InstitutionListFragment extends ListFragment{
 	
 	private ArrayList<String> getInstitutionNamesList(int idCourse) throws SQLException, ClassNotFoundException{
 		ArrayList<String> list = new ArrayList<String>();
-		for(Institution i : Course.get(idCourse).getInstitutions()){
+		for(Institution i : Institution.getAll()){
 			list.add(i.getAcronym());
+			list.add("Some");
 		}
 		return list;
 	}
