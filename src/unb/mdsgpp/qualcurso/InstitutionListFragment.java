@@ -1,6 +1,8 @@
 package unb.mdsgpp.qualcurso;
 
+import android.R.color;
 import android.database.SQLException;
+
 import java.util.ArrayList;
 
 import models.Course;
@@ -44,8 +46,7 @@ public class InstitutionListFragment extends ListFragment{
 		try {
 			rootView.setAdapter(new ArrayAdapter<String>(
 			        getActionBar().getThemedContext(),
-			        android.R.layout.simple_list_item_1,
-			        android.R.id.text1,
+			        R.layout.custom_textview,
 			        getInstitutionNamesList(0)));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,7 +80,6 @@ public class InstitutionListFragment extends ListFragment{
 		ArrayList<String> list = new ArrayList<String>();
 		for(Institution i : Institution.getAll()){
 			list.add(i.getAcronym());
-			list.add("Some");
 		}
 		return list;
 	}
