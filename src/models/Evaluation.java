@@ -1,6 +1,7 @@
 package models;
 
 import android.database.SQLException;
+
 import java.util.ArrayList;
 
 public class Evaluation extends Bean {
@@ -182,6 +183,21 @@ public class Evaluation extends Bean {
 			result.add((Evaluation) b);
 		}
 		return result;
+	}
+	
+	public static ArrayList<Evaluation> getFromRelation(int idInstitution, int idCourse){
+		Evaluation result = new Evaluation();
+		result.setIdInstitution(idInstitution);
+		result.setIdCourse(idCourse);
+		ArrayList<String> fields = new ArrayList<String>();
+		fields.add("id_institution");
+		fields.add("id_course");
+		ArrayList<Evaluation> results = new ArrayList<Evaluation>();
+		GenericBeanDAO gDB = new GenericBeanDAO();
+		for (Bean b : gDB.selectFromFields(result,fields)) {
+			results.add((Evaluation) b);
+		}
+		return results;
 	}
 	
 	public boolean delete() throws  SQLException {

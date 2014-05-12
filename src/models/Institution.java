@@ -152,4 +152,11 @@ public class Institution extends Bean {
 		return fields;
 	}
 
+	@Override
+	public String toString() {
+		return getAcronym();
+	}
+	
+	
+
 }

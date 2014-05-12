@@ -154,4 +154,11 @@ public class Course extends Bean{
 		fields.add("name");
 		return fields;
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+	
+	
 }

@@ -34,6 +34,37 @@ public class GenericBeanDAO extends DataBase{
 		this.closeConnection();
 		return beans;
 	}
+	
+	public ArrayList<Bean> selectFromFields(Bean bean, ArrayList<String> fields)
+			throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> beans = new ArrayList<Bean>();
+		ArrayList<String> values = new ArrayList<String>();
+		//String sql = "SELECT * FROM " + bean.identifier + " WHERE ";
+		String sql ="";
+		for(String s : fields){
+			sql+=" "+s+" = ? AND";
+			values.add(bean.get(s));
+		}
+		sql = sql.substring(0, sql.length() - 3);
+		String[] strings = new String[values.size()];
+		strings = values.toArray(strings);
+		Cursor cs;//= this.database.rawQuery(sql,strings);
+		
+		cs =this.database.query(bean.identifier, null, 
+				sql,
+				strings,
+				null, null, null);
+		while (cs.moveToNext()) {
+			Bean object = init(bean.identifier);
+			for (String s : object.fieldsList()) {
+				object.set(s, cs.getString(cs.getColumnIndex(s)));
+			}
+			beans.add(object);
+		}
+		this.closeConnection();
+		return beans;
+	}
 
 	public boolean insertBean(Bean bean) throws SQLException {
 		this.openConnection();
