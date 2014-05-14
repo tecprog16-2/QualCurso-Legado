@@ -1,5 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
+import models.Article;
+import models.Book;
 import models.Course;
 import models.Evaluation;
 import models.Institution;
@@ -44,10 +46,41 @@ public class EvaluationDetailFragment extends Fragment{
 				false);
 		TextView textView = (TextView) rootView
 				.findViewById(R.id.section_label);
-		textView.setText(Institution.get(getArguments().getInt(ID_INSTITUTION)).getAcronym()+" "
-				+Course.get(getArguments().getInt(ID_COURSE)).getName()+" "
-				+Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-						getArguments().getInt(ID_COURSE)).get(0).getYear());
+		textView.setText("Data da Avaliação: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+				getArguments().getInt(ID_COURSE)).get(0).getYear() + 
+				"\nUniversidade: " + Institution.get(getArguments().getInt(ID_INSTITUTION)).getAcronym() +
+				"\nCurso: " + Course.get(getArguments().getInt(ID_COURSE)).getName() +
+				
+				"\n\nModalidade do Curso: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getModality() +
+						
+				"\n\nAno de início do mestrado: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getMasterDegreeStartYear() +
+				"\nAno de início do doutorado: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getDoctorateStartYear() +
+						
+				"\n\nConceito no ano " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getYear() + ": " + 
+						Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getTriennialEvaluation() +
+						
+				"\n\nMédia Anual de Docentes permanentes: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getPermanentTeachers() +
+						
+				"\n\nTotal de Teses Defendidas: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getTheses() +
+				"\nTotal de Dissertações Defendidas: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getDissertations() +
+				"\nTotal de Trabalhos Artísticos Defendidos: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+						getArguments().getInt(ID_COURSE)).get(0).getArtisticProduction() +
+						
+				"\n\nQuantidade de Capítulos de Livros: " + Book.get(getArguments().getInt(ID_COURSE)).getChapters() +
+				"\nQuantidade de Textos Integrais: " + Book.get(getArguments().getInt(ID_COURSE)).getIntegralText() +
+				"\nQuantidade de Coletâneas: " + Book.get(getArguments().getInt(ID_COURSE)).getCollections() +
+				"\nQuantidade de Verbetes e Outros: " + Book.get(getArguments().getInt(ID_COURSE)).getEntries() +
+				"\n\nQuantidade de Artigos Publicados: " + Article.get(getArguments().getInt(ID_COURSE)).getPublishedJournals() +
+				"\nQuantidade de Trabalhos Publicados: " + 
+				Article.get(getArguments().getInt(ID_COURSE)).getPublishedConferenceProceedings());
 		return rootView;
 	}
 	
