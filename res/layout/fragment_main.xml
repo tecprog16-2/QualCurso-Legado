@@ -81,53 +81,86 @@
         android:textSize="@dimen/subtitle_dimension"
         android:textStyle="bold" />
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+	<ScrollView
+	    android:id="@+id/scrollView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
 
-     	   <RelativeLayout
-     	       android:layout_width="match_parent"
-     	       android:layout_height="fill_parent" >
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="227dp" >
 
-    	        <TextView
-    	            android:id="@+id/indicator1"
-    	            android:layout_width="50dp"
-    	            android:layout_height="40dp"
-    	            android:layout_alignParentRight="true"
-    	            android:layout_alignParentTop="true"
-    	            android:background="@color/gainsboro"
-    	            android:ems="10"
-    	            android:fontFamily="@string/title_section1"
-    	            android:gravity="center"
-    	            android:padding="10dp"
-    	            android:textColor="@color/black"
-    	            android:textSize="@dimen/subtitle_dimension"
-    	            android:textStyle="bold" />
-    	        
-    	        <TextView
-            	    android:id="@+id/indicator1_text"
-            	    android:layout_width="match_parent"
+	            <TextView
+	                android:id="@+id/indicator1"
+	                android:layout_width="50dp"
+	                android:layout_height="40dp"
+	                android:layout_alignParentRight="true"
+	                android:layout_alignParentTop="true"
+	                android:background="@color/gainsboro"
+	                android:ems="10"
+	                android:fontFamily="@string/title_section1"
+	                android:gravity="center"
+	                android:padding="10dp"
+	                android:textColor="@color/black"
+	                android:textSize="@dimen/subtitle_dimension"
+	                android:textStyle="bold" />
+
+	            <TextView
+	                android:id="@+id/indicator1_text"
+	                android:layout_width="match_parent"
+	                android:layout_height="40dp"
+	                android:layout_alignParentLeft="true"
+	                android:layout_alignParentTop="true"
+	                android:layout_toLeftOf="@id/indicator1"
+	                android:background="@color/gainsboro"
+	                android:ems="10"
+	                android:fontFamily="@string/title_section1"
+	                android:gravity="left"
+	                android:padding="10dp"
+	                android:text="@string/m_start_year"
+	                android:textColor="@color/black"
+	                android:textSize="@dimen/subtitle_dimension"
+	                android:textStyle="bold" />
+
+	            <TextView
+            	    android:id="@+id/indicator2"
+            	    android:layout_width="50dp"
             	    android:layout_height="40dp"
-            	    android:layout_alignParentLeft="true"
-            	    android:layout_alignParentTop="true"
-            	    android:layout_toLeftOf="@id/indicator1"
+            	    android:layout_alignParentRight="true"
+            	    android:layout_below="@+id/indicator1"
+            	    android:layout_marginTop="5dp"
             	    android:background="@color/gainsboro"
             	    android:ems="10"
             	    android:fontFamily="@string/title_section1"
-            	    android:gravity="left"
+            	    android:gravity="center"
             	    android:padding="10dp"
-            	    android:text="@string/m_start_year"
             	    android:textColor="@color/black"
             	    android:textSize="@dimen/subtitle_dimension"
             	    android:textStyle="bold" />
-    	        
-    	       </RelativeLayout>
-   	    </LinearLayout>
-   	</ScrollView>
+
+	           <TextView
+	               android:id="@+id/indicator2_text"
+	               android:layout_width="match_parent"
+	               android:layout_height="40dp"
+	               android:layout_alignTop="@+id/indicator2"
+	               android:layout_toLeftOf="@+id/indicator2"
+	               android:background="@color/gainsboro"
+	               android:ems="10"
+	               android:fontFamily="@string/title_section1"
+	               android:gravity="left"
+	               android:padding="10dp"
+	               android:text="@string/d_start_year"
+	               android:textColor="@color/black"
+	               android:textSize="@dimen/subtitle_dimension"
+	               android:textStyle="bold" />
+
+	        </RelativeLayout>
+	    </LinearLayout>
+	</ScrollView>
+
 </LinearLayout>
