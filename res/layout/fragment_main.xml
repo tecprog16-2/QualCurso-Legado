@@ -43,5 +43,29 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/general_information"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dark_gray"
+        android:ems="10"
+        android:gravity="center"
+        android:text="@string/general_information"
+        android:textColor="@color/white"
+        android:textSize="@dimen/subtitle_dimension"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/general_data"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/gainsboro"
+        android:ems="10"
+        android:fontFamily="@string/title_section1"
+        android:gravity="left|fill"
+        android:textColor="@color/black"
+        android:textSize="@dimen/subtitle_dimension"
+        android:textStyle="bold" />
 
 </LinearLayout>

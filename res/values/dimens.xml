@@ -11,5 +11,6 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="title_dimension">24dp</dimen>
     <dimen name="university_dimension">23dp</dimen>
+    <dimen name="subtitle_dimension">12dp</dimen>
 
 </resources>
