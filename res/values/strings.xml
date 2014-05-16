@@ -12,5 +12,8 @@
     
     <string name="university">Universidade:</string>
     <string name="general_information">INFORMAÇÕES GERAIS</string>
+    <string name="indicator">INDICADORES</string>
+
+    <string name="m_start_year">Ano de início do mestrado:</string>
 
 </resources>
