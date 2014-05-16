@@ -141,6 +141,10 @@ public class MainActivity extends ActionBarActivity implements
 					.findViewById(R.id.indicator1);
 			textView3.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
 			
+			TextView textView4 = (TextView) rootView
+					.findViewById(R.id.indicator2);
+			textView4.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+			
 			return rootView;
 		}
 
