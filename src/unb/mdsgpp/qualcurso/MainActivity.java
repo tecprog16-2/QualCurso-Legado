@@ -4,19 +4,14 @@ import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements
@@ -134,10 +129,18 @@ public class MainActivity extends ActionBarActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
-			TextView textView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			textView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
+			TextView textView1 = (TextView) rootView
+					.findViewById(R.id.university_acronym);
+			textView1.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+			
+			TextView textView2 = (TextView) rootView
+					.findViewById(R.id.general_data);
+			textView2.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+			
+			TextView textView3 = (TextView) rootView
+					.findViewById(R.id.indicator1);
+			textView3.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+			
 			return rootView;
 		}
 
