@@ -12,7 +12,7 @@ public class DataBase extends SQLiteAssetHelper{
 	protected SQLiteDatabase database;
 	
 	public DataBase() {
-		super(QualCurso.getInstance(), DATABASE_NAME, null, DATABASE_VERSION);
+		super(QualCurso.getInstance(), QualCurso.getInstance().getDatabaseName(), null, DATABASE_VERSION);
 	}
 	
 	protected void openConnection(){

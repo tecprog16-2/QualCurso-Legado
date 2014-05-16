@@ -5,17 +5,22 @@ import android.content.Context;
 
 public class QualCurso extends Application {
 	
-	private static Context context;
 	private static QualCurso instance;
+	private static String databaseName;
 	
 	public QualCurso(){
-		//context = getApplicationContext();
+		databaseName = "database.sqlite3.db";
 		instance = this;
 	}
 	
-	public static Context getContext(){
-		return context;
+	public void setDatabaseName(String databaseName){
+		this.databaseName = databaseName;
 	}
+	
+	public String getDatabaseName(){
+		return databaseName;
+	}
+	
 	public static QualCurso getInstance(){
 		return instance;
 	}
