@@ -56,6 +56,11 @@ public class EvaluationDetailFragment extends Fragment{
 				"\nMODALIDADE DO CURSO: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
 					getArguments().getInt(ID_COURSE)).get(0).getModality());
 		
+		TextView textView3 = (TextView) rootView
+				.findViewById(R.id.indicator1);
+		textView3.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+			getArguments().getInt(ID_COURSE)).get(0).getMasterDegreeStartYear());
+		
 		return rootView;
 	}
 	
