@@ -133,6 +133,10 @@ public class MainActivity extends ActionBarActivity implements
 					.findViewById(R.id.university_acronym);
 			textView1.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
 			
+			TextView textView2 = (TextView) rootView
+					.findViewById(R.id.general_data);
+			textView2.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+			
 			return rootView;
 		}
 

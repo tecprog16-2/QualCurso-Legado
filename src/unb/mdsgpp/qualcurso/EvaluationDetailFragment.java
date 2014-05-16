@@ -48,6 +48,14 @@ public class EvaluationDetailFragment extends Fragment{
 				.findViewById(R.id.university_acronym);
 		textView1.setText(Institution.get(getArguments().getInt(ID_INSTITUTION)).getAcronym());
 		
+		TextView textView2 = (TextView) rootView
+				.findViewById(R.id.general_data);
+		textView2.setText("DATA DA AVALIAÇÃO: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+				getArguments().getInt(ID_COURSE)).get(0).getYear() +
+				"\nCURSO: " + Course.get(getArguments().getInt(ID_COURSE)).getName() +
+				"\nMODALIDADE DO CURSO: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+					getArguments().getInt(ID_COURSE)).get(0).getModality());
+		
 		return rootView;
 	}
 	
