@@ -24,5 +24,6 @@
     <string name="chapters">Quantidade de capítulos de livros publicados:</string>
     <string name="integral_texts">Quantidade de textos integrais publicados:</string>
     <string name="collections">Quantidade de coletâneas publicadas:</string>
+    <string name="entries">Quantidade de verbetes e outros publicados:</string>
 
 </resources>
