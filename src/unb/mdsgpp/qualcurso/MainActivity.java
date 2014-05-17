@@ -1,6 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
 import android.app.Activity;
+import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,8 @@ public class MainActivity extends ActionBarActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+
+		
 	}
 
 	@Override
@@ -110,6 +113,17 @@ public class MainActivity extends ActionBarActivity implements
 								fragment).addToBackStack(null).commit();
 		
 	}
+	
+	@Override
+	public void onBeanListItemSelected(Fragment fragment, int container) {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		fragmentManager
+				.beginTransaction()
+				.replace(container,
+						fragment).addToBackStack(null).commit();
+	}
 
 
 }
+
+	
