@@ -66,6 +66,11 @@ public class EvaluationDetailFragment extends Fragment{
 		textView4.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
 			getArguments().getInt(ID_COURSE)).get(0).getDoctorateStartYear());
 		
+		TextView textView5 = (TextView) rootView
+				.findViewById(R.id.indicator3);
+		textView5.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+				getArguments().getInt(ID_COURSE)).get(0).getTriennialEvaluation());
+		
 		return rootView;
 	}
 	
