@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Qual Curso?</string>
+    <string name="title_section1">Avaliações</string>
+    <string name="title_section2">Pesquisar</string>
+    <string name="title_section3">Ranking</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="university">Universidade:</string>
+    <string name="general_information">INFORMAÇÕES GERAIS</string>
+    <string name="indicator">INDICADORES</string>
+
+    <string name="m_start_year">Ano de início do mestrado:</string>
+    <string name="d_start_year">Ano de início do doutorado:</string>
+    <string name="year_concept">Conceito no ano avaliado:</string>
+    <string name="permanent_teachers">Média anual de docentes permanentes:</string>
+    <string name="theses">Total de teses defendidas:</string>
+    <string name="dissertation">Total de dissertações defendidas:</string>
+    <string name="artistic_works">Total de trabalhos artísticos defendidos:</string>
+    <string name="chapters">Quantidade de capítulos de livros publicados:</string>
+    <string name="integral_texts">Quantidade de textos integrais publicados:</string>
+    <string name="collections">Quantidade de coletâneas publicadas:</string>
+    <string name="entries">Quantidade de verbetes e outros publicados:</string>
+    <string name="articles">Quantidade de artigos publicados:</string>
+    <string name="works">Quantidade de trabalhos publicados:</string>
+
+</resources>
