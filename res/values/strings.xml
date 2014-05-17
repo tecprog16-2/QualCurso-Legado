@@ -23,5 +23,6 @@
     <string name="artistic_works">Total de trabalhos artísticos defendidos:</string>
     <string name="chapters">Quantidade de capítulos de livros publicados:</string>
     <string name="integral_texts">Quantidade de textos integrais publicados:</string>
+    <string name="collections">Quantidade de coletâneas publicadas:</string>
 
 </resources>
