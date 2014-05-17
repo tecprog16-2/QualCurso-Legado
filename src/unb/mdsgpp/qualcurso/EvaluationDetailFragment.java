@@ -111,6 +111,10 @@ public class EvaluationDetailFragment extends Fragment{
 				.findViewById(R.id.indicator12);
 		textView14.setText("" + Article.get(getArguments().getInt(ID_COURSE)).getPublishedJournals());
 		
+		TextView textView15 = (TextView) rootView
+				.findViewById(R.id.indicator13);
+		textView15.setText("" + Article.get(getArguments().getInt(ID_COURSE)).getPublishedConferenceProceedings());
+		
 		return rootView;
 	}
 	
