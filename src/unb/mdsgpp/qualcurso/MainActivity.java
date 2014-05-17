@@ -1,19 +1,13 @@
 package unb.mdsgpp.qualcurso;
 
-import android.app.Activity;
-import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks {
@@ -50,10 +44,12 @@ public class MainActivity extends ActionBarActivity implements
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
+		if(fragmentManager.findFragmentById(R.id.container) == null){
 		fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,
-						new InstitutionListFragment()).commit();}
+						new TabsFragment()).commit();}
+	}
 
 	public void onSectionAttached(int number) {
 		switch (number) {
@@ -106,21 +102,22 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onBeanListItemSelected(Fragment fragment) {
 		// update the main content by replacing fragments
-				FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager();
+
 				fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
 								fragment).addToBackStack(null).commit();
-		
 	}
 	
 	@Override
 	public void onBeanListItemSelected(Fragment fragment, int container) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
+
 		fragmentManager
 				.beginTransaction()
 				.replace(container,
-						fragment).addToBackStack(null).commit();
+						fragment).commit();
 	}
 
 
