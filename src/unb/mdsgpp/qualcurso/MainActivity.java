@@ -45,10 +45,16 @@ public class MainActivity extends ActionBarActivity implements
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		if(fragmentManager.findFragmentById(R.id.container) == null){
-		fragmentManager
+			fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,
-						new TabsFragment()).commit();}
+						new TabsFragment()).commit();
+		}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof TabsFragment)){
+			fragmentManager
+				.beginTransaction()
+				.replace(R.id.container,
+						new TabsFragment()).commit();
+		}
 	}
 
 	public void onSectionAttached(int number) {
