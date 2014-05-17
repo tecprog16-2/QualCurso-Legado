@@ -93,7 +93,7 @@
 
 	        <RelativeLayout
 	            android:layout_width="match_parent"
-	            android:layout_height="227dp" >
+	            android:layout_height="fill_parent" >
 
 	            <TextView
 	                android:id="@+id/indicator1"
@@ -240,8 +240,7 @@
                 	android:textColor="@color/black"
                 	android:textSize="@dimen/subtitle_dimension"
                 	android:textStyle="bold" />
-	           
-	           
+
 	           <TextView
             	    android:id="@+id/indicator5_text"
             	    android:layout_width="match_parent"
@@ -259,6 +258,38 @@
             	    android:textSize="@dimen/subtitle_dimension"
             	    android:textStyle="bold" />
 	           
+	           <TextView
+                	android:id="@+id/indicator6"
+                	android:layout_width="50dp"
+                	android:layout_height="40dp"
+                	android:layout_alignParentRight="true"
+                	android:layout_below="@+id/indicator5"
+                	android:layout_marginTop="5dp"
+                	android:background="@color/gainsboro"
+                	android:ems="10"
+                	android:fontFamily="@string/title_section1"
+                	android:gravity="center"
+                	android:padding="10dp"
+                	android:textColor="@color/black"
+                	android:textSize="@dimen/subtitle_dimension"
+                	android:textStyle="bold" />
+
+	           <TextView
+            	    android:id="@+id/indicator6_text"
+            	    android:layout_width="match_parent"
+            	    android:layout_height="40dp"
+            	    android:layout_alignParentLeft="true"
+            	    android:layout_alignTop="@+id/indicator6"
+            	    android:layout_toLeftOf="@id/indicator6"
+            	    android:background="@color/gainsboro"
+            	    android:ems="10"
+            	    android:fontFamily="@string/title_section1"
+            	    android:gravity="left"
+            	    android:padding="10dp"
+            	    android:text="@string/dissertation"
+            	    android:textColor="@color/black"
+            	    android:textSize="@dimen/subtitle_dimension"
+            	    android:textStyle="bold" />
 
 	        </RelativeLayout>
 	    </LinearLayout>
