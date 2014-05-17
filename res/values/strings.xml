@@ -18,5 +18,6 @@
     <string name="d_start_year">Ano de início do doutorado:</string>
     <string name="year_concept">Conceito no ano avaliado:</string>
     <string name="permanent_teachers">Média anual de docentes permanentes:</string>
+    <string name="theses">Total de teses defendidas:</string>
 
 </resources>
