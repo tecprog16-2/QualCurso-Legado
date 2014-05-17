@@ -91,6 +91,10 @@ public class EvaluationDetailFragment extends Fragment{
 		textView9.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
 						getArguments().getInt(ID_COURSE)).get(0).getArtisticProduction());
 		
+		TextView textView10 = (TextView) rootView
+				.findViewById(R.id.indicator8);
+		textView10.setText("" + Book.get(getArguments().getInt(ID_COURSE)).getChapters());
+		
 		return rootView;
 	}
 	
