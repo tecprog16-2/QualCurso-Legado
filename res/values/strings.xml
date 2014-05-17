@@ -26,5 +26,6 @@
     <string name="collections">Quantidade de coletâneas publicadas:</string>
     <string name="entries">Quantidade de verbetes e outros publicados:</string>
     <string name="articles">Quantidade de artigos publicados:</string>
+    <string name="works">Quantidade de trabalhos publicados:</string>
 
 </resources>
