@@ -1,6 +1,7 @@
 package models;
 
 import android.database.SQLException;
+
 import java.util.ArrayList;
 
 public class Institution extends Bean {
@@ -108,6 +109,35 @@ public class Institution extends Bean {
 		for (Bean b : gDB.selectBeanWhere(type, field, value, like)) {
 			result.add((Institution) b);
 		}
+		return result;
+	}
+
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilters(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+		ArrayList<Institution> result = new ArrayList<Institution>();
+		String sql = "SELECT DISTINCT 'id_institution' from evaluation"+
+					" WHERE 'year'="+year+
+					" AND '"+filterField+"' BETWEEN "+minInterval+" AND "+maxInterval;
+
+		GenericBeanDAO gDB = new GenericBeanDAO();
+
+		for (Bean b : gDB.runSql(new Course(), sql))
+			result.add((Institution) b);
+
+		return result;
+	}
+
+	public static ArrayList<Course> getCoursesByEvaluationFilters(String id_institution, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+		ArrayList<Course> result = new ArrayList<Course>();
+		String sql = "SELECT 'id_course' from evaluation"+
+					" WHERE 'id_institution'="+id_institution+
+					" AND 'year'="+year+
+					" AND '"+filterField+"' BETWEEN "+minInterval+" AND "+maxInterval;
+
+		GenericBeanDAO gDB = new GenericBeanDAO();
+
+		for (Bean b : gDB.runSql(new Institution(), sql))
+			result.add((Course) b);
+
 		return result;
 	}
 	
