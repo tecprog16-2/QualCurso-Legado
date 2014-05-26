@@ -152,6 +152,26 @@ public class GenericBeanDAO extends DataBase{
 		return beans;
 	}
 
+	public ArrayList<Bean> runSql(Bean type, String sql) throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> beans = new ArrayList<Bean>();
+		
+
+		Cursor cs = this.database.rawQuery(sql, new String[]{});
+
+		while (cs.moveToNext()) {
+			Bean result = init(type.identifier);
+
+			for (String s : type.fieldsList())
+				result.set(s, cs.getString(cs.getColumnIndex(s)));
+			
+			beans.add(result);
+		}
+
+		this.closeConnection();
+		return beans;
+	}
+
 	public Integer countBean(Bean type) throws SQLException {
 		this.openConnection();
 		Integer count = 0;
