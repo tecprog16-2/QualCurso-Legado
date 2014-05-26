@@ -114,6 +114,35 @@ public class Course extends Bean{
 		return result;
 	}
 
+	public static ArrayList<Course> getCoursesByEvaluationFilters(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+		ArrayList<Course> result = new ArrayList<Course>();
+		String sql = "SELECT DISTINCT 'id_course' from evaluation"+
+					" WHERE 'year'="+year+
+					" AND '"+filterField+"' BETWEEN "+minInterval+" AND "+maxInterval;
+
+		GenericBeanDAO gDB = new GenericBeanDAO();
+
+		for (Bean b : gDB.runSql(new Course(), sql))
+			result.add((Course) b);
+
+		return result;
+	}
+
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilters(String id_course, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+		ArrayList<Institution> result = new ArrayList<Institution>();
+		String sql = "SELECT 'id_institution' from evaluation"+
+					" WHERE 'id_course'="+id_course+
+					" AND 'year'="+year+
+					" AND '"+filterField+"' BETWEEN "+minInterval+" AND "+maxInterval;
+
+		GenericBeanDAO gDB = new GenericBeanDAO();
+
+		for (Bean b : gDB.runSql(new Institution(), sql))
+			result.add((Institution) b);
+
+		return result;
+	}
+
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
