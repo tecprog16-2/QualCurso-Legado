@@ -112,26 +112,37 @@ public class Institution extends Bean {
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilters(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		String sql = "SELECT DISTINCT id_institution from evaluation"+
 					" WHERE year="+year+
-					" AND "+filterField+" BETWEEN "+minInterval+" AND "+maxInterval;
+					" AND "+filterField;
 
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		
+		if(maxInterval == "MAX" || maxInterval == "max")
+			sql+=" >= "+minInterval;
+		else
+			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
+
+		GenericBeanDAO
+		gDB = new GenericBeanDAO();
+
 		for (String sqlResponse[] : gDB.runSql(sql))
 			result.add(Institution.get(Integer.parseInt(sqlResponse[0])));
 
 		return result;
 	}
 
-	public static ArrayList<Course> getCoursesByEvaluationFilters(String id_institution, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	public static ArrayList<Course> getCoursesByEvaluationFilter(String id_institution, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
 		String sql = "SELECT id_course from evaluation"+
 					" WHERE id_institution="+id_institution+
 					" AND year="+year+
-					" AND "+filterField+" BETWEEN "+minInterval+" AND "+maxInterval;
+					" AND "+filterField;
+		
+		if(maxInterval == "MAX" || maxInterval == "max")
+			sql+=" >= "+minInterval;
+		else
+			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
 
 		GenericBeanDAO gDB = new GenericBeanDAO();
 

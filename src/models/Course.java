@@ -118,7 +118,12 @@ public class Course extends Bean{
 		ArrayList<Course> result = new ArrayList<Course>();
 		String sql = "SELECT DISTINCT id_course from evaluation"+
 					" WHERE year="+year+
-					" AND "+filterField+" BETWEEN "+minInterval+" AND "+maxInterval;
+					" AND "+filterField;
+		
+		if(maxInterval == "MAX" || maxInterval == "max")
+			sql+=" >= "+minInterval;
+		else
+			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
 
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
@@ -133,7 +138,12 @@ public class Course extends Bean{
 		String sql = "SELECT id_institution from evaluation"+
 					" WHERE id_course="+id_course+
 					" AND year="+year+
-					" AND "+filterField+" BETWEEN "+minInterval+" AND "+maxInterval;
+					" AND "+filterField;
+		
+		if(maxInterval == "MAX" || maxInterval == "max")
+			sql+=" >= "+minInterval;
+		else
+			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
 
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
