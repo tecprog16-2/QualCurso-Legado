@@ -2,7 +2,9 @@ package models;
 
 
 import android.database.SQLException;
+
 import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import libraries.DataBase;
@@ -152,24 +154,22 @@ public class GenericBeanDAO extends DataBase{
 		return beans;
 	}
 
-	public ArrayList<Bean> runSql(Bean type, String sql) throws SQLException {
+	public ArrayList<String[]> runSql(String sql) throws SQLException {
 		this.openConnection();
-		ArrayList<Bean> beans = new ArrayList<Bean>();
-		
+		ArrayList<String[]> result = new ArrayList<String[]>();
 
-		Cursor cs = this.database.rawQuery(sql, new String[]{});
-
+		Cursor cs = this.database.rawQuery(sql, null);
 		while (cs.moveToNext()) {
-			Bean result = init(type.identifier);
+			String [] data = new String[cs.getColumnCount()];
 
-			for (String s : type.fieldsList())
-				result.set(s, cs.getString(cs.getColumnIndex(s)));
+			for(int i = 0; i < cs.getColumnCount(); i++)
+				data[i] = cs.getString(i);
 			
-			beans.add(result);
+			result.add(data);
 		}
 
 		this.closeConnection();
-		return beans;
+		return result;
 	}
 
 	public Integer countBean(Bean type) throws SQLException {

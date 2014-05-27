@@ -112,7 +112,7 @@ public class Institution extends Bean {
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilters(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	/*public static ArrayList<Institution> getInstitutionsByEvaluationFilters(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		String sql = "SELECT DISTINCT 'id_institution' from evaluation"+
 					" WHERE 'year'="+year+
@@ -139,7 +139,7 @@ public class Institution extends Bean {
 			result.add((Course) b);
 
 		return result;
-	}
+	}*/
 	
 	public boolean delete() throws  SQLException {
 		boolean result = false;

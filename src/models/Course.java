@@ -114,31 +114,31 @@ public class Course extends Bean{
 		return result;
 	}
 
-	public static ArrayList<Course> getCoursesByEvaluationFilters(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	public static ArrayList<Course> getCoursesByEvaluationFilter(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
-		String sql = "SELECT DISTINCT 'id_course' from evaluation"+
-					" WHERE 'year'="+year+
-					" AND '"+filterField+"' BETWEEN "+minInterval+" AND "+maxInterval;
+		String sql = "SELECT DISTINCT id_course from evaluation"+
+					" WHERE year="+year+
+					" AND "+filterField+" BETWEEN "+minInterval+" AND "+maxInterval;
 
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		for (Bean b : gDB.runSql(new Course(), sql))
-			result.add((Course) b);
+		for (String sqlResponse[] : gDB.runSql(sql))
+			result.add(Course.get(Integer.parseInt(sqlResponse[0])));
 
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilters(String id_course, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(String id_course, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
-		String sql = "SELECT 'id_institution' from evaluation"+
-					" WHERE 'id_course'="+id_course+
-					" AND 'year'="+year+
-					" AND '"+filterField+"' BETWEEN "+minInterval+" AND "+maxInterval;
+		String sql = "SELECT id_institution from evaluation"+
+					" WHERE id_course="+id_course+
+					" AND year="+year+
+					" AND "+filterField+" BETWEEN "+minInterval+" AND "+maxInterval;
 
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		for (Bean b : gDB.runSql(new Institution(), sql))
-			result.add((Institution) b);
+		for (String sqlResponse[] : gDB.runSql(sql))
+			result.add(Institution.get(Integer.parseInt(sqlResponse[0])));
 
 		return result;
 	}
