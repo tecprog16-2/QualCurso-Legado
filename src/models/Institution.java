@@ -120,7 +120,8 @@ public class Institution extends Bean {
 
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
-		
+		for (String sqlResponse[] : gDB.runSql(sql))
+			result.add(Institution.get(Integer.parseInt(sqlResponse[0])));
 
 		return result;
 	}
@@ -134,6 +135,9 @@ public class Institution extends Bean {
 
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
+		for (String sqlResponse[] : gDB.runSql(sql))
+			result.add(Course.get(Integer.parseInt(sqlResponse[0])));
+		
 		return result;
 	}
 	
