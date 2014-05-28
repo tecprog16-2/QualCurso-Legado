@@ -111,6 +111,14 @@
             android:layout_marginTop="11dp"
             android:text="@string/search" />
 
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/firstNumber"
+            android:layout_below="@+id/textView1" >
+        </ListView>
+
     </RelativeLayout>
 
 </LinearLayout>
