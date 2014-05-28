@@ -40,6 +40,7 @@
             android:id="@+id/field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText1"
             android:layout_below="@+id/course_institution"
             android:layout_marginTop="14dp"
             android:layout_toLeftOf="@+id/year"
@@ -59,11 +60,16 @@
             android:id="@+id/editText1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/field"
-            android:layout_marginTop="24dp"
+            android:layout_marginRight="29dp"
+            android:layout_marginTop="26dp"
+            android:layout_toLeftOf="@+id/textView2"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+             >
+
+            <requestFocus />
+        </EditText>
 
         <EditText
             android:id="@+id/EditText01"
@@ -71,13 +77,26 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView2"
             android:layout_alignBottom="@+id/textView2"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="22dp"
+            android:layout_alignLeft="@+id/year"
+            android:layout_marginLeft="10dp"
             android:ems="10"
-            android:inputType="number" >
+            android:inputType="number" />
 
-            <requestFocus />
-        </EditText>
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/EditText01"
+            android:layout_centerVertical="true"
+            android:text="@string/max" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/editText1"
+            android:layout_below="@+id/checkBox1"
+            android:text="@string/search" />
 
     </RelativeLayout>
 
