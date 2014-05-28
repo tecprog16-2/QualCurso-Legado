@@ -5,10 +5,12 @@ import android.database.SQLException;
 
 import java.util.ArrayList;
 
+import models.Bean;
 import models.Course;
 import models.Institution;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -22,18 +24,29 @@ import android.widget.TextView;
 public class InstitutionListFragment extends ListFragment{
 	
 	private static final String ID_COURSE = "idCourse";
-	BeanListCallbacks beanCallbacks;	
-	
-	
+	BeanListCallbacks beanCallbacks;
+	private ArrayList<Institution> list = null;
 	public InstitutionListFragment() {
 		super();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
 		this.setArguments(args);
 	}
+	
+	public InstitutionListFragment initialize(ArrayList<Institution> list){
+		this.list = list;
+		return this;
+	}
 
 	public static InstitutionListFragment newInstance(int id){
-		InstitutionListFragment fragment = new InstitutionListFragment();
+		InstitutionListFragment fragment = new InstitutionListFragment().initialize(getInstitutionsList(id));
+		Bundle args = new Bundle();
+		args.putInt(ID_COURSE, id);
+		fragment.setArguments(args);
+		return fragment;
+	}
+	public static InstitutionListFragment newInstance(int id, ArrayList<Institution> institutions){
+		InstitutionListFragment fragment = new InstitutionListFragment().initialize(institutions);
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id);
 		fragment.setArguments(args);
@@ -47,10 +60,11 @@ public class InstitutionListFragment extends ListFragment{
 				false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
 		try {
-			rootView.setAdapter(new ArrayAdapter<Institution>(
-			        getActionBar().getThemedContext(),
-			        R.layout.custom_textview,
-			        getInstitutionsList(getArguments().getInt(ID_COURSE))));
+			if(list != null){
+				rootView.setAdapter(new ArrayAdapter<Institution>(
+						getActionBar().getThemedContext(),
+						R.layout.custom_textview, list));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -83,12 +97,20 @@ public class InstitutionListFragment extends ListFragment{
 			super.onListItemClick(l, v, position, id);
 	}
 	
-	private ArrayList<Institution> getInstitutionsList(int idCourse) throws SQLException{
+	private static ArrayList<Institution> getInstitutionsList(int idCourse) throws SQLException{
 		if(idCourse == 0){
 			return Institution.getAll();
 		}else{
 			return Course.get(idCourse).getInstitutions();
 		}
+	}
+	
+	private static ArrayList<Institution> getInstitutionsFromIds(ArrayList<Integer> ids){
+		ArrayList<Institution> institutions = new ArrayList<Institution>();
+		for(Integer id : ids){
+			institutions.add(Institution.get(id));
+		}
+		return institutions;
 	}
 	
 	private ActionBar getActionBar() {

@@ -20,6 +20,7 @@ public class CourseListFragment extends ListFragment{
 
 	private static final String ID_INSTITUTION = "idInstitution";
 	BeanListCallbacks beanCallbacks;
+	private ArrayList<Course> list = null;
 	
 	
 	public CourseListFragment() {
@@ -30,11 +31,24 @@ public class CourseListFragment extends ListFragment{
 	}
 
 	public static CourseListFragment newInstance(int id){
-		CourseListFragment fragment = new CourseListFragment();
+		CourseListFragment fragment = new CourseListFragment().initialize(getCoursesList(id));
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, id);
 		fragment.setArguments(args);
 		return fragment;
+	}
+	
+	public static CourseListFragment newInstance(int id, ArrayList<Course> list){
+		CourseListFragment fragment = new CourseListFragment().initialize(list);
+		Bundle args = new Bundle();
+		args.putInt(ID_INSTITUTION, id);
+		fragment.setArguments(args);
+		return fragment;
+	}
+	
+	public CourseListFragment initialize(ArrayList<Course> list){
+		this.list = list;
+		return this;
 	}
 	
 	@Override
@@ -44,10 +58,12 @@ public class CourseListFragment extends ListFragment{
 				false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
 		try {
+			if(list != null){
 			rootView.setAdapter(new ArrayAdapter<Course>(
 			        getActionBar().getThemedContext(),
 			        R.layout.custom_textview,
 			        getCoursesList(getArguments().getInt(ID_INSTITUTION))));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +74,7 @@ public class CourseListFragment extends ListFragment{
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		if(getArguments().getInt(ID_INSTITUTION) == 0){
 			
-			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance(((Course)l.getAdapter().getItem(position)).getId()));
+			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance((((Course)l.getAdapter().getItem(position)).getId())));
 		}else{
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(getArguments().getInt(ID_INSTITUTION), ((Course)l.getAdapter().getItem(position)).getId()));
 		}
@@ -81,12 +97,20 @@ public class CourseListFragment extends ListFragment{
         beanCallbacks = null;
     }
 	
-	private ArrayList<Course> getCoursesList(int idInstitution) throws SQLException{
+	private static ArrayList<Course> getCoursesList(int idInstitution) throws SQLException{
 		if(idInstitution == 0){
 			return Course.getAll();
 		}else{
 			return Institution.get(idInstitution).getCourses();
 		}
+	}
+	
+	private static ArrayList<Course> getCoursesFromIds(ArrayList<Integer> ids){
+		ArrayList<Course> courses = new ArrayList<Course>();
+		for(Integer id : ids){
+			courses.add(Course.get(id));
+		}
+		return courses;
 	}
 	
 	private ActionBar getActionBar() {

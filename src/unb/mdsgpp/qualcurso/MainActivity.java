@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity implements
 			fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,
-						new TabsFragment()).commit();
+						new TabsFragment()).addToBackStack(null).commit();
 		}
 	}
 
