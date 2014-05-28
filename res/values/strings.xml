@@ -25,14 +25,19 @@
     <string name="entries">Quantidade de verbetes e outros publicados:</string>
     <string name="articles">Quantidade de artigos publicados:</string>
     <string name="works">Quantidade de trabalhos publicados:</string>
+    
+    <string name="between">entre</string>
+    <string name="max">Máx</string>
+    <string name="search">Buscar</string>
+    <string name="line">------------------------------------------------</string>
+    
+    <string name="field_name">Listar por:</string>
 
     <string-array name="list">
         <item>Opção</item>
         <item>Curso</item>
         <item>Instituição</item>
     </string-array>
-
-    <string name="field_main">Listar por:</string>
 
     <string-array name="indicator">
         <item>Indicador</item>
@@ -56,9 +61,5 @@
         <item>2007</item>
         <item>2010</item>
     </string-array>
-    
-    <string name="between">entre</string>
-    <string name="max">Max</string>
-    <string name="search">Buscar</string>
 
 </resources>
