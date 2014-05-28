@@ -78,12 +78,12 @@ public class MainActivity extends ActionBarActivity implements
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								SearchListFragment.newInstance(Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2007, 7, -1), "triennial_evaluation",2007, 7, -1)).commit();
+								new SearchByIndicatorFragment()).commit();
 				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof SearchListFragment)){
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								SearchListFragment.newInstance(Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2007, 7, -1),  "triennial_evaluation",2007, 7, -1)).addToBackStack(null).commit();
+								new SearchByIndicatorFragment()).addToBackStack(null).commit();
 				}
 				drawerPosition = 1;
 				break;
@@ -94,6 +94,7 @@ public class MainActivity extends ActionBarActivity implements
 				break;
 			}
 		}
+		
 	}
 
 	public void onSectionAttached(int number) {

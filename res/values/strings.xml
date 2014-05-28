@@ -27,5 +27,10 @@
     <string name="entries">Quantidade de verbetes e outros publicados:</string>
     <string name="articles">Quantidade de artigos publicados:</string>
     <string name="works">Quantidade de trabalhos publicados:</string>
-
+    
+    <string-array name="list">
+        <item>Escolha uma opção</item>
+        <item>Curso</item>
+        <item>Instituição</item>
+    </string-array>
 </resources>
