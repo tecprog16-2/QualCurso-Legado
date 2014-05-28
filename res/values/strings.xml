@@ -27,7 +27,7 @@
     <string name="works">Quantidade de trabalhos publicados:</string>
 
     <string-array name="list">
-        <item>Escolha uma opção</item>
+        <item>Opção</item>
         <item>Curso</item>
         <item>Instituição</item>
     </string-array>
@@ -35,7 +35,7 @@
     <string name="field_main">Listar por:</string>
 
     <string-array name="indicator">
-        <item>Escolha uma opção</item>
+        <item>Escolha um índices</item>
         <item>Ano de inicio de mestrado</item>
         <item>Ano de inicio do doutorado</item>
         <item>Média anual de docentes permanentes</item>
@@ -49,6 +49,12 @@
         <item>Quantidade de verbetes e outros publicados</item>
         <item>Quantidade de artigos publicados</item>
         <item>Quantidade de trabalhos publicados</item>
+    </string-array>
+    
+    <string-array name="year">
+        <item>Escolha um ano</item>
+        <item>2007</item>
+        <item>2010</item>
     </string-array>
 
 </resources>
