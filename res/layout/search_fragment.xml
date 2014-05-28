@@ -19,34 +19,65 @@
             android:entries="@array/year" />
 
         <Spinner
-            android:id="@+id/field"
-            android:layout_width="match_parent"
+            android:id="@+id/course_institution"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_alignRight="@+id/textView1"
-            android:layout_below="@+id/course_institution"
-            android:layout_marginTop="28dp"
-            android:entries="@array/indicator" />
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView1"
+            android:entries="@array/list" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/course_institution"
-            android:layout_marginLeft="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="26dp"
+            android:layout_toLeftOf="@+id/course_institution"
             android:text="@string/field_main"
             android:textSize="@dimen/field_dimension" />
 
         <Spinner
-            android:id="@+id/course_institution"
-            android:layout_width="150dp"
+            android:id="@+id/field"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/course_institution"
+            android:layout_marginTop="14dp"
+            android:layout_toLeftOf="@+id/year"
+            android:entries="@array/indicator" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editText1"
+            android:layout_alignBottom="@+id/editText1"
+            android:layout_centerHorizontal="true"
+            android:text="@string/between"
+            android:textSize="@dimen/between_dimension" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/field"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/EditText01"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
             android:layout_marginRight="22dp"
-            android:layout_marginTop="43dp"
-            android:entries="@array/list" />
+            android:ems="10"
+            android:inputType="number" >
+
+            <requestFocus />
+        </EditText>
 
     </RelativeLayout>
 

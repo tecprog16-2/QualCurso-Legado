@@ -13,5 +13,6 @@
     <dimen name="university_dimension">23dp</dimen>
     <dimen name="subtitle_dimension">12dp</dimen>
     <dimen name="field_dimension">25dp</dimen>
+    <dimen name="between_dimension">20dp</dimen>
 
 </resources>

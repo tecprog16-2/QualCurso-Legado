@@ -35,7 +35,7 @@
     <string name="field_main">Listar por:</string>
 
     <string-array name="indicator">
-        <item>Escolha um índices</item>
+        <item>Indicador</item>
         <item>Ano de inicio de mestrado</item>
         <item>Ano de inicio do doutorado</item>
         <item>Média anual de docentes permanentes</item>
@@ -52,9 +52,11 @@
     </string-array>
     
     <string-array name="year">
-        <item>Escolha um ano</item>
+        <item>Ano</item>
         <item>2007</item>
         <item>2010</item>
     </string-array>
+    
+    <string name="between">entre</string>
 
 </resources>
