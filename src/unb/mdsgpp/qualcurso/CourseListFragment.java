@@ -2,6 +2,7 @@ package unb.mdsgpp.qualcurso;
 
 import java.util.ArrayList;
 
+import models.Bean;
 import models.Course;
 import models.Institution;
 import android.database.SQLException;
@@ -19,41 +20,45 @@ import android.widget.ListView;
 public class CourseListFragment extends ListFragment{
 
 	private static final String ID_INSTITUTION = "idInstitution";
+	private static final String IDS_COURSES = "idsCourses";
 	BeanListCallbacks beanCallbacks;
-	private ArrayList<Course> list = null;
 	
 	
 	public CourseListFragment() {
 		super();
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, 0);
+		args.putParcelableArrayList(IDS_COURSES, getCoursesList(0));
 		this.setArguments(args);
 	}
 
 	public static CourseListFragment newInstance(int id){
-		CourseListFragment fragment = new CourseListFragment().initialize(getCoursesList(id));
+		CourseListFragment fragment = new CourseListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, id);
+		args.putParcelableArrayList(IDS_COURSES, getCoursesList(id));
 		fragment.setArguments(args);
 		return fragment;
 	}
 	
 	public static CourseListFragment newInstance(int id, ArrayList<Course> list){
-		CourseListFragment fragment = new CourseListFragment().initialize(list);
+		CourseListFragment fragment = new CourseListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, id);
+		args.putParcelableArrayList(IDS_COURSES, list);
 		fragment.setArguments(args);
 		return fragment;
-	}
-	
-	public CourseListFragment initialize(ArrayList<Course> list){
-		this.list = list;
-		return this;
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		ArrayList<Course> list;
+		if(getArguments().getParcelableArrayList(IDS_COURSES) != null){
+			list = getArguments().getParcelableArrayList(IDS_COURSES);
+		}else{
+			list = savedInstanceState.getParcelableArrayList(IDS_COURSES);
+		}
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
 				false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
@@ -62,12 +67,18 @@ public class CourseListFragment extends ListFragment{
 			rootView.setAdapter(new ArrayAdapter<Course>(
 			        getActionBar().getThemedContext(),
 			        R.layout.custom_textview,
-			        getCoursesList(getArguments().getInt(ID_INSTITUTION))));
+			        list));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return rootView;
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putParcelableArrayList(IDS_COURSES, getArguments().getParcelableArrayList(IDS_COURSES));	
 	}
 	
 	@Override
@@ -103,14 +114,6 @@ public class CourseListFragment extends ListFragment{
 		}else{
 			return Institution.get(idInstitution).getCourses();
 		}
-	}
-	
-	private static ArrayList<Course> getCoursesFromIds(ArrayList<Integer> ids){
-		ArrayList<Course> courses = new ArrayList<Course>();
-		for(Integer id : ids){
-			courses.add(Course.get(id));
-		}
-		return courses;
 	}
 	
 	private ActionBar getActionBar() {

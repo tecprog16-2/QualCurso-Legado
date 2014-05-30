@@ -1,6 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
-import android.R.color;
+
+import android.content.res.Configuration;
 import android.database.SQLException;
 
 import java.util.ArrayList;
@@ -10,7 +11,6 @@ import models.Course;
 import models.Institution;
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -19,43 +19,57 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class InstitutionListFragment extends ListFragment{
 	
 	private static final String ID_COURSE = "idCourse";
+	private static final String IDS_INSTITUTIONS = "idsInstitutions";
 	BeanListCallbacks beanCallbacks;
-	private ArrayList<Institution> list = null;
 	public InstitutionListFragment() {
 		super();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
+		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(0));
 		this.setArguments(args);
 	}
 	
-	public InstitutionListFragment initialize(ArrayList<Institution> list){
-		this.list = list;
-		return this;
-	}
+
 
 	public static InstitutionListFragment newInstance(int id){
-		InstitutionListFragment fragment = new InstitutionListFragment().initialize(getInstitutionsList(id));
+		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id);
+		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(id));
 		fragment.setArguments(args);
 		return fragment;
 	}
 	public static InstitutionListFragment newInstance(int id, ArrayList<Institution> institutions){
-		InstitutionListFragment fragment = new InstitutionListFragment().initialize(institutions);
+		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id);
+		args.putParcelableArrayList(IDS_INSTITUTIONS, institutions);
 		fragment.setArguments(args);
 		return fragment;
 	}
 	
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putParcelableArrayList(IDS_INSTITUTIONS, getArguments().getParcelableArrayList(IDS_INSTITUTIONS));
+	}
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		ArrayList<Institution> list; 
+		if(getArguments().getParcelableArrayList(IDS_INSTITUTIONS) != null){
+			list = getArguments().getParcelableArrayList(IDS_INSTITUTIONS);
+		}else{
+			list = savedInstanceState.getParcelableArrayList(IDS_INSTITUTIONS);
+		}
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
 				false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
@@ -103,14 +117,6 @@ public class InstitutionListFragment extends ListFragment{
 		}else{
 			return Course.get(idCourse).getInstitutions();
 		}
-	}
-	
-	private static ArrayList<Institution> getInstitutionsFromIds(ArrayList<Integer> ids){
-		ArrayList<Institution> institutions = new ArrayList<Institution>();
-		for(Integer id : ids){
-			institutions.add(Institution.get(id));
-		}
-		return institutions;
 	}
 	
 	private ActionBar getActionBar() {

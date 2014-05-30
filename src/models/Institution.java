@@ -1,10 +1,13 @@
 package models;
 
 import android.database.SQLException;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Institution extends Bean {
+public class Institution extends Bean implements Parcelable {
 	private int id;
 	private String acronym;
 
@@ -112,43 +115,48 @@ public class Institution extends Bean {
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
-		String sql = "SELECT DISTINCT id_institution from evaluation"+
-					" WHERE year="+year+
-					" AND "+filterField;
+		String sql = "SELECT i.* FROM institution AS i, evaluation AS e"+
+					" WHERE e.year="+Integer.toString(year)+
+					" AND e.id_institution = i._id"+
+					" AND e."+filterField;
 
-		if(maxInterval == "MAX" || maxInterval == "max")
-			sql+=" >= "+minInterval;
-		else
-			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
-
+		if(maxInterval == -1){
+			sql+=" >= "+Integer.toString(minInterval);
+		}else{
+			sql+=" BETWEEN "+Integer.toString(minInterval)+" AND "+Integer.toString(maxInterval);
+		}
+		sql+=" GROUP BY i._id";
 		GenericBeanDAO
 		gDB = new GenericBeanDAO();
 
-		for (String sqlResponse[] : gDB.runSql(sql))
-			result.add(Institution.get(Integer.parseInt(sqlResponse[0])));
+		for (Bean b : gDB.runSql(new Institution(), sql)){
+			result.add((Institution)b);
+		}
 
 		return result;
 	}
 
-	public static ArrayList<Course> getCoursesByEvaluationFilter(String id_institution, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	public static ArrayList<Course> getCoursesByEvaluationFilter(int id_institution, String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
-		String sql = "SELECT id_course from evaluation"+
-					" WHERE id_institution="+id_institution+
-					" AND year="+year+
-					" AND "+filterField;
+		String sql = "SELECT c.* FROM course AS c, evaluation AS e"+
+					" WHERE e.id_institution="+id_institution+
+					" AND e.id_course = c._id"+
+					" AND e.year="+year+
+					" AND e."+filterField;
 		
-		if(maxInterval == "MAX" || maxInterval == "max")
+		if(maxInterval == -1){
 			sql+=" >= "+minInterval;
-		else
+		}else{
 			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
-
+		}
+		sql+=" GROUP BY c._id";
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		for (String sqlResponse[] : gDB.runSql(sql))
-			result.add(Course.get(Integer.parseInt(sqlResponse[0])));
-		
+		for (Bean b : gDB.runSql(new Course(), sql)){
+			result.add((Course)b);
+		}
 		return result;
 	}
 	
@@ -197,6 +205,44 @@ public class Institution extends Bean {
 	public String toString() {
 		return getAcronym();
 	}
+	
+	private Institution(Parcel in){
+		this.id = in.readInt();
+		this.acronym = in.readString();
+		this.identifier = in.readString();
+		this.relationship = in.readString();
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
+		dest.writeString(this.acronym);
+		dest.writeString(this.identifier);
+		dest.writeString(this.relationship);
+		
+	}
+	
+	public static final Parcelable.Creator<Institution> CREATOR = new Parcelable.Creator<Institution>() {
+
+		@Override
+		public Institution createFromParcel(Parcel source) {
+			return new Institution(source);
+		}
+
+		@Override
+		public Institution[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return new Institution[size];
+		}
+	};
+	
+	
 	
 	
 

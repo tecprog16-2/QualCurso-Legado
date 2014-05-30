@@ -1,10 +1,13 @@
 package models;
 
 import android.database.SQLException;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 
-public class Course extends Bean{
+public class Course extends Bean implements Parcelable{
 	private int id;
 	private String name;
 
@@ -113,43 +116,59 @@ public class Course extends Bean{
 		}
 		return result;
 	}
-
-	public static ArrayList<Course> getCoursesByEvaluationFilter(String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	
+	public static ArrayList<Course> getFromIds(ArrayList<Integer> ids){
+		Course type = new Course();
 		ArrayList<Course> result = new ArrayList<Course>();
-		String sql = "SELECT DISTINCT id_course from evaluation"+
-					" WHERE year="+year+
-					" AND "+filterField;
-		
-		if(maxInterval == "MAX" || maxInterval == "max")
-			sql+=" >= "+minInterval;
-		else
-			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
-
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		for (Bean b : gDB.selectBeanFromIds(type, ids)) {
+			result.add((Course) b);
+		}
+		return result;
+	}
+	
+	public static ArrayList<Course> getCoursesByEvaluationFilter(String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
+		ArrayList<Course> result = new ArrayList<Course>();
+		String sql = "SELECT c.* FROM course AS c, evaluation AS e"+
+					" WHERE e.year="+Integer.toString(year)+
+					" AND e.id_course = c._id"+
+					" AND e."+filterField;
 
-		for (String sqlResponse[] : gDB.runSql(sql))
-			result.add(Course.get(Integer.parseInt(sqlResponse[0])));
+		if(maxInterval == -1){
+			sql+=" >= "+Integer.toString(minInterval);
+		}else{
+			sql+=" BETWEEN "+Integer.toString(minInterval)+" AND "+Integer.toString(maxInterval);
+		}
+		sql+=" GROUP BY c._id";
+		GenericBeanDAO
+		gDB = new GenericBeanDAO();
+
+		for (Bean b : gDB.runSql(new Course(), sql)){
+			result.add((Course)b);
+		}
 
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(String id_course, String filterField, String year, String minInterval, String maxInterval) throws  SQLException {
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(int id_course, String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
-		String sql = "SELECT id_institution from evaluation"+
-					" WHERE id_course="+id_course+
-					" AND year="+year+
-					" AND "+filterField;
+		String sql = "SELECT i.* FROM institution AS i, evaluation AS e"+
+					" WHERE e.id_course="+Integer.toString(id_course)+
+					" AND e.id_institution = i._id"+
+					" AND e.year="+Integer.toString(year)+
+					" AND e."+filterField;
 		
-		if(maxInterval == "MAX" || maxInterval == "max")
+		if(maxInterval == -1){
 			sql+=" >= "+minInterval;
-		else
-			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
-
+		}else{
+			sql+=" BETWEEN "+Integer.toString(minInterval)+" AND "+Integer.toString(maxInterval);
+		}
+		sql+=" GROUP BY i._id";
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		for (String sqlResponse[] : gDB.runSql(sql))
-			result.add(Institution.get(Integer.parseInt(sqlResponse[0])));
-
+		for (Bean b : gDB.runSql(new Institution(), sql)){
+			result.add((Institution)b);
+		}
 		return result;
 	}
 
@@ -199,5 +218,40 @@ public class Course extends Bean{
 		return getName();
 	}
 	
+	private Course(Parcel in){
+		this.id = in.readInt();
+		this.name = in.readString();
+		this.identifier = in.readString();
+		this.relationship = in.readString();
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
+		dest.writeString(this.name);
+		dest.writeString(this.identifier);
+		dest.writeString(this.relationship);
+		
+	}
+	
+	public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
+
+		@Override
+		public Course createFromParcel(Parcel source) {
+			return new Course(source);
+		}
+
+		@Override
+		public Course[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return new Course[size];
+		}
+	};
 	
 }

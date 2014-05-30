@@ -48,72 +48,66 @@ public class EvaluationDetailFragment extends Fragment{
 				.findViewById(R.id.university_acronym);
 		textView1.setText(Institution.get(getArguments().getInt(ID_INSTITUTION)).getAcronym());
 		
+		Evaluation evaluation = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+				getArguments().getInt(ID_COURSE)).get(0);
+		
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);
-		textView2.setText("DATA DA AVALIAÇÃO: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-				getArguments().getInt(ID_COURSE)).get(0).getYear() +
+		textView2.setText("DATA DA AVALIAÇÃO: " + evaluation.getYear() +
 				"\nCURSO: " + Course.get(getArguments().getInt(ID_COURSE)).getName() +
-				"\nMODALIDADE DO CURSO: " + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-					getArguments().getInt(ID_COURSE)).get(0).getModality());
+				"\nMODALIDADE DO CURSO: " + evaluation.getModality());
 		
 		TextView textView3 = (TextView) rootView
 				.findViewById(R.id.indicator1);
-		textView3.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-			getArguments().getInt(ID_COURSE)).get(0).getMasterDegreeStartYear());
+		textView3.setText("" + evaluation.getMasterDegreeStartYear());
 		
 		TextView textView4 = (TextView) rootView
 				.findViewById(R.id.indicator2);
-		textView4.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-			getArguments().getInt(ID_COURSE)).get(0).getDoctorateStartYear());
+		textView4.setText("" + evaluation.getDoctorateStartYear());
 		
 		TextView textView5 = (TextView) rootView
 				.findViewById(R.id.indicator3);
-		textView5.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-				getArguments().getInt(ID_COURSE)).get(0).getTriennialEvaluation());
+		textView5.setText("" + evaluation.getTriennialEvaluation());
 		
 		TextView textView6 = (TextView) rootView
 				.findViewById(R.id.indicator4);
-		textView6.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-				getArguments().getInt(ID_COURSE)).get(0).getPermanentTeachers());
+		textView6.setText("" + evaluation.getPermanentTeachers());
 		
 		TextView textView7 = (TextView) rootView
 				.findViewById(R.id.indicator5);
-		textView7.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-						getArguments().getInt(ID_COURSE)).get(0).getTheses());
+		textView7.setText("" + evaluation.getTheses());
 		
 		TextView textView8 = (TextView) rootView
 				.findViewById(R.id.indicator6);
-		textView8.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-						getArguments().getInt(ID_COURSE)).get(0).getDissertations());
+		textView8.setText("" + evaluation.getDissertations());
 		
 		TextView textView9 = (TextView) rootView
 				.findViewById(R.id.indicator7);
-		textView9.setText("" + Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-						getArguments().getInt(ID_COURSE)).get(0).getArtisticProduction());
-		
+		textView9.setText("" + evaluation.getArtisticProduction());
+		Book book = Book.get(evaluation.getIdBooks());
 		TextView textView10 = (TextView) rootView
 				.findViewById(R.id.indicator8);
-		textView10.setText("" + Book.get(getArguments().getInt(ID_COURSE)).getChapters());
+		textView10.setText("" + book.getChapters());
 		
 		TextView textView11 = (TextView) rootView
 				.findViewById(R.id.indicator9);
-		textView11.setText("" + Book.get(getArguments().getInt(ID_COURSE)).getIntegralText());
+		textView11.setText("" + book.getIntegralText());
 		
 		TextView textView12 = (TextView) rootView
 				.findViewById(R.id.indicator10);
-		textView12.setText("" + Book.get(getArguments().getInt(ID_COURSE)).getCollections());
+		textView12.setText("" + book.getCollections());
 		
 		TextView textView13 = (TextView) rootView
 				.findViewById(R.id.indicator11);
-		textView13.setText("" + Book.get(getArguments().getInt(ID_COURSE)).getEntries());
-		
+		textView13.setText("" + book.getEntries());
+		Article article = Article.get(evaluation.getIdArticles());
 		TextView textView14 = (TextView) rootView
 				.findViewById(R.id.indicator12);
-		textView14.setText("" + Article.get(getArguments().getInt(ID_COURSE)).getPublishedJournals());
+		textView14.setText("" + article.getPublishedJournals());
 		
 		TextView textView15 = (TextView) rootView
 				.findViewById(R.id.indicator13);
-		textView15.setText("" + Article.get(getArguments().getInt(ID_COURSE)).getPublishedConferenceProceedings());
+		textView15.setText("" + article.getPublishedConferenceProceedings());
 		
 		return rootView;
 	}

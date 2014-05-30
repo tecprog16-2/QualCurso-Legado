@@ -1,10 +1,15 @@
 package unb.mdsgpp.qualcurso;
 
+import models.Bean;
+import models.Course;
+import models.Institution;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +28,7 @@ public class MainActivity extends ActionBarActivity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
+	private int drawerPosition = 10;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +45,54 @@ public class MainActivity extends ActionBarActivity implements
 
 		
 	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+	}
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		if(fragmentManager.findFragmentById(R.id.container) == null){
-			fragmentManager
-				.beginTransaction()
-				.replace(R.id.container,
-						new TabsFragment()).commit();
-		}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof TabsFragment)){
-			fragmentManager
-				.beginTransaction()
-				.replace(R.id.container,
-						new TabsFragment()).addToBackStack(null).commit();
+		if(position == drawerPosition){
+			
+		}else{
+			switch (position) {
+			case 0:
+				if(fragmentManager.findFragmentById(R.id.container) == null){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								new TabsFragment()).commit();
+				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof TabsFragment)){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+							new TabsFragment()).addToBackStack(null).commit();
+				}
+				drawerPosition = 0;
+			break;
+			case 1:
+				if(fragmentManager.findFragmentById(R.id.container) == null){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								SearchListFragment.newInstance(Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2007, 7, -1), "triennial_evaluation",2007, 7, -1)).commit();
+				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof SearchListFragment)){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								SearchListFragment.newInstance(Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2007, 7, -1),  "triennial_evaluation",2007, 7, -1)).addToBackStack(null).commit();
+				}
+				drawerPosition = 1;
+				break;
+			case 2:
+			
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -124,6 +163,19 @@ public class MainActivity extends ActionBarActivity implements
 				.beginTransaction()
 				.replace(container,
 						fragment).commit();
+	}
+
+	@Override
+	public void onSearchBeanSelected(Parcelable bean, String field, int year,
+			int rangeA, int rangeB) {
+		if(bean instanceof Institution){
+			onBeanListItemSelected(CourseListFragment.newInstance(((Institution)bean).getId(),
+					Institution.getCoursesByEvaluationFilter(((Institution)bean).getId(),field, 
+							year, rangeA, 
+							rangeB)));
+		}else if(bean instanceof Course){
+			
+		}
 	}
 
 

@@ -79,7 +79,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener {
 		FragmentManager fm = getFragmentManager();
 		if (fm.findFragmentByTag(tabId) == null) {
 			if(tabId.equalsIgnoreCase(TAB_INSTITUTIONS)){
-				beanCallbacks.onBeanListItemSelected(new InstitutionListFragment().initialize(Institution.getAll()), placeholder);
+				beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance(0), placeholder);
 				/*fm.beginTransaction()
 						.replace(placeholder, new InstitutionListFragment() , tabId)
 						.addToBackStack(null)

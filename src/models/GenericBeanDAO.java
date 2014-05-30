@@ -153,6 +153,26 @@ public class GenericBeanDAO extends DataBase{
 		this.closeConnection();
 		return beans;
 	}
+	
+	public ArrayList<Bean> selectBeanFromIds(Bean type, ArrayList<Integer> ids) throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> beans = new ArrayList<Bean>();
+		String condition = type.fieldsList().get(0) + " = ?";
+		Cursor cs;
+		for(Integer id : ids){
+			cs = this.database.query(type.identifier, null, condition, new String[]{Integer.toString(id)}, null, null, null);
+			if (cs.moveToFirst()) {
+				Bean bean = init(type.identifier);
+				for (String s : type.fieldsList()) {
+					bean.set(s, cs.getString(cs.getColumnIndex(s)));
+				}
+				beans.add(bean);
+			}
+			cs = null;
+		}
+		this.closeConnection();
+		return beans;
+	}
 
 	public ArrayList<String[]> runSql(String sql) throws SQLException {
 		this.openConnection();
@@ -168,6 +188,22 @@ public class GenericBeanDAO extends DataBase{
 			result.add(data);
 		}
 
+		this.closeConnection();
+		return result;
+	}
+	
+	
+	public ArrayList<Bean> runSql(Bean type, String sql) throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> result = new ArrayList<Bean>();
+		Cursor cs = this.database.rawQuery(sql, null);
+		while (cs.moveToNext()) {
+			Bean bean = init(type.identifier);
+			for (String s : type.fieldsList()) {
+				bean.set(s, cs.getString(cs.getColumnIndex(s)));
+			}
+			result.add(bean);
+		}
 		this.closeConnection();
 		return result;
 	}
