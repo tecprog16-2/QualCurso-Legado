@@ -117,14 +117,13 @@ public class SearchByIndicatorFragment extends Fragment {
 
 				number1 = Integer.parseInt(firstNumber.getText().toString());
 				number2 = Integer.parseInt(secondNumber.getText().toString());
-				year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 				listSelectionPosition = listSelectionSpinner.getSelectedItemPosition();
 				
 				
 				if( yearSpinner.getSelectedItemPosition() != 0 ) {
 					year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 				} else {
-					year = -1;
+					year = Integer.parseInt(yearSpinner.getAdapter().getItem(yearSpinner.getAdapter().getCount()-1).toString());
 				}
 
 				if(maximum.isChecked()){
@@ -195,19 +194,27 @@ public class SearchByIndicatorFragment extends Fragment {
 			}
 
 			private void updateSearchList(int min, int max, int year, int listSelectionPosition, String filterField) {
-				switch (listSelectionPosition) {
-				case 0:
-					callInstitutionList(min, max, year, filterField);
-					break;
-				case 1:
-					callCourseList(min, max, year, filterField);
-					break;
-				case 2:
-					callInstitutionList(min, max, year, filterField);
-					break;
+				if(filterField == "") {
+					//TODO exception 
+				} else {
 					
-				default:
-					break;
+						switch (listSelectionPosition) {
+						case 0:
+							callInstitutionList(min, max, year, filterField);
+							break;
+				
+						case 1:
+							callCourseList(min, max, year, filterField);
+							break;
+				
+						case 2:
+							callInstitutionList(min, max, year, filterField);
+							break;
+					
+						default:
+							break;
+					
+							}
 				}
 			}
 			
