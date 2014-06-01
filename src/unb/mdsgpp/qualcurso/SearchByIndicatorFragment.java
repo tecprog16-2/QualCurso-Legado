@@ -2,6 +2,7 @@ package unb.mdsgpp.qualcurso;
 
 import java.util.ArrayList;
 
+import models.Evaluation;
 import models.Institution;
 import android.app.Activity;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		Spinner listSelectionSpinner = (Spinner) rootView
 				.findViewById(R.id.course_institution);
 
-		listSelection.setOnItemSelectedListener(new OnItemSelectedListener() {
+		listSelectionSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -70,7 +71,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		});
 		Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 
-		filterField.setOnItemSelectedListener(new OnItemSelectedListener() {
+		filterFieldSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -104,11 +105,15 @@ public class SearchByIndicatorFragment extends Fragment {
 		EditText secondNumber = (EditText) rootView.findViewById(R.id.secondNumber);
 		Button searchButton = (Button) rootView.findViewById(R.id.search_button);
 		
-		int number1, number2, year, max;
+		int number1, number2, year, max, listSelectionPosition;
+		String filterField;
 		
 		number1 = Integer.parseInt(firstNumber.getText().toString());
 		number2 = Integer.parseInt(secondNumber.getText().toString());
 		year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
+		listSelectionPosition = listSelectionSpinner.getSelectedItemPosition();
+		
+		
 		
 		if(maximum.isChecked()){
 			max = -1;
@@ -116,6 +121,67 @@ public class SearchByIndicatorFragment extends Fragment {
 			max = number2;
 		}
 		
+		switch (filterFieldSpinner.getSelectedItemPosition()) {
+		case 0:
+			filterField = "";
+			break;
+
+		case 1:
+			filterField = new Evaluation().fieldsList().get(5);
+			break;
+			
+		case 2:
+			filterField = new Evaluation().fieldsList().get(6);
+			break;
+			
+		case 3:
+			filterField = new Evaluation().fieldsList().get(8);
+			break;
+			
+		case 4:
+			filterField = new Evaluation().fieldsList().get(9);
+			break;
+			
+		case 5:
+			filterField = new Evaluation().fieldsList().get(10);
+			break;
+			
+		case 6:
+			filterField = new Evaluation().fieldsList().get(13);
+			break;
+			
+		case 7:
+			filterField = new Book().fieldsList().get();
+			break;
+			
+		case 8:
+			filterField = new Book().fieldsList().get();
+			break;
+			
+		case 9:
+			filterField = new Book().fieldsList().get();
+			break;
+			
+		case 10:
+			filterField = new Book().fieldsList().get();
+			break;
+			
+		case 11:
+			filterField = new Article().fieldsList().get();
+			break;
+			
+		case 12:
+			filterField = new Article().fieldsList().get();
+			break;
+			
+		case 13:
+			filterField = new Article().fieldsList().get();
+			break;
+			
+		default:
+			filterField = "";
+			break;
+		}
 		
 		OnClickListener listener = new OnClickListener() {
 				
