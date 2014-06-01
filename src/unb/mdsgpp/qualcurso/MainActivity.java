@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-							new TabsFragment()).addToBackStack(null).commit();
+							new TabsFragment()).commit();
 				}
 				drawerPosition = 0;
 			break;
@@ -83,7 +83,7 @@ public class MainActivity extends ActionBarActivity implements
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								new SearchByIndicatorFragment()).addToBackStack(null).commit();
+								new SearchByIndicatorFragment()).commit();
 				}
 				drawerPosition = 1;
 				break;

@@ -1,5 +1,9 @@
 package unb.mdsgpp.qualcurso;
 
+import java.util.ArrayList;
+
+import models.Institution;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,24 +11,49 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class SearchByIndicatorFragment extends Fragment {
-
+	
+	BeanListCallbacks beanCallbacks;
+	
 	public SearchByIndicatorFragment() {
 		super();
 	}
+	
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+            beanCallbacks = (BeanListCallbacks) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
+        }
+	}
+	
+	@Override
+    public void onDetach() {
+        super.onDetach();
+        beanCallbacks = null;
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.search_fragment, container,
 				false);
-
-		Spinner spinner1 = (Spinner) rootView
+		
+		ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2007, 7, -1);
+		beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,"triennial_evaluation", 2007, 7, -1), R.id.search_list);
+		
+		
+		Spinner listSelectionSpinner = (Spinner) rootView
 				.findViewById(R.id.course_institution);
 
-		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
+		listSelection.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -37,24 +66,9 @@ public class SearchByIndicatorFragment extends Fragment {
 
 			}
 		});
-		Spinner spinner2 = (Spinner) rootView.findViewById(R.id.field);
+		Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 
-		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-		Spinner spinner3 = (Spinner) rootView.findViewById(R.id.year);
-
-		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
+		filterField.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -67,6 +81,29 @@ public class SearchByIndicatorFragment extends Fragment {
 
 			}
 		});
+		Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
+
+		yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+		
+		CheckBox maximum = (CheckBox) rootView.findViewById(R.id.maximum);
+		EditText firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
+		EditText secondNumber = (EditText) rootView.findViewById(R.id.secondNumber);
+		
+		
+		
+		
 		return rootView;
 	}
 
