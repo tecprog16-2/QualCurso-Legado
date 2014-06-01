@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -100,8 +102,31 @@ public class SearchByIndicatorFragment extends Fragment {
 		CheckBox maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		EditText firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
 		EditText secondNumber = (EditText) rootView.findViewById(R.id.secondNumber);
+		Button searchButton = (Button) rootView.findViewById(R.id.search_button);
+		
+		int number1, number2, year, max;
+		
+		number1 = Integer.parseInt(firstNumber.getText().toString());
+		number2 = Integer.parseInt(secondNumber.getText().toString());
+		year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
+		
+		if(maximum.isChecked()){
+			max = -1;
+		}else{
+			max = number2;
+		}
 		
 		
+		OnClickListener listener = new OnClickListener() {
+				
+			@Override
+			public void onClick(View arg0) {
+				
+				
+				
+			}
+		};
+		searchButton.setOnClickListener(listener);
 		
 		
 		return rootView;
