@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import models.Article;
 import models.Book;
+import models.Course;
 import models.Evaluation;
 import models.Institution;
 import android.app.Activity;
@@ -51,8 +52,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.search_fragment, container,
 				false);
 		
-		ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2007, 7, -1);
-		beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,"triennial_evaluation", 2007, 7, -1), R.id.search_list);
+		
 		
 		
 		final Spinner listSelectionSpinner = (Spinner) rootView
@@ -106,7 +106,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		final CheckBox maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		final EditText firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
 		final EditText secondNumber = (EditText) rootView.findViewById(R.id.secondNumber);
-		final Button searchButton = (Button) rootView.findViewById(R.id.search_button);
+		Button searchButton = (Button) rootView.findViewById(R.id.buttonSearch);
 		
 		OnClickListener listener = new OnClickListener() {
 			
@@ -195,11 +195,32 @@ public class SearchByIndicatorFragment extends Fragment {
 			}
 
 			private void updateSearchList(int min, int max, int year, int listSelectionPosition, String filterField) {
-				
+				switch (listSelectionPosition) {
+				case 0:
+					callInstitutionList(min, max, year, filterField);
+					break;
+				case 1:
+					callCourseList(min, max, year, filterField);
+					break;
+				case 2:
+					callInstitutionList(min, max, year, filterField);
+					break;
+					
+				default:
+					break;
+				}
+			}
+			
+			private void callInstitutionList(int min, int max, int year, String filterField){
+				ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter(filterField, year, min, max);
+				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField, year, min, max), R.id.search_list);
+			}
+			private void callCourseList(int min, int max, int year, String filterField){
+				ArrayList<Course> beanList = Course.getCoursesByEvaluationFilter(filterField, year, min, max);
+				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField, year, min, max), R.id.search_list);
 			}
 		};
-		searchButton.setOnClickListener(listener);
-		
+			searchButton.setOnClickListener(listener);
 		
 		return rootView;
 	}

@@ -175,7 +175,10 @@ public class MainActivity extends ActionBarActivity implements
 							year, rangeA, 
 							rangeB)));
 		}else if(bean instanceof Course){
-			
+			onBeanListItemSelected(InstitutionListFragment.newInstance(((Course)bean).getId(),
+					Course.getInstitutionsByEvaluationFilter(((Course)bean).getId(),field, 
+							year, rangeA, 
+							rangeB)));
 		}
 	}
 

@@ -47,9 +47,10 @@ public class EvaluationDetailFragment extends Fragment{
 		TextView textView1 = (TextView) rootView
 				.findViewById(R.id.university_acronym);
 		textView1.setText(Institution.get(getArguments().getInt(ID_INSTITUTION)).getAcronym());
-		
+		int last = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
+				getArguments().getInt(ID_COURSE)).size()-1;
 		Evaluation evaluation = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-				getArguments().getInt(ID_COURSE)).get(0);
+				getArguments().getInt(ID_COURSE)).get(last);
 		
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);

@@ -12,6 +12,7 @@
     <dimen name="title_dimension">24dp</dimen>
     <dimen name="university_dimension">23dp</dimen>
     <dimen name="subtitle_dimension">12dp</dimen>
+    <dimen name="list_item_dimension">14dp</dimen>
     <dimen name="field_dimension">23dp</dimen>
     <dimen name="between_dimension">17dp</dimen>
 
