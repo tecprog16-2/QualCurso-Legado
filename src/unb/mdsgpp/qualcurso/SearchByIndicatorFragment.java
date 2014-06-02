@@ -8,6 +8,8 @@ import models.Course;
 import models.Evaluation;
 import models.Institution;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class SearchByIndicatorFragment extends Fragment {
 	
@@ -93,7 +96,6 @@ public class SearchByIndicatorFragment extends Fragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-
 			}
 
 			@Override
@@ -204,9 +206,12 @@ public class SearchByIndicatorFragment extends Fragment {
 
 			private void updateSearchList(int min, int max, int year, int listSelectionPosition, String filterField) {
 				if(filterField == "") {
-					//TODO exception 
-				} else {
+					Context c = QualCurso.getInstance();
+					String emptySearchFilter = getResources().getString(R.string.empty_search_filter);
 
+					Toast toast = Toast.makeText(c, emptySearchFilter, Toast.LENGTH_SHORT);
+					toast.show();
+				} else {
 						switch (listSelectionPosition) {
 						case 0:
 							callInstitutionList(min, max, year, filterField);
