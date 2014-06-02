@@ -42,6 +42,7 @@
 
     <string-array name="indicator">
         <item>Indicador</item>
+        <item>Conceito</item>
         <item>Ano de inicio de mestrado</item>
         <item>Ano de inicio do doutorado</item>
         <item>Média anual de docentes permanentes</item>
