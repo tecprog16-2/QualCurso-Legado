@@ -13,15 +13,6 @@
         android:layout_weight="1">
 
         <Spinner
-            android:id="@+id/year"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/course_institution"
-            android:layout_alignTop="@+id/field"
-            android:layout_toRightOf="@+id/between"
-            android:entries="@array/year" />
-
-        <Spinner
             android:id="@+id/course_institution"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -53,6 +44,7 @@
             android:id="@+id/field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/listBy"
             android:layout_alignRight="@+id/buttonSearch"
             android:layout_below="@+id/course_institution"
             android:layout_margin="10dp"
@@ -103,14 +95,22 @@
             android:layout_marginTop="10dp"
             android:text="@string/search" />
 
+        <Spinner
+            android:id="@+id/year"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/maximum"
+            android:entries="@array/year" />
+
     </RelativeLayout>
     
-   <FrameLayout
+   <FrameLayout 
        android:id="@+id/search_list"
        android:layout_width="match_parent"
        android:layout_height="0dp"
        android:layout_gravity="start"
-       android:layout_weight="0.78" >
-</FrameLayout>
+       android:layout_weight="1"
+       ></FrameLayout>
 
 </LinearLayout>

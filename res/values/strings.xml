@@ -44,6 +44,7 @@
         <item>Indicador</item>
         <item>Ano de inicio de mestrado</item>
         <item>Ano de inicio do doutorado</item>
+        <item>Conceito no ano avaliado:</item>
         <item>Média anual de docentes permanentes</item>
         <item>Total de teses defendidas</item>
         <item>Total de dissertações defendidas</item>
@@ -61,5 +62,6 @@
         <item>2007</item>
         <item>2010</item>
     </string-array>
+    <string name="course">Curso</string>
 
 </resources>
