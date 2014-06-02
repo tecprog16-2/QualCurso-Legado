@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Spinner
+            android:id="@+id/field"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/year"
+            android:layout_marginLeft="22dp"
+            android:layout_toRightOf="@+id/year"
+            android:entries="@array/indicator" />
+
+        <Spinner
+            android:id="@+id/year"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="19dp"
+            android:entries="@array/year" />
+
+        <Button
+            android:id="@+id/search"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/autoCompleteTextView"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/autoCompleteTextView"
+            android:text="@string/search" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/year"
+            android:layout_below="@+id/field"
+            android:layout_marginTop="11dp"
+            android:ems="10"
+            android:hint="@string/course" />
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search"
+            android:layout_centerHorizontal="true" >
+
+        </ListView>
+
+    </RelativeLayout>
+
+</LinearLayout>
