@@ -129,10 +129,12 @@ public class Course extends Bean implements Parcelable{
 	
 	public static ArrayList<Course> getCoursesByEvaluationFilter(String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
-		String sql = "SELECT c.* FROM course AS c, evaluation AS e"+
-					" WHERE e.year="+Integer.toString(year)+
+		String sql = "SELECT c.* FROM course AS c, evaluation AS e, articles AS a, books AS b "+
+					" WHERE year="+Integer.toString(year)+
 					" AND e.id_course = c._id"+
-					" AND e."+filterField;
+					" AND e.id_articles = a._id"+
+					" AND e.id_books = b._id"+
+					" AND "+filterField;
 
 		if(maxInterval == -1){
 			sql+=" >= "+Integer.toString(minInterval);
@@ -152,11 +154,13 @@ public class Course extends Bean implements Parcelable{
 
 	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(int id_course, String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
-		String sql = "SELECT i.* FROM institution AS i, evaluation AS e"+
+		String sql = "SELECT i.* FROM institution AS i, evaluation AS e, articles AS a, books AS b "+
 					" WHERE e.id_course="+Integer.toString(id_course)+
 					" AND e.id_institution = i._id"+
-					" AND e.year="+Integer.toString(year)+
-					" AND e."+filterField;
+					" AND e.id_articles = a._id"+
+					" AND e.id_books = b._id"+
+					" AND year="+Integer.toString(year)+
+					" AND "+filterField;
 		
 		if(maxInterval == -1){
 			sql+=" >= "+minInterval;
