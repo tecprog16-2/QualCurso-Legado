@@ -58,51 +58,10 @@ public class SearchByIndicatorFragment extends Fragment {
 		
 		final Spinner listSelectionSpinner = (Spinner) rootView
 				.findViewById(R.id.course_institution);
-
-		listSelectionSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-
+		
 		final Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 
-		filterFieldSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-
 		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
-
-		yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
 
 		final CheckBox maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		final EditText firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);

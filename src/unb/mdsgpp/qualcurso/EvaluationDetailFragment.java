@@ -54,9 +54,9 @@ public class EvaluationDetailFragment extends Fragment{
 		
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);
-		textView2.setText("DATA DA AVALIAÇÃO: " + evaluation.getYear() +
-				"\nCURSO: " + Course.get(getArguments().getInt(ID_COURSE)).getName() +
-				"\nMODALIDADE DO CURSO: " + evaluation.getModality());
+		textView2.setText(getString(R.string.evaluation_date)+": " + evaluation.getYear() +
+				"\n"+getString(R.string.course)+": " + Course.get(getArguments().getInt(ID_COURSE)).getName() +
+				"\n"+getString(R.string.modality)+": " + evaluation.getModality());
 		
 		TextView textView3 = (TextView) rootView
 				.findViewById(R.id.indicator1);
