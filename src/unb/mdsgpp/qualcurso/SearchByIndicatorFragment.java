@@ -214,6 +214,9 @@ public class SearchByIndicatorFragment extends Fragment {
 				} else {
 						switch (listSelectionPosition) {
 						case 0:
+							listSelectionSpinner.setSelection(listSelectionSpinner.getAdapter().getCount()-1);
+							yearSpinner.setSelection(yearSpinner.getAdapter().getCount()-1);
+
 							callInstitutionList(min, max, year, filterField);
 							break;
 
