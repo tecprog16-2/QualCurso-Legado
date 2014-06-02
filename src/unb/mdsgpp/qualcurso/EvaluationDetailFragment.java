@@ -20,6 +20,7 @@ public class EvaluationDetailFragment extends Fragment{
 	
 	private static final String ID_COURSE = "idCourse";
 	private static final String ID_INSTITUTION = "idInstitution";
+	private static final String YEAR = "year";
 	BeanListCallbacks beanCallbacks;
 	
 	public EvaluationDetailFragment() {
@@ -27,14 +28,16 @@ public class EvaluationDetailFragment extends Fragment{
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
 		args.putInt(ID_INSTITUTION, 0);
+		args.putInt(YEAR, 0);
 		this.setArguments(args);
 	}
 	
-	public static EvaluationDetailFragment newInstance(int id_institution, int id_course){
+	public static EvaluationDetailFragment newInstance(int id_institution, int id_course,int year){
 		EvaluationDetailFragment fragment = new EvaluationDetailFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id_course);
 		args.putInt(ID_INSTITUTION, id_institution);
+		args.putInt(YEAR, year);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -47,10 +50,9 @@ public class EvaluationDetailFragment extends Fragment{
 		TextView textView1 = (TextView) rootView
 				.findViewById(R.id.university_acronym);
 		textView1.setText(Institution.get(getArguments().getInt(ID_INSTITUTION)).getAcronym());
-		int last = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-				getArguments().getInt(ID_COURSE)).size()-1;
 		Evaluation evaluation = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
-				getArguments().getInt(ID_COURSE)).get(last);
+				getArguments().getInt(ID_COURSE),
+				getArguments().getInt(YEAR));
 		
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);

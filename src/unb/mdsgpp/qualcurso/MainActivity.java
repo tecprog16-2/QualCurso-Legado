@@ -171,11 +171,13 @@ public class MainActivity extends ActionBarActivity implements
 			int rangeA, int rangeB) {
 		if(bean instanceof Institution){
 			onBeanListItemSelected(CourseListFragment.newInstance(((Institution)bean).getId(),
+					year,
 					Institution.getCoursesByEvaluationFilter(((Institution)bean).getId(),field, 
 							year, rangeA, 
 							rangeB)));
 		}else if(bean instanceof Course){
 			onBeanListItemSelected(InstitutionListFragment.newInstance(((Course)bean).getId(),
+					year,
 					Course.getInstitutionsByEvaluationFilter(((Course)bean).getId(),field, 
 							year, rangeA, 
 							rangeB)));
