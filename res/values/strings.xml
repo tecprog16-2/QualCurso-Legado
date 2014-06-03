@@ -25,8 +25,8 @@
     <string name="entries">Quantidade de verbetes e outros publicados:</string>
     <string name="articles">Quantidade de artigos publicados:</string>
     <string name="works">Quantidade de trabalhos publicados:</string>
-    <string name="empty_search_filter">Escolha um filtro</string>
-    
+    <string name="empty_search_filter">Escolha um indicador</string>
+
     <string name="between">entre</string>
     <string name="max">Máx</string>
     <string name="search">Buscar</string>

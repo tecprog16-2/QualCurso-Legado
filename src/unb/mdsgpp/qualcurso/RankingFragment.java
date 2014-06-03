@@ -11,6 +11,7 @@ import models.Evaluation;
 import models.GenericBeanDAO;
 import models.Institution;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class RankingFragment extends Fragment{
@@ -69,12 +71,15 @@ public class RankingFragment extends Fragment{
 		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, courses));
 		Button searchButton = (Button) rootView.findViewById(R.id.search);
+
 		final GenericBeanDAO gDB = new GenericBeanDAO();
 		final ArrayList<String> fields = new ArrayList<String>();
+
 		fields.add("id_institution");
 		fields.add("id_course");
 		fields.add("acronym");
 		fields.add("year");
+
 		OnItemClickListener listener = new OnItemClickListener() {
 			@Override
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
@@ -147,9 +152,19 @@ public class RankingFragment extends Fragment{
 					filterField = "";
 					break;
 				}
-				fields.add(filterField);
-				ListAdapter adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.list_item,gDB.selectOrdered(fields, filterField,"id_course ="+((Course)parent.getItemAtPosition(position)).getId()+" AND year ="+year ,"e.id_institution", true));
-				evaluationList.setAdapter(adapter);
+
+				if( filterField.length() != 0 ) {
+					fields.add(filterField);
+					ListAdapter adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.list_item,gDB.selectOrdered(fields, filterField,"id_course ="+((Course)parent.getItemAtPosition(position)).getId()+" AND year ="+year ,"e.id_institution", true));
+					evaluationList.setAdapter(adapter);
+				} else {
+					Context c = QualCurso.getInstance();
+					String emptySearchFilter = getResources().getString(R.string.empty_search_filter);
+
+					Toast toast = Toast.makeText(c, emptySearchFilter, Toast.LENGTH_SHORT);
+					toast.setGravity(0, 20, 50);
+					toast.show();
+				}
 		    }
 		};
 		autoCompleteField.setOnItemClickListener(listener);

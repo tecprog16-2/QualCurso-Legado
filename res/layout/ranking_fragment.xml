@@ -24,17 +24,8 @@
             android:layout_height="wrap_content"
             android:entries="@array/year" />
 
-        <Button
-            android:id="@+id/search"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/search" />
+        </LinearLayout>
         
-    </LinearLayout>
-        
-
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
