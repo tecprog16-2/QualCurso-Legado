@@ -70,7 +70,7 @@ public class RankingFragment extends Fragment{
 		ArrayList<Course> courses = Course.getAll();
 		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, courses));
-		Button searchButton = (Button) rootView.findViewById(R.id.search);
+
 
 		final GenericBeanDAO gDB = new GenericBeanDAO();
 		final ArrayList<String> fields = new ArrayList<String>();
