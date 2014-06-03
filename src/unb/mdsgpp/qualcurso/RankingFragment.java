@@ -60,17 +60,15 @@ public class RankingFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.ranking_fragment, container,
-				false); 
-		// TODO Auto-generated method stub
+				false);
+
 		final Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		final ListView evaluationList = (ListView) rootView.findViewById(R.id.evaluationList);
 		
-		
 		ArrayList<Course> courses = Course.getAll();
 		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, courses));
-
 
 		final GenericBeanDAO gDB = new GenericBeanDAO();
 		final ArrayList<String> fields = new ArrayList<String>();
@@ -85,12 +83,14 @@ public class RankingFragment extends Fragment{
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
 				String filterField = "";
 				int year;
+
 				if( yearSpinner.getSelectedItemPosition() != 0 ) {
 					year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 				} else {
+					yearSpinner.setSelection(yearSpinner.getAdapter().getCount()-1);
 					year = Integer.parseInt(yearSpinner.getAdapter().getItem(yearSpinner.getAdapter().getCount()-1).toString());
 				}
-				
+	
 				switch (filterFieldSpinner.getSelectedItemPosition()) {
 				case 0:
 					filterField = "";
@@ -176,7 +176,6 @@ public class RankingFragment extends Fragment{
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(Integer.parseInt(((HashMap<String,String>)parent.getItemAtPosition(position)).get("id_institution")), Integer.parseInt(((HashMap<String,String>)parent.getItemAtPosition(position)).get("id_course")), Integer.parseInt(((HashMap<String,String>)parent.getItemAtPosition(position)).get("year"))));
-				
 			}
 		});
 		return rootView;
