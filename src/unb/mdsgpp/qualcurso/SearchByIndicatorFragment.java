@@ -18,6 +18,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -62,7 +64,6 @@ public class SearchByIndicatorFragment extends Fragment {
 		final Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 
 		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
-
 		final CheckBox maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		final EditText firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
 		final EditText secondNumber = (EditText) rootView.findViewById(R.id.secondNumber);

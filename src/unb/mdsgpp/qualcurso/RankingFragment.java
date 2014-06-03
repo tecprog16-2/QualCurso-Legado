@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -64,7 +65,10 @@ public class RankingFragment extends Fragment{
 
 			}
 		});
-
+		
+		ArrayList<Course> courses = Course.getAll();
+		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
+		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, courses));
 		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 
 		yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
