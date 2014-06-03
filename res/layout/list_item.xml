@@ -2,19 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
+    android:orientation="horizontal" >
+    
         <TextView
             android:id="@+id/position"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="@color/black" />
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/university"
@@ -26,7 +20,5 @@
             android:id="@+id/data"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2" />
-    </LinearLayout>
-
+            android:layout_weight="1" />
 </LinearLayout>

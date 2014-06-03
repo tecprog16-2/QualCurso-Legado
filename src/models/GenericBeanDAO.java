@@ -4,6 +4,7 @@ package models;
 import android.database.SQLException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
@@ -241,6 +242,43 @@ public class GenericBeanDAO extends DataBase{
 		this.closeConnection();
 
 		return bean;
+	}
+	
+	public ArrayList<HashMap<String, String>> selectOrdered(ArrayList<String> returnFields, String orderedBy, String condition, String groupBy, boolean desc){
+		String fields = "";
+		for(String s : returnFields){
+			fields+=s+",";
+		}
+		fields = fields.substring(0, fields.length()-1);
+		String sql = "SELECT "+ fields +" FROM course AS c,institution AS i , evaluation AS e, articles AS a, books AS b"
+				+ " WHERE id_institution = i._id AND id_course = c._id AND id_articles = a._id AND id_books = b._id ";
+		if(condition != null){
+			sql+="AND "+condition+" ";
+		}
+		if(groupBy != null){
+			sql+=" GROUP BY "+groupBy;
+		}
+		if(orderedBy != null){
+			sql+=" ORDER BY "+orderedBy;
+		}
+		if(desc){
+			sql+=" DESC";
+		} else {
+			sql+=" ASC";
+		}
+		ArrayList<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
+		this.openConnection();
+		Cursor cs = this.database.rawQuery(sql,null);
+		while (cs.moveToNext()) {
+			HashMap<String, String> hash = new HashMap<String, String>();
+			for(String s : returnFields){
+				hash.put(s, cs.getString(cs.getColumnIndex(s)));
+			}
+			hash.put("order_field", orderedBy);
+			values.add(hash);
+		}
+		this.closeConnection();
+		return values;
 	}
 
 	public ArrayList<Bean> selectBeanWhere(Bean type, String field,
