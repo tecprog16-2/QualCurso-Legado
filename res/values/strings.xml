@@ -42,6 +42,7 @@
 
     <string-array name="indicator">
         <item>Indicador</item>
+        <item>Conceito</item>
         <item>Ano de inicio de mestrado</item>
         <item>Ano de inicio do doutorado</item>
         <item>Conceito no ano avaliado:</item>
@@ -63,5 +64,9 @@
         <item>2010</item>
     </string-array>
     <string name="course">Curso</string>
+    <string name="institutions">Instituições</string>
+    <string name="courses">Cursos</string>
+    <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
+    <string name="modality">MODALIDADE</string>
 
 </resources>

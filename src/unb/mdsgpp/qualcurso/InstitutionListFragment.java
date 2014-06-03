@@ -25,29 +25,33 @@ public class InstitutionListFragment extends ListFragment{
 	
 	private static final String ID_COURSE = "idCourse";
 	private static final String IDS_INSTITUTIONS = "idsInstitutions";
+	private static final String YEAR = "year";
 	BeanListCallbacks beanCallbacks;
 	public InstitutionListFragment() {
 		super();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
+		args.putInt(YEAR, 0);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(0));
 		this.setArguments(args);
 	}
 	
 
 
-	public static InstitutionListFragment newInstance(int id){
+	public static InstitutionListFragment newInstance(int id, int year){
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id);
+		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(id));
 		fragment.setArguments(args);
 		return fragment;
 	}
-	public static InstitutionListFragment newInstance(int id, ArrayList<Institution> institutions){
+	public static InstitutionListFragment newInstance(int id, int year, ArrayList<Institution> institutions){
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id);
+		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, institutions);
 		fragment.setArguments(args);
 		return fragment;
@@ -104,9 +108,9 @@ public class InstitutionListFragment extends ListFragment{
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		if(getArguments().getInt(ID_COURSE)==0){
-			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance(((Institution)l.getItemAtPosition(position)).getId()));
+			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance(((Institution)l.getItemAtPosition(position)).getId(),getArguments().getInt(YEAR)));
 		}else {
-			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(((Institution)l.getItemAtPosition(position)).getId() ,getArguments().getInt(ID_COURSE)));
+			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(((Institution)l.getItemAtPosition(position)).getId() ,getArguments().getInt(ID_COURSE),getArguments().getInt(YEAR)));
 		}
 			super.onListItemClick(l, v, position, id);
 	}

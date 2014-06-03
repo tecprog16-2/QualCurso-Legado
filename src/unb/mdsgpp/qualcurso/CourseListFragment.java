@@ -6,6 +6,7 @@ import models.Bean;
 import models.Course;
 import models.Institution;
 import android.database.SQLException;
+import android.graphics.YuvImage;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -21,6 +22,8 @@ public class CourseListFragment extends ListFragment{
 
 	private static final String ID_INSTITUTION = "idInstitution";
 	private static final String IDS_COURSES = "idsCourses";
+	private static final String YEAR = "year";
+	
 	BeanListCallbacks beanCallbacks;
 	
 	
@@ -32,19 +35,21 @@ public class CourseListFragment extends ListFragment{
 		this.setArguments(args);
 	}
 
-	public static CourseListFragment newInstance(int id){
+	public static CourseListFragment newInstance(int id, int year){
 		CourseListFragment fragment = new CourseListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, id);
+		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_COURSES, getCoursesList(id));
 		fragment.setArguments(args);
 		return fragment;
 	}
 	
-	public static CourseListFragment newInstance(int id, ArrayList<Course> list){
+	public static CourseListFragment newInstance(int id, int year, ArrayList<Course> list){
 		CourseListFragment fragment = new CourseListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, id);
+		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_COURSES, list);
 		fragment.setArguments(args);
 		return fragment;
@@ -85,9 +90,9 @@ public class CourseListFragment extends ListFragment{
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		if(getArguments().getInt(ID_INSTITUTION) == 0){
 			
-			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance((((Course)l.getAdapter().getItem(position)).getId())));
+			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance((((Course)l.getAdapter().getItem(position)).getId()), getArguments().getInt(YEAR)));
 		}else{
-			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(getArguments().getInt(ID_INSTITUTION), ((Course)l.getAdapter().getItem(position)).getId()));
+			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(getArguments().getInt(ID_INSTITUTION), ((Course)l.getAdapter().getItem(position)).getId(),getArguments().getInt(YEAR)));
 		}
 		super.onListItemClick(l, v, position, id);
 	}

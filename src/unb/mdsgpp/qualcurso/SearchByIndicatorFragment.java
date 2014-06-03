@@ -58,51 +58,10 @@ public class SearchByIndicatorFragment extends Fragment {
 		
 		final Spinner listSelectionSpinner = (Spinner) rootView
 				.findViewById(R.id.course_institution);
-
-		listSelectionSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-
+		
 		final Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 
-		filterFieldSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-
 		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
-
-		yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
 
 		final CheckBox maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		final EditText firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
@@ -149,50 +108,54 @@ public class SearchByIndicatorFragment extends Fragment {
 					break;
 
 				case 1:
-					filterField = new Evaluation().fieldsList().get(5);
+					filterField = new Evaluation().fieldsList().get(7);
 					break;
 
 				case 2:
-					filterField = new Evaluation().fieldsList().get(6);
+					filterField = new Evaluation().fieldsList().get(5);
 					break;
 
 				case 3:
-					filterField = new Evaluation().fieldsList().get(8);
+					filterField = new Evaluation().fieldsList().get(6);
 					break;
 
 				case 4:
-					filterField = new Evaluation().fieldsList().get(9);
+					filterField = new Evaluation().fieldsList().get(8);
 					break;
 
 				case 5:
-					filterField = new Evaluation().fieldsList().get(10);
+					filterField = new Evaluation().fieldsList().get(9);
 					break;
 
 				case 6:
-					filterField = new Evaluation().fieldsList().get(13);
+					filterField = new Evaluation().fieldsList().get(10);
 					break;
 
 				case 7:
-					filterField = new Book().fieldsList().get(2);
+					filterField = new Evaluation().fieldsList().get(13);
 					break;
 
 				case 8:
-					filterField = new Book().fieldsList().get(1);
+					filterField = new Book().fieldsList().get(2);
 					break;
 
 				case 9:
-					filterField = new Book().fieldsList().get(3);
+					filterField = new Book().fieldsList().get(1);
 					break;
 
 				case 10:
-					filterField = new Book().fieldsList().get(4);
+					filterField = new Book().fieldsList().get(3);
 					break;
 
 				case 11:
-					filterField = new Article().fieldsList().get(1);
+					filterField = new Book().fieldsList().get(4);
 					break;
 
 				case 12:
+					filterField = new Article().fieldsList().get(1);
+					break;
+
+				case 13:
 					filterField = new Article().fieldsList().get(2);
 					break;
 
