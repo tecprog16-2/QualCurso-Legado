@@ -7,8 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
->
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/university"
@@ -17,6 +16,7 @@
             android:layout_alignBottom="@+id/university_acronym"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+
             android:background="@color/medium_green"
             android:ems="10"
             android:fontFamily="@string/title_section1"
@@ -29,11 +29,13 @@
 
         <TextView
             android:id="@+id/university_acronym"
+
             android:layout_width="80dp"
             android:layout_height="65dp"
             android:layout_alignBottom="@+id/indicator"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/university"
+
             android:background="@color/medium_green"
             android:ems="10"
             android:fontFamily="@string/title_section1"
