@@ -67,5 +67,6 @@
     <string name="courses">Cursos</string>
     <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
     <string name="modality">MODALIDADE</string>
+    <string name="history">Historico</string>
 
 </resources>
