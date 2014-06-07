@@ -22,6 +22,7 @@ public class DataBaseStructures extends DataBase{
             this.buildTableCoursesInstitutions();
             this.buildTableInstitution();
             this.buildTableBooks();
+            this.buildTableSearch();
 
             this.closeConnection();
     }
@@ -101,6 +102,18 @@ public class DataBaseStructures extends DataBase{
     		    "'id_articles' INTEGER NOT NULL," +
     		    "'id_books' INTEGER," +
     		    "'artistic_production' INTEGER)";
+    	this.database.execSQL(sql);
+    }
+
+    private void buildTableSearch() throws SQLException {
+    	String sql = "CREATE TABLE IF NOT EXISTS 'search' (" +
+    		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+    			"'date' DATETIME," +
+    			"'year' INTEGER," +
+    			"'option' INTEGER," +
+    			"'indicator' TEXT," +
+    			"'min_value' INTEGER," +
+    			"'max_value' INTEGER)";
     	this.database.execSQL(sql);
     }
 }
