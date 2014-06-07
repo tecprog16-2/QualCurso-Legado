@@ -74,6 +74,6 @@
     <string name="byYear">no ano de</string>
     <string name="by_indicator">por</string>
     <string name="and">e</string>
-
+	<string name="maximum">Máximo</string>
 
 </resources>

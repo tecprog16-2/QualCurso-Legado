@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.database.SQLException;
 import android.text.format.DateFormat;
+import helpers.Indicator;
 
 public class Search extends Bean{
 
@@ -15,7 +16,7 @@ public class Search extends Bean{
 	private Date date;
 	private int year;
 	private int option;
-	private String indicator;
+	private Indicator indicator;
 	private int minValue;
 	private int maxValue;
 
@@ -56,11 +57,11 @@ public class Search extends Bean{
 		this.option = option;
 	}
 
-	public String getIndicator() {
+	public Indicator getIndicator() {
 		return indicator;
 	}
 
-	public void setIndicator(String indicator) {
+	public void setIndicator(Indicator indicator) {
 		this.indicator = indicator;
 	}
 
@@ -171,7 +172,7 @@ public class Search extends Bean{
 		}
 		
 		else if(field.equals("indicator")) {
-			return this.getIndicator();
+			return this.getIndicator().getValue();
 		}
 		
 		else if(field.equals("min_value")) {
@@ -197,22 +198,22 @@ public class Search extends Bean{
 		}else if (field.equals("year")) {
 			this.setYear(Integer.parseInt(data));
 		}
-		
+
 		else if (field.equals("option")) {
 			this.setOption(Integer.parseInt(data));
 		}
-		
+
 		else if (field.equals("indicator")) {
-			this.setIndicator(data);
+			this.setIndicator(Indicator.getIndicatorByValue(data));
 		}
-		
+
 		else if (field.equals("min_value")) {
 			this.setMinValue(Integer.parseInt(data));
 		}
 		else if (field.equals("max_value")) {
 			this.setMaxValue(Integer.parseInt(data));
 		}
-		
+
 	}
 
 	@Override
