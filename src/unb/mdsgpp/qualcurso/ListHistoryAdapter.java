@@ -33,7 +33,6 @@ public class ListHistoryAdapter extends ArrayAdapter<HashMap<String, String>>{
 	
 	if(h != null){
 		TextView search_by = (TextView) v.findViewById(R.id.searchBy);
-		TextView indicator1 = (TextView) v.findViewById(id);
 	}
 	return v;
 	}
