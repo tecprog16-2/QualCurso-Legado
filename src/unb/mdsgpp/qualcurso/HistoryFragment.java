@@ -45,5 +45,7 @@ public class HistoryFragment extends Fragment {
 			
 			return rootView;
 		}
+		
+		
 	}
 }

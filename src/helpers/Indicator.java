@@ -44,18 +44,18 @@ public class Indicator {
 
 		result.add(new Indicator(indicatorList[0], ""));
 		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(7)));
-		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(5)));
-		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(6)));
-		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(8)));
-		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(9)));
-		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(10)));
-		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(13)));
-		result.add(new Indicator(indicatorList[1], new Book().fieldsList().get(2)));
-		result.add(new Indicator(indicatorList[1], new Book().fieldsList().get(1)));
-		result.add(new Indicator(indicatorList[1], new Book().fieldsList().get(3)));
-		result.add(new Indicator(indicatorList[1], new Book().fieldsList().get(4)));
-		result.add(new Indicator(indicatorList[1], new Article().fieldsList().get(1)));
-		result.add(new Indicator(indicatorList[1], new Article().fieldsList().get(2)));
+		result.add(new Indicator(indicatorList[2], new Evaluation().fieldsList().get(5)));
+		result.add(new Indicator(indicatorList[3], new Evaluation().fieldsList().get(6)));
+		result.add(new Indicator(indicatorList[4], new Evaluation().fieldsList().get(8)));
+		result.add(new Indicator(indicatorList[5], new Evaluation().fieldsList().get(9)));
+		result.add(new Indicator(indicatorList[6], new Evaluation().fieldsList().get(10)));
+		result.add(new Indicator(indicatorList[7], new Evaluation().fieldsList().get(13)));
+		result.add(new Indicator(indicatorList[8], new Book().fieldsList().get(2)));
+		result.add(new Indicator(indicatorList[9], new Book().fieldsList().get(1)));
+		result.add(new Indicator(indicatorList[10], new Book().fieldsList().get(3)));
+		result.add(new Indicator(indicatorList[11], new Book().fieldsList().get(4)));
+		result.add(new Indicator(indicatorList[12], new Article().fieldsList().get(1)));
+		result.add(new Indicator(indicatorList[13], new Article().fieldsList().get(2)));
 
 		return result;
 	}

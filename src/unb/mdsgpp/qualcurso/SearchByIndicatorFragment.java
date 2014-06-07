@@ -1,5 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
+import helpers.Indicator;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,7 +67,7 @@ public class SearchByIndicatorFragment extends Fragment {
 				.findViewById(R.id.course_institution);
 		
 		final Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
-
+		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActivity().getApplicationContext(), R.layout.simple_textview,Indicator.getIndicators()));
 		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		final CheckBox maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		final EditText firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
@@ -105,74 +107,12 @@ public class SearchByIndicatorFragment extends Fragment {
 				}else{
 					max = number2;
 				}
-
-				switch (filterFieldSpinner.getSelectedItemPosition()) {
-				case 0:
-					filterField = "";
-					break;
-
-				case 1:
-					filterField = new Evaluation().fieldsList().get(7);
-					break;
-
-				case 2:
-					filterField = new Evaluation().fieldsList().get(5);
-					break;
-
-				case 3:
-					filterField = new Evaluation().fieldsList().get(6);
-					break;
-
-				case 4:
-					filterField = new Evaluation().fieldsList().get(8);
-					break;
-
-				case 5:
-					filterField = new Evaluation().fieldsList().get(9);
-					break;
-
-				case 6:
-					filterField = new Evaluation().fieldsList().get(10);
-					break;
-
-				case 7:
-					filterField = new Evaluation().fieldsList().get(13);
-					break;
-
-				case 8:
-					filterField = new Book().fieldsList().get(2);
-					break;
-
-				case 9:
-					filterField = new Book().fieldsList().get(1);
-					break;
-
-				case 10:
-					filterField = new Book().fieldsList().get(3);
-					break;
-
-				case 11:
-					filterField = new Book().fieldsList().get(4);
-					break;
-
-				case 12:
-					filterField = new Article().fieldsList().get(1);
-					break;
-
-				case 13:
-					filterField = new Article().fieldsList().get(2);
-					break;
-
-				default:
-					filterField = "";
-					break;
-				}
-
-			this.updateSearchList(number1, max, year, listSelectionPosition, filterField);
+					this.updateSearchList(number1, max, year, listSelectionPosition, ((Indicator)filterFieldSpinner.getItemAtPosition(filterFieldSpinner.getSelectedItemPosition())));
+			
 			}
 
-			private void updateSearchList(int min, int max, int year, int listSelectionPosition, String filterField) {
-				if(filterField == "") {
+			private void updateSearchList(int min, int max, int year, int listSelectionPosition, Indicator filterField) {
+				if(filterField.getValue() == "") {
 					Context c = QualCurso.getInstance();
 					String emptySearchFilter = getResources().getString(R.string.empty_search_filter);
 
@@ -201,7 +141,7 @@ public class SearchByIndicatorFragment extends Fragment {
 				}
 			}
 
-			private void callInstitutionList(int min, int max, int year, String filterField){
+			private void callInstitutionList(int min, int max, int year, Indicator filterField){
 				Calendar c = Calendar.getInstance();
 				Search search = new Search();
 				search.setDate(new Date(c.getTime().getTime()));
@@ -211,11 +151,11 @@ public class SearchByIndicatorFragment extends Fragment {
 				search.setMinValue(min);
 				search.setMaxValue(max);
 				search.save();
-				ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter(filterField, year, min, max);
-				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField, year, min, max), R.id.search_list);
+				ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter(filterField.getValue(), year, min, max);
+				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField.getValue(), year, min, max), R.id.search_list);
 			}
 
-			private void callCourseList(int min, int max, int year, String filterField){
+			private void callCourseList(int min, int max, int year, Indicator filterField){
 				Calendar c = Calendar.getInstance();
 				Search search = new Search();
 				search.setDate(new Date(c.getTime().getTime()));
@@ -225,8 +165,8 @@ public class SearchByIndicatorFragment extends Fragment {
 				search.setMinValue(min);
 				search.setMaxValue(max);
 				search.save();
-				ArrayList<Course> beanList = Course.getCoursesByEvaluationFilter(filterField, year, min, max);
-				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField, year, min, max), R.id.search_list);
+				ArrayList<Course> beanList = Course.getCoursesByEvaluationFilter(filterField.getValue(), year, min, max);
+				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField.getValue(), year, min, max), R.id.search_list);
 			}
 		};
 

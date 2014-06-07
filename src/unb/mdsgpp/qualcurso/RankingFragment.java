@@ -1,5 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
+import helpers.Indicator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -63,6 +65,7 @@ public class RankingFragment extends Fragment{
 				false);
 
 		final Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
+		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActivity().getApplicationContext(), R.layout.simple_textview,Indicator.getIndicators()));
 		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		final ListView evaluationList = (ListView) rootView.findViewById(R.id.evaluationList);
 		
@@ -81,7 +84,7 @@ public class RankingFragment extends Fragment{
 		OnItemClickListener listener = new OnItemClickListener() {
 			@Override
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-				String filterField = "";
+				String filterField = ((Indicator)filterFieldSpinner.getItemAtPosition(position)).getValue();
 				int year;
 
 				if( yearSpinner.getSelectedItemPosition() != 0 ) {
@@ -90,75 +93,14 @@ public class RankingFragment extends Fragment{
 					yearSpinner.setSelection(yearSpinner.getAdapter().getCount()-1);
 					year = Integer.parseInt(yearSpinner.getAdapter().getItem(yearSpinner.getAdapter().getCount()-1).toString());
 				}
-	
-				switch (filterFieldSpinner.getSelectedItemPosition()) {
-				case 0:
-					filterField = "";
-					break;
-
-				case 1:
-					filterField = new Evaluation().fieldsList().get(7);
-					break;
-
-				case 2:
-					filterField = new Evaluation().fieldsList().get(5);
-					break;
-
-				case 3:
-					filterField = new Evaluation().fieldsList().get(6);
-					break;
-
-				case 4:
-					filterField = new Evaluation().fieldsList().get(8);
-					break;
-
-				case 5:
-					filterField = new Evaluation().fieldsList().get(9);
-					break;
-
-				case 6:
-					filterField = new Evaluation().fieldsList().get(10);
-					break;
-
-				case 7:
-					filterField = new Evaluation().fieldsList().get(13);
-					break;
-
-				case 8:
-					filterField = new Book().fieldsList().get(2);
-					break;
-
-				case 9:
-					filterField = new Book().fieldsList().get(1);
-					break;
-
-				case 10:
-					filterField = new Book().fieldsList().get(3);
-					break;
-
-				case 11:
-					filterField = new Book().fieldsList().get(4);
-					break;
-
-				case 12:
-					filterField = new Article().fieldsList().get(1);
-					break;
-
-				case 13:
-					filterField = new Article().fieldsList().get(2);
-					break;
-
-				default:
-					filterField = "";
-					break;
-				}
+				
 
 				if( filterField.length() != 0 ) {
 					fields.add(filterField);
 					ListAdapter adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.list_item,gDB.selectOrdered(fields, filterField,"id_course ="+((Course)parent.getItemAtPosition(position)).getId()+" AND year ="+year ,"e.id_institution", true));
 					evaluationList.setAdapter(adapter);
 				} else {
-					Context c = QualCurso.getInstance();
+					Context c = getActivity().getApplicationContext();
 					String emptySearchFilter = getResources().getString(R.string.empty_search_filter);
 
 					Toast toast = Toast.makeText(c, emptySearchFilter, Toast.LENGTH_SHORT);
