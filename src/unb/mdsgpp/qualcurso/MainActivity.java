@@ -102,6 +102,7 @@ public class MainActivity extends ActionBarActivity implements
 				drawerPosition = 2;
 			
 				break;
+			//case 3:
 			default:
 				break;
 			}
@@ -119,6 +120,9 @@ public class MainActivity extends ActionBarActivity implements
 			break;
 		case 3:
 			mTitle = getString(R.string.title_section3);
+			break;
+		case 4:
+			mTitle = getString(R.string.title_section4);
 			break;
 		}
 	}

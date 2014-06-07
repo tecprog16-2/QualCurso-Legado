@@ -68,5 +68,6 @@
     <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
     <string name="modality">MODALIDADE</string>
     <string name="history">Historico</string>
+    <string name="title_section4">Historico de Pesquisa</string>
 
 </resources>
