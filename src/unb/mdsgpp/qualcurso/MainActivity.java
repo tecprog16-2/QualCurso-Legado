@@ -102,7 +102,19 @@ public class MainActivity extends ActionBarActivity implements
 				drawerPosition = 2;
 			
 				break;
-			//case 3:
+			case 3:
+				if(fragmentManager.findFragmentById(R.id.container) == null){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								new SearchByIndicatorFragment()).commit();
+				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof HistoricFragment)){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								new HistoricFragment()).commit();
+				}
+				drawerPosition = 3;
 			default:
 				break;
 			}
