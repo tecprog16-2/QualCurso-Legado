@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"  >
+
+        <TextView
+            android:id="@+id/Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/history"
+            android:textSize="@dimen/historic_dimension" />
+		
+    </RelativeLayout>
+	
+    <ScrollView
+        android:id="@+id/scrollView2"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+	        
+            <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="fill_parent" >
+	            
+                <TextView
+                    android:id="@+id/indicator1"
+	                android:layout_width="50dp"
+	                android:layout_height="40dp"
+	                android:layout_alignParentRight="true"
+	                android:layout_alignParentTop="true"
+	                android:background="@color/gainsboro"
+	                android:ems="10"
+	                android:fontFamily="@string/title_section1"
+	                android:gravity="center"
+	                android:padding="10dp"
+	                android:textColor="@color/black"
+	                android:textSize="@dimen/subtitle_dimension"
+	                android:textStyle="bold" />
+	        </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
