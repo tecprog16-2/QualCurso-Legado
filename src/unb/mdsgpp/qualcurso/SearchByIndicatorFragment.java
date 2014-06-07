@@ -79,7 +79,6 @@ public class SearchByIndicatorFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				int number1, number2, year, max, listSelectionPosition;
-				String filterField;
 
 				if( firstNumber.getText().length() == 0) {
 					firstNumber.setText("0");

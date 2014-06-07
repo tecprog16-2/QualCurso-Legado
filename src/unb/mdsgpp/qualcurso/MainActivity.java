@@ -1,6 +1,5 @@
 package unb.mdsgpp.qualcurso;
 
-import models.Bean;
 import models.Course;
 import models.Institution;
 import android.support.v7.app.ActionBarActivity;

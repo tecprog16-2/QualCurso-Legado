@@ -1,14 +1,13 @@
 package unb.mdsgpp.qualcurso;
 
+import models.Search;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class HistoryFragment extends Fragment {
 
@@ -36,16 +35,12 @@ public class HistoryFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_history, container,
-				false);
-		{
-			final ListView history = (ListView) rootView.findViewById(R.id.listHistory) ; 
-			
-			return rootView;
-		}
-		
-		
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_history, container, false);
+		final ListView history = (ListView) rootView.findViewById(R.id.listHistory) ; 
+
+		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this.getActivity().getApplicationContext(), R.id.listHistory, Search.getAll());
+
+		return rootView;
 	}
 }

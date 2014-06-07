@@ -1,6 +1,5 @@
 package unb.mdsgpp.qualcurso;
 
-import java.util.HashMap;
 import java.util.List;
 
 import models.Search;
@@ -20,7 +19,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search>{
 		super(context,resource, items);
 	}
 
-@Override
+	@Override
 	public View getView(int position, View contextView, ViewGroup parent){
 		View v = contextView;
 

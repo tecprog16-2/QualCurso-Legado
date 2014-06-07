@@ -4,15 +4,12 @@ import android.database.SQLException;
 
 public class DataBaseStructures extends DataBase{
 	
-	
     public DataBaseStructures()  throws SQLException{
         super();
-        
     }
     
 
     public void initDB() throws SQLException{
-
             this.openConnection();
             this.database.execSQL("CREATE TABLE IF NOT EXISTS 'android_metadata' (locale TEXT)");
             this.database.execSQL("INSERT INTO android_metadata VALUES ('pt_BR')");

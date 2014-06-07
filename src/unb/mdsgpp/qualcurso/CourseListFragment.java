@@ -2,11 +2,9 @@ package unb.mdsgpp.qualcurso;
 
 import java.util.ArrayList;
 
-import models.Bean;
 import models.Course;
 import models.Institution;
 import android.database.SQLException;
-import android.graphics.YuvImage;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;

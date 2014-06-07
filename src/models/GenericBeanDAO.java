@@ -235,6 +235,7 @@ public class GenericBeanDAO extends DataBase{
 
 		if (cs.moveToFirst()) {
 			bean = init(type.identifier);
+
 			for (String s : type.fieldsList()) {
 				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
@@ -342,7 +343,11 @@ public class GenericBeanDAO extends DataBase{
 		else if (beanIdentifier.equals("evaluation")) {
 			object = new Evaluation();
 		}
-		
+
+		else if (beanIdentifier.equals("search")) {
+			object = new Search();
+		}
+
 		return object;
 	}
 
