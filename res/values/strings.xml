@@ -70,6 +70,9 @@
     <string name="history">Histórico</string>
     <string name="search_by">Busca por</string>
     <string name="title_section4">Histórico de Pesquisa</string>
+    <string name="byYear">no ano de</string>
+    <string name="by_indicator">por</string>
+    <string name="and">e</string>
 
 
 </resources>

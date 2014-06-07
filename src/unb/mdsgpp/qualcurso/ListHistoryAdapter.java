@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class ListHistoryAdapter extends ArrayAdapter<HashMap<String, String>>{
 	public ListHistoryAdapter(Context context, int textViewResourceId){
@@ -28,8 +29,13 @@ public class ListHistoryAdapter extends ArrayAdapter<HashMap<String, String>>{
 			v = li.inflate(R.layout.history_list_item, null);
 		}
 			
-	HashMap<String, String> h;
-		return v;
+	HashMap<String, String> h = getItem(position);
+	
+	if(h != null){
+		TextView search_by = (TextView) v.findViewById(R.id.searchBy);
+		TextView indicator1 = (TextView) v.findViewById(id);
+	}
+	return v;
 	}
 	
 }
