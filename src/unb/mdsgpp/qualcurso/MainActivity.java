@@ -108,11 +108,11 @@ public class MainActivity extends ActionBarActivity implements
 						.beginTransaction()
 						.replace(R.id.container,
 								new SearchByIndicatorFragment()).commit();
-				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof HistoricFragment)){
+				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof HistoryFragment)){
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								new HistoricFragment()).commit();
+								new HistoryFragment()).commit();
 				}
 				drawerPosition = 3;
 			default:

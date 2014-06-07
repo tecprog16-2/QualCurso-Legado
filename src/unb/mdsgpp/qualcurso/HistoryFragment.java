@@ -10,11 +10,11 @@ import android.webkit.WebView.FindListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class HistoricFragment extends Fragment {
+public class HistoryFragment extends Fragment {
 
 	BeanListCallbacks beanCallbacks;
 
-	public HistoricFragment() {
+	public HistoryFragment() {
 		super();
 	}
 
@@ -38,10 +38,10 @@ public class HistoricFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_historic, container,
+		View rootView = inflater.inflate(R.layout.fragment_history, container,
 				false);
 		{
-			final ListView historic = (ListView) rootView.findViewById(R.id.ListHistoric) ; 
+			final ListView history = (ListView) rootView.findViewById(R.id.listHistory) ; 
 			
 			return rootView;
 		}
