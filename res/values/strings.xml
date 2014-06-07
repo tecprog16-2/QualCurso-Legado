@@ -63,6 +63,7 @@
         <item>2010</item>
     </string-array>
     <string name="course">Curso</string>
+    <string name="institution">Instituição</string>
     <string name="institutions">Instituições</string>
     <string name="courses">Cursos</string>
     <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
