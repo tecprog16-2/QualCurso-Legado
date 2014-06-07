@@ -28,7 +28,7 @@ public class ListHistoryAdapter extends ArrayAdapter<HashMap<String, String>>{
 			v = li.inflate(R.layout.history_list_item, null);
 		}
 			
-	
+	HashMap<String, String> h;
 		return v;
 	}
 	

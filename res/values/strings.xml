@@ -32,7 +32,7 @@
     <string name="search">Buscar</string>
     <string name="line">------------------------------------------------</string>
     
-    <string name="field_name">Listar por:</string>
+    <string name="listBy">Listar por:</string>
 
     <string-array name="list">
         <item>Opção</item>
@@ -68,6 +68,8 @@
     <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
     <string name="modality">MODALIDADE</string>
     <string name="history">Histórico</string>
+    <string name="search_by">Busca por</string>
     <string name="title_section4">Histórico de Pesquisa</string>
+
 
 </resources>
