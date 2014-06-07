@@ -1,12 +1,15 @@
 package unb.mdsgpp.qualcurso;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import models.Article;
 import models.Book;
 import models.Course;
 import models.Evaluation;
 import models.Institution;
+import models.Search;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -199,11 +202,29 @@ public class SearchByIndicatorFragment extends Fragment {
 			}
 
 			private void callInstitutionList(int min, int max, int year, String filterField){
+				Calendar c = Calendar.getInstance();
+				Search search = new Search();
+				search.setDate(new Date(c.getTime().getTime()));
+				search.setYear(year);
+				search.setOption(1);
+				search.setIndicator(filterField);
+				search.setMinValue(min);
+				search.setMaxValue(max);
+				search.save();
 				ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter(filterField, year, min, max);
 				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField, year, min, max), R.id.search_list);
 			}
 
 			private void callCourseList(int min, int max, int year, String filterField){
+				Calendar c = Calendar.getInstance();
+				Search search = new Search();
+				search.setDate(new Date(c.getTime().getTime()));
+				search.setYear(year);
+				search.setOption(0);
+				search.setIndicator(filterField);
+				search.setMinValue(min);
+				search.setMaxValue(max);
+				search.save();
 				ArrayList<Course> beanList = Course.getCoursesByEvaluationFilter(filterField, year, min, max);
 				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField, year, min, max), R.id.search_list);
 			}

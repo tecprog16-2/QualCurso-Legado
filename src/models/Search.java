@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import android.database.SQLException;
+import android.text.format.DateFormat;
 
 public class Search extends Bean{
 
@@ -82,6 +83,9 @@ public class Search extends Bean{
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		if(Search.count()>=10){
+			Search.first().delete();
+		}
 		result = gDB.insertBean(this);
 		this.setId(Search.last().getId());
 		return result;
@@ -150,20 +154,78 @@ public class Search extends Bean{
 	
 	@Override
 	public String get(String field) {
-		// TODO Auto-generated method stub
-		return null;
+		if(field.equals("_id")) {
+			return Integer.toString(this.getId());
+		}
+		
+		else if(field.equals("date")) {
+			return this.getDate().toString();
+		}
+		
+		else if (field.equals("year")) {
+			return Integer.toString(this.getYear());
+		}
+		
+		else if(field.equals("option")) {
+			return Integer.toString(this.getOption());
+		}
+		
+		else if(field.equals("indicator")) {
+			return this.getIndicator();
+		}
+		
+		else if(field.equals("min_value")) {
+			return Integer.toString(this.getMinValue());
+		}
+		
+		else if(field.equals("max_value")) {
+			return Integer.toString(this.getMaxValue());
+		}
+		
+		else {
+			return "";
+		}
 	}
 
 	@Override
 	public void set(String field, String data) {
-		// TODO Auto-generated method stub
+		if(field.equals("_id")){
+			this.setId(Integer.parseInt(data));
+		}else if(field.equals("date")){
+			Date dateData = Date.valueOf(data);
+			this.setDate(dateData);
+		}else if (field.equals("year")) {
+			this.setYear(Integer.parseInt(data));
+		}
+		
+		else if (field.equals("option")) {
+			this.setOption(Integer.parseInt(data));
+		}
+		
+		else if (field.equals("indicator")) {
+			this.setIndicator(data);
+		}
+		
+		else if (field.equals("min_value")) {
+			this.setMinValue(Integer.parseInt(data));
+		}
+		else if (field.equals("max_value")) {
+			this.setMaxValue(Integer.parseInt(data));
+		}
 		
 	}
 
 	@Override
 	public ArrayList<String> fieldsList() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> fields = new ArrayList<String>();
+		fields.add("_id");
+		fields.add("date");
+		fields.add("year");
+		fields.add("option");
+		fields.add("indicator");
+		fields.add("min_value");
+		fields.add("max_value");
+		return fields;
 	}
 
 	@Override
