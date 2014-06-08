@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class HistoryFragment extends Fragment {
@@ -40,6 +41,8 @@ public class HistoryFragment extends Fragment {
 		final ListView history = (ListView) rootView.findViewById(R.id.listHistory) ; 
 
 		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this.getActivity().getApplicationContext(), R.id.listHistory, Search.getAll());
+
+		history.setAdapter((ListAdapter)histotyAdapter);
 
 		return rootView;
 	}
