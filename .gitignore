@@ -3,7 +3,6 @@ bin/*
 gen/*
 android-support-v4.jar
 local.properties
-*.properties
 .gitignore
 
 # Mobile Tools for Java (J2ME)
