@@ -27,7 +27,7 @@
     <string name="works">Quantidade de trabalhos publicados:</string>
     <string name="empty_search_filter">Escolha um indicador</string>
 
-    <string name="between">entre</string>
+    <string name="between">Entre:</string>
     <string name="max">Máx</string>
     <string name="search">Buscar</string>
     <string name="line">------------------------------------------------</string>
@@ -69,10 +69,10 @@
     <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
     <string name="modality">MODALIDADE</string>
     <string name="history">Histórico</string>
-    <string name="search_by">Busca por</string>
+    <string name="search_by">Busca por: </string>
     <string name="title_section4">Histórico de Pesquisa</string>
-    <string name="byYear">no ano de</string>
-    <string name="by_indicator">por</string>
+    <string name="byYear">Ano: </string>
+    <string name="by_indicator">Indicador: </string>
     <string name="and">e</string>
 	<string name="maximum">Máximo</string>
 
