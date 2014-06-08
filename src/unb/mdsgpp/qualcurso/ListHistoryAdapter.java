@@ -37,6 +37,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search>{
 		TextView indicator = (TextView) v.findViewById(R.id.indicator);
 		TextView firstValue = (TextView) v.findViewById(R.id.firstValue);
 		TextView secondValue = (TextView) v.findViewById(R.id.secondValue);
+		TextView searchDate = (TextView) v.findViewById(R.id.searchDate);
 
 		if (option != null){
 			if (s.getOption() == Search.COURSE) {
@@ -66,6 +67,10 @@ public class ListHistoryAdapter extends ArrayAdapter<Search>{
 			} else {
 				secondValue.setText(Integer.toString(max));	
 			}
+		}
+		
+		if( searchDate != null ) {
+			searchDate.setText(s.getDate().toString());
 		}
 	}
 

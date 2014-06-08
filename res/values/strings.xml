@@ -62,6 +62,7 @@
         <item>2007</item>
         <item>2010</item>
     </string-array>
+
     <string name="course">Curso</string>
     <string name="institution">Instituição</string>
     <string name="institutions">Instituições</string>
@@ -75,5 +76,6 @@
     <string name="by_indicator">Indicador: </string>
     <string name="and">e</string>
 	<string name="maximum">Máximo</string>
+	<string name="search_date">Busca realizada em:</string>
 
 </resources>
