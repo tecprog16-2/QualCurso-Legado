@@ -117,16 +117,6 @@ public class Course extends Bean implements Parcelable{
 		return result;
 	}
 	
-	public static ArrayList<Course> getFromIds(ArrayList<Integer> ids){
-		Course type = new Course();
-		ArrayList<Course> result = new ArrayList<Course>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanFromIds(type, ids)) {
-			result.add((Course) b);
-		}
-		return result;
-	}
-	
 	public static ArrayList<Course> getCoursesByEvaluationFilter(String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
 		String sql = "SELECT c.* FROM course AS c, evaluation AS e, articles AS a, books AS b "+

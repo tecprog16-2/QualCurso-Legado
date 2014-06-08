@@ -11,6 +11,8 @@ import unb.mdsgpp.qualcurso.R;
 public class Indicator {
 	private String name;
 	private String value;
+	
+	public static final String DEFAULT_INDICATOR = "defaultIndicator"; 
 
 	public Indicator(String name, String value) {		
 		this.name = name;
@@ -42,7 +44,7 @@ public class Indicator {
 		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
 		ArrayList<Indicator> result = new ArrayList<Indicator>();
 
-		result.add(new Indicator(indicatorList[0], ""));
+		result.add(new Indicator(indicatorList[0], DEFAULT_INDICATOR));
 		result.add(new Indicator(indicatorList[1], new Evaluation().fieldsList().get(7)));
 		result.add(new Indicator(indicatorList[2], new Evaluation().fieldsList().get(5)));
 		result.add(new Indicator(indicatorList[3], new Evaluation().fieldsList().get(6)));
@@ -62,7 +64,6 @@ public class Indicator {
 
 	public static Indicator getIndicatorByValue(String value) {
 		Indicator indicator = null;
-
 		for(Indicator i : getIndicators()) {
 			if( i.getValue().equals(value) ) {
 				indicator = i;

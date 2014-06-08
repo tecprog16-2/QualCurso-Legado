@@ -36,91 +36,194 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class RankingFragment extends Fragment{
+public class RankingFragment extends Fragment {
 	BeanListCallbacks beanCallbacks;
-	private static final String ID_COURSE = "idCourse";
+	private static final String COURSE = "course";
+	private static final String FILTER_FIELD = "filterField";
+
 	public RankingFragment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-            beanCallbacks = (BeanListCallbacks) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
-        }
+			beanCallbacks = (BeanListCallbacks) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString()
+					+ " must implement BeanListCallbacks.");
+		}
 	}
+
 	@Override
-    public void onDetach() {
-        super.onDetach();
-        beanCallbacks = null;
-    }
+	public void onDetach() {
+		super.onDetach();
+		beanCallbacks = null;
+	}
+
+	Spinner filterFieldSpinner = null;
+	Spinner yearSpinner = null;
+	ListView evaluationList = null;
+	AutoCompleteTextView autoCompleteField = null;
+	Course currentSelection = null;
+	String filterField = Indicator.DEFAULT_INDICATOR;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.ranking_fragment, container,
 				false);
+		if (savedInstanceState != null) {
+			if (savedInstanceState.getParcelable(COURSE) != null) {
+				setCurrentSelection((Course) savedInstanceState
+						.getParcelable(COURSE));
 
-		final Spinner filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
-		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActivity().getApplicationContext(), R.layout.simple_textview,Indicator.getIndicators()));
-		final Spinner yearSpinner = (Spinner) rootView.findViewById(R.id.year);
-		final ListView evaluationList = (ListView) rootView.findViewById(R.id.evaluationList);
-		
+			}
+			if (savedInstanceState.getString(FILTER_FIELD) != null) {
+				setFilterField(savedInstanceState.getString(FILTER_FIELD));
+
+			}
+		}
+		this.filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
+		this.filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(
+				getActivity().getApplicationContext(),
+				R.layout.simple_textview, Indicator.getIndicators()));
+		this.yearSpinner = (Spinner) rootView.findViewById(R.id.year);
+		this.filterFieldSpinner
+				.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+					@Override
+					public void onItemSelected(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						setFilterField(((Indicator) arg0
+								.getItemAtPosition(arg2)).getValue());
+						if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+							updateList();
+						}
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+
+		this.yearSpinner
+				.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+					@Override
+					public void onItemSelected(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+							updateList();
+						}
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+		this.evaluationList = (ListView) rootView
+				.findViewById(R.id.evaluationList);
+
 		ArrayList<Course> courses = Course.getAll();
-		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
-		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, courses));
-
-		final GenericBeanDAO gDB = new GenericBeanDAO();
-		final ArrayList<String> fields = new ArrayList<String>();
-
-		fields.add("id_institution");
-		fields.add("id_course");
-		fields.add("acronym");
-		fields.add("year");
+		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView
+				.findViewById(R.id.autoCompleteTextView);
+		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity()
+				.getApplicationContext(), R.layout.custom_textview, courses));
 
 		OnItemClickListener listener = new OnItemClickListener() {
 			@Override
-		    public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-				String filterField = ((Indicator)filterFieldSpinner.getItemAtPosition(position)).getValue();
-				int year;
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long rowId) {
+				setCurrentSelection((Course) parent.getItemAtPosition(position));
+				updateList();
 
-				if( yearSpinner.getSelectedItemPosition() != 0 ) {
-					year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
-				} else {
-					yearSpinner.setSelection(yearSpinner.getAdapter().getCount()-1);
-					year = Integer.parseInt(yearSpinner.getAdapter().getItem(yearSpinner.getAdapter().getCount()-1).toString());
-				}
-				
-
-				if( filterField.length() != 0 ) {
-					fields.add(filterField);
-					ListAdapter adapter = new ListAdapter(getActivity().getApplicationContext(), R.layout.list_item,gDB.selectOrdered(fields, filterField,"id_course ="+((Course)parent.getItemAtPosition(position)).getId()+" AND year ="+year ,"e.id_institution", true));
-					evaluationList.setAdapter(adapter);
-				} else {
-					Context c = getActivity().getApplicationContext();
-					String emptySearchFilter = getResources().getString(R.string.empty_search_filter);
-
-					Toast toast = Toast.makeText(c, emptySearchFilter, Toast.LENGTH_SHORT);
-					toast.setGravity(0, 20, 50);
-					toast.show();
-				}
-		    }
+			}
 		};
 		autoCompleteField.setOnItemClickListener(listener);
-		
-		
 		evaluationList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(Integer.parseInt(((HashMap<String,String>)parent.getItemAtPosition(position)).get("id_institution")), Integer.parseInt(((HashMap<String,String>)parent.getItemAtPosition(position)).get("id_course")), Integer.parseInt(((HashMap<String,String>)parent.getItemAtPosition(position)).get("year"))));
+				beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment
+						.newInstance(Integer
+								.parseInt(((HashMap<String, String>) parent
+										.getItemAtPosition(position))
+										.get("id_institution")), Integer
+								.parseInt(((HashMap<String, String>) parent
+										.getItemAtPosition(position))
+										.get("id_course")), Integer
+								.parseInt(((HashMap<String, String>) parent
+										.getItemAtPosition(position))
+										.get("year"))));
 			}
 		});
+		if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+			updateList();
+		}
 		return rootView;
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(COURSE, this.currentSelection);
+		outState.putString(FILTER_FIELD, this.filterField);
+		super.onSaveInstanceState(outState);
+	}
+
+	public void setFilterField(String filterField) {
+		this.filterField = filterField;
+	}
+
+	public void setCurrentSelection(Course currentSelection) {
+		this.currentSelection = currentSelection;
+	}
+
+	public void updateList() {
+		if (this.filterField != Indicator.DEFAULT_INDICATOR) {
+			final ArrayList<String> fields = new ArrayList<String>();
+			fields.add(this.filterField);
+			fields.add("id_institution");
+			fields.add("id_course");
+			fields.add("acronym");
+			fields.add("year");
+			int year;
+
+			if (yearSpinner.getSelectedItemPosition() != 0) {
+				year = Integer.parseInt(yearSpinner.getSelectedItem()
+						.toString());
+			} else {
+				yearSpinner
+						.setSelection(yearSpinner.getAdapter().getCount() - 1);
+				year = Integer.parseInt(yearSpinner.getAdapter()
+						.getItem(yearSpinner.getAdapter().getCount() - 1)
+						.toString());
+			}
+
+			GenericBeanDAO gDB = new GenericBeanDAO();
+			ListAdapter adapter = new ListAdapter(getActivity()
+					.getApplicationContext(), R.layout.list_item,
+					gDB.selectOrdered(fields, fields.get(0), "id_course ="
+							+ this.currentSelection.getId() + " AND year ="
+							+ year, "id_institution", true));
+			evaluationList.setAdapter(adapter);
+		} else {
+			Context c = getActivity().getApplicationContext();
+			String emptySearchFilter = getResources().getString(
+					R.string.empty_search_filter);
+
+			Toast toast = Toast.makeText(c, emptySearchFilter,
+					Toast.LENGTH_SHORT);
+			toast.setGravity(0, 20, 50);
+			toast.show();
+		}
 	}
 
 }

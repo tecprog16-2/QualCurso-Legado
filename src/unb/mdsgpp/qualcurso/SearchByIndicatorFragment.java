@@ -111,7 +111,7 @@ public class SearchByIndicatorFragment extends Fragment {
 			}
 
 			private void updateSearchList(int min, int max, int year, int listSelectionPosition, Indicator filterField) {
-				if(filterField.getValue() == "") {
+				if(filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
 					Context c = QualCurso.getInstance();
 					String emptySearchFilter = getResources().getString(R.string.empty_search_filter);
 

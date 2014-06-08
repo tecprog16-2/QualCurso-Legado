@@ -33,6 +33,7 @@ public class DataBaseStructures extends DataBase{
         this.database.execSQL("DROP TABLE IF EXISTS 'books'");
         this.database.execSQL("DROP TABLE IF EXISTS 'evaluation'");
         this.database.execSQL("DROP TABLE IF EXISTS 'android_metadata'");
+        this.database.execSQL("DROP TABLE IF EXISTS 'search'");
         this.closeConnection();
     }
 

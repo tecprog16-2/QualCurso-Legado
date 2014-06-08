@@ -15,12 +15,5 @@ public abstract class Bean {
 	public abstract int getId();
 	
 	public abstract void setId(int id);
-	
-	public static ArrayList<Integer> getIds(ArrayList<? extends Bean> list){
-		ArrayList<Integer> ids = new ArrayList<Integer>();
-		for(Bean bean : list){
-			ids.add(bean.getId());
-		}
-		return ids;
-	}
+
 }
