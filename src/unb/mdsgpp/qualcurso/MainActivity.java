@@ -1,7 +1,9 @@
 package unb.mdsgpp.qualcurso;
 
+import models.Bean;
 import models.Course;
 import models.Institution;
+import models.Search;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -28,12 +30,15 @@ public class MainActivity extends ActionBarActivity implements
 	 */
 	private CharSequence mTitle;
 	private int drawerPosition = 10;
+	public static String DRAWER_POSITION = "drawerPosition";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		if(savedInstanceState != null){
+			drawerPosition = savedInstanceState.getInt(DRAWER_POSITION);
+		}
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
@@ -48,6 +53,12 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt(DRAWER_POSITION, drawerPosition);
+		super.onSaveInstanceState(outState);
 	}
 
 	@Override
@@ -194,21 +205,17 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void onSearchBeanSelected(Parcelable bean, String field, int year,
-			int rangeA, int rangeB) {
+	public void onSearchBeanSelected(Search search, Parcelable bean) {
 		if(bean instanceof Institution){
+			System.out.println("teste");
 			onBeanListItemSelected(CourseListFragment.newInstance(((Institution)bean).getId(),
-					year,
-					Institution.getCoursesByEvaluationFilter(((Institution)bean).getId(),field, 
-							year, rangeA, 
-							rangeB)));
+					search.getYear(),
+					Institution.getCoursesByEvaluationFilter(((Institution)bean).getId(),search)));
 		}else if(bean instanceof Course){
 			onBeanListItemSelected(InstitutionListFragment.newInstance(((Course)bean).getId(),
-					year,
-					Course.getInstitutionsByEvaluationFilter(((Course)bean).getId(),field, 
-							year, rangeA, 
-							rangeB)));
-		}
+					search.getYear(),
+					Course.getInstitutionsByEvaluationFilter(((Course)bean).getId(),search)));
+		}		
 	}
 
 

@@ -115,19 +115,19 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(Search search) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		String sql = "SELECT i.* FROM institution AS i, evaluation AS e, articles AS a, books AS b "+
-					" WHERE year="+Integer.toString(year)+
+					" WHERE year="+Integer.toString(search.getYear())+
 					" AND e.id_institution = i._id"+
 					" AND e.id_articles = a._id"+
 					" AND e.id_books = b._id"+
-					" AND "+filterField;
+					" AND "+search.getIndicator().getValue();
 
-		if(maxInterval == -1){
-			sql+=" >= "+Integer.toString(minInterval);
+		if(search.getMaxValue() == -1){
+			sql+=" >= "+Integer.toString(search.getMinValue());
 		}else{
-			sql+=" BETWEEN "+Integer.toString(minInterval)+" AND "+Integer.toString(maxInterval);
+			sql+=" BETWEEN "+Integer.toString(search.getMinValue())+" AND "+Integer.toString(search.getMaxValue());
 		}
 		sql+=" GROUP BY i._id";
 		GenericBeanDAO
@@ -140,20 +140,20 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
-	public static ArrayList<Course> getCoursesByEvaluationFilter(int id_institution, String filterField, int year, int minInterval, int maxInterval) throws  SQLException {
+	public static ArrayList<Course> getCoursesByEvaluationFilter(int id_institution, Search search) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
 		String sql = "SELECT c.* FROM course AS c, evaluation AS e, articles AS a, books AS b "+
 					" WHERE e.id_institution="+id_institution+
 					" AND e.id_course = c._id"+
 					" AND e.id_articles = a._id"+
 					" AND e.id_books = b._id"+
-					" AND year="+year+
-					" AND "+filterField;
+					" AND year="+search.getYear()+
+					" AND "+search.getIndicator().getValue();
 		
-		if(maxInterval == -1){
-			sql+=" >= "+minInterval;
+		if(search.getMaxValue() == -1){
+			sql+=" >= "+search.getMinValue();
 		}else{
-			sql+=" BETWEEN "+minInterval+" AND "+maxInterval;
+			sql+=" BETWEEN "+search.getMinValue()+" AND "+search.getMaxValue();
 		}
 		sql+=" GROUP BY c._id";
 		GenericBeanDAO gDB = new GenericBeanDAO();

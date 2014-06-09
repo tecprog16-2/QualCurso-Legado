@@ -1,8 +1,12 @@
 package models;
 
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Locale;
 
+import unb.mdsgpp.qualcurso.QualCurso;
 import android.database.SQLException;
 import android.text.format.DateFormat;
 import helpers.Indicator;
@@ -160,9 +164,8 @@ public class Search extends Bean{
 		}
 
 		else if(field.equals("date")) {
-			return this.getDate().toString();
+			return new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.US).format(this.date);
 		}
-		
 		else if (field.equals("year")) {
 			return Integer.toString(this.getYear());
 		}
@@ -189,13 +192,18 @@ public class Search extends Bean{
 	}
 
 	@Override
-	public void set(String field, String data) {
+	public void set(String field, String data){
 		if(field.equals("_id")){
 			this.setId(Integer.parseInt(data));
 		}
 
 		else if(field.equals("date")){
-			Date dateData = Date.valueOf(data);
+			Date dateData = null;
+			try {
+				dateData = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.US).parse(data);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			this.setDate(dateData);
 		}
 

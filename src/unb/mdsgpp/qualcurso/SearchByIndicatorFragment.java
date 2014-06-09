@@ -150,8 +150,8 @@ public class SearchByIndicatorFragment extends Fragment {
 				search.setMinValue(min);
 				search.setMaxValue(max);
 				search.save();
-				ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter(filterField.getValue(), year, min, max);
-				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField.getValue(), year, min, max), R.id.search_list);
+				ArrayList<Institution> beanList = Institution.getInstitutionsByEvaluationFilter(search);
+				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,search), R.id.search_list);
 			}
 
 			private void callCourseList(int min, int max, int year, Indicator filterField){
@@ -164,8 +164,8 @@ public class SearchByIndicatorFragment extends Fragment {
 				search.setMinValue(min);
 				search.setMaxValue(max);
 				search.save();
-				ArrayList<Course> beanList = Course.getCoursesByEvaluationFilter(filterField.getValue(), year, min, max);
-				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,filterField.getValue(), year, min, max), R.id.search_list);
+				ArrayList<Course> beanList = Course.getCoursesByEvaluationFilter(search);
+				beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(beanList,search), R.id.search_list);
 			}
 		};
 

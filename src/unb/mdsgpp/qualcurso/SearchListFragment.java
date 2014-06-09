@@ -1,10 +1,13 @@
 package unb.mdsgpp.qualcurso;
 
+import helpers.Indicator;
+
 import java.util.ArrayList;
 
 import models.Bean;
 import models.Course;
 import models.Institution;
+import models.Search;
 import android.app.Activity;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -31,13 +34,13 @@ public class SearchListFragment extends ListFragment{
 	public SearchListFragment() {
 	}
 	
-	public static SearchListFragment newInstance(ArrayList<? extends Parcelable> list, String field, int year, int rangeA, int rangeB){
+	public static SearchListFragment newInstance(ArrayList<? extends Parcelable> list, Search search){
 		SearchListFragment fragment = new SearchListFragment();
 		Bundle args = new Bundle();
-		args.putInt(YEAR, year);
-		args.putString(FIELD, field);
-		args.putInt(RANGE_A, rangeA);
-		args.putInt(RANGE_B, rangeB);
+		args.putInt(YEAR, search.getYear());
+		args.putString(FIELD, search.getIndicator().getValue());
+		args.putInt(RANGE_A, search.getMinValue());
+		args.putInt(RANGE_B, search.getMaxValue());
 		args.putParcelableArrayList(BEAN_LIST,list);
 		fragment.setArguments(args);
 		return fragment;
@@ -91,11 +94,22 @@ public class SearchListFragment extends ListFragment{
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		String field = getArguments().getString(FIELD);
+		Parcelable bean = (Parcelable)l.getItemAtPosition(position);
+		Indicator i = Indicator.getIndicatorByValue(getArguments().getString(FIELD));
 		int year = getArguments().getInt(YEAR);
 		int rangeA = getArguments().getInt(RANGE_A);
 		int rangeB = getArguments().getInt(RANGE_B);
-		beanCallbacks.onSearchBeanSelected((Parcelable)l.getItemAtPosition(position) , field, year, rangeA, rangeB);
+		Search search = new Search();
+		search.setIndicator(i);
+		search.setYear(year);
+		if(bean instanceof Institution){
+			search.setOption(Search.INSTITUTION);
+		}else if(bean instanceof Course){
+			search.setOption(Search.COURSE);
+		}
+		search.setMinValue(rangeA);
+		search.setMaxValue(rangeB);
+		beanCallbacks.onSearchBeanSelected(search, bean);
 		super.onListItemClick(l, v, position, id);
 	}
 	

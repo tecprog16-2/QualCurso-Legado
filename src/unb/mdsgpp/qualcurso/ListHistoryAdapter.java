@@ -1,9 +1,11 @@
 package unb.mdsgpp.qualcurso;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import models.Search;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +72,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search>{
 		}
 		
 		if( searchDate != null ) {
-			searchDate.setText(s.getDate().toString());
+			searchDate.setText(SimpleDateFormat.getDateTimeInstance().format(s.getDate()));
 		}
 	}
 
