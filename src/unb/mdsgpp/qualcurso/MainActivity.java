@@ -125,7 +125,8 @@ public class MainActivity extends ActionBarActivity implements
 								new HistoryFragment()).commit();
 				}
 				drawerPosition = 3;
-			
+				break;
+
 			case 4:
 				if(fragmentManager.findFragmentById(R.id.container) == null){
 					fragmentManager
@@ -139,7 +140,8 @@ public class MainActivity extends ActionBarActivity implements
 								new CompareFragment()).commit();
 				}
 				drawerPosition = 4;
-				
+				break;
+
 			default:
 				break;
 			}
@@ -160,6 +162,9 @@ public class MainActivity extends ActionBarActivity implements
 			break;
 		case 4:
 			mTitle = getString(R.string.title_section4);
+			break;
+		case 5:
+			mTitle = getString(R.string.title_section5);
 			break;
 		}
 	}

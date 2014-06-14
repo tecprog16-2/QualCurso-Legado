@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -100,6 +101,7 @@ public class CompareFragment extends Fragment{
 
 			}
 		};
+		
 		autoCompleteField.setOnItemClickListener(listener);
 		institutionList.setOnItemClickListener(new OnItemClickListener() {
 
