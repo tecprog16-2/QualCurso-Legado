@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity implements
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								new SearchByIndicatorFragment()).commit();
+								new RankingFragment()).commit();
 				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof RankingFragment)){
 					fragmentManager
 						.beginTransaction()
@@ -117,7 +117,7 @@ public class MainActivity extends ActionBarActivity implements
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								new SearchByIndicatorFragment()).commit();
+								new HistoryFragment()).commit();
 				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof HistoryFragment)){
 					fragmentManager
 						.beginTransaction()
@@ -125,6 +125,21 @@ public class MainActivity extends ActionBarActivity implements
 								new HistoryFragment()).commit();
 				}
 				drawerPosition = 3;
+			
+			case 4:
+				if(fragmentManager.findFragmentById(R.id.container) == null){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								new CompareFragment()).commit();
+				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof CompareFragment)){
+					fragmentManager
+						.beginTransaction()
+						.replace(R.id.container,
+								new CompareFragment()).commit();
+				}
+				drawerPosition = 4;
+				
 			default:
 				break;
 			}

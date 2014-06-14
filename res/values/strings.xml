@@ -5,6 +5,8 @@
     <string name="title_section1">Avaliações</string>
     <string name="title_section2">Pesquisar</string>
     <string name="title_section3">Ranking</string>
+    <string name="title_section4">Histórico de Pesquisa</string>
+    <string name="title_section5">Comparar Instituições</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
@@ -71,7 +73,6 @@
     <string name="modality">MODALIDADE</string>
     <string name="history">Histórico</string>
     <string name="search_by">Busca por: </string>
-    <string name="title_section4">Histórico de Pesquisa</string>
     <string name="byYear">Ano: </string>
     <string name="by_indicator">Indicador: </string>
     <string name="and">e</string>

@@ -1,6 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import helpers.Indicator;
 import models.Course;
@@ -82,7 +83,7 @@ public class CompareFragment extends Fragment{
 		
 		}
 		this.institutionList = (ListView) rootView
-				.findViewById(R.id.evaluationList);
+				.findViewById(R.id.institutionList);
 
 		ArrayList<Course> courses = Course.getAll();
 		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView
@@ -100,9 +101,25 @@ public class CompareFragment extends Fragment{
 			}
 		};
 		autoCompleteField.setOnItemClickListener(listener);
-		evaluationList.setOnItemClickListener(new OnItemClickListener() {
+		institutionList.setOnItemClickListener(new OnItemClickListener() {
 
-		
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment
+						.newInstance(Integer
+								.parseInt(((HashMap<String, String>) parent
+										.getItemAtPosition(position))
+										.get("id_institution")), Integer
+								.parseInt(((HashMap<String, String>) parent
+										.getItemAtPosition(position))
+										.get("id_course")), Integer
+								.parseInt(((HashMap<String, String>) parent
+										.getItemAtPosition(position))
+										.get("year"))));
+			}
+		});
+
 		return rootView;
 	}
 	
