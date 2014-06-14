@@ -16,5 +16,6 @@
     <dimen name="field_dimension">23dp</dimen>
     <dimen name="between_dimension">17dp</dimen>
     <dimen name="historic_dimension">25dp</dimen>
+    <dimen name="label_dimension">17dp</dimen>
 
 </resources>

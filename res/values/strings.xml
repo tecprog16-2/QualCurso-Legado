@@ -78,5 +78,7 @@
     <string name="and">e</string>
 	<string name="maximum">Máximo</string>
 	<string name="search_date">Busca realizada em:</string>
+	<string name="title_text_compare">Comparar Instituições</string>
+	<string name="choose_the_evaluation_year">Ano da avaliação:</string>
 
 </resources>

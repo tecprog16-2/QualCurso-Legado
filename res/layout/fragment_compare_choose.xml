@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<TextView
+	    android:id="@+id/title_compare"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
+	    android:background="@color/medium_green"
+	    android:gravity="center"
+	    android:text="@string/title_text_compare"
+	    android:textColor="@color/black"
+	    android:textSize="@dimen/title_dimension"
+	    android:textStyle="normal" />
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="2"
+	    android:orientation="vertical">
+	    
+	    <LinearLayout
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="horizontal">
+	    
+	    	<TextView
+	    		android:layout_width="0dp"
+	    		android:layout_height="match_parent"
+	    		android:layout_weight="2"
+	    		android:background="@color/white"
+	    		android:gravity="center"
+	    		android:text="@string/choose_the_evaluation_year"
+	    		android:textColor="@color/black"
+	    		android:textSize="@dimen/label_dimension"
+	    		android:textStyle="normal" />
+	    	
+	    	<Spinner
+            	android:id="@+id/compare_year"
+            	android:layout_width="0dp"
+            	android:layout_weight="1"
+            	android:layout_height="wrap_content"
+            	android:gravity="center"
+            	android:entries="@array/year" />
+	        
+		</LinearLayout>
+		
+	    <AutoCompleteTextView 
+	        android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/course"
+            android:singleLine="true" />
+
+	</LinearLayout>
+	
+    <ListView
+        android:id="@+id/listHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" >
+    </ListView>
+
+</LinearLayout>
