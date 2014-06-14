@@ -108,17 +108,7 @@ public class CompareFragment extends Fragment{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment
-						.newInstance(Integer
-								.parseInt(((HashMap<String, String>) parent
-										.getItemAtPosition(position))
-										.get("id_institution")), Integer
-								.parseInt(((HashMap<String, String>) parent
-										.getItemAtPosition(position))
-										.get("id_course")), Integer
-								.parseInt(((HashMap<String, String>) parent
-										.getItemAtPosition(position))
-										.get("year"))));
+				//beanCallbacks.onBeanListItemSelected(
 			}
 		});
 

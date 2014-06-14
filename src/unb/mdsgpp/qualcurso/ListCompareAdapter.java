@@ -37,39 +37,7 @@ public class ListCompareAdapter extends ArrayAdapter<Institution>{
 
 	if(i != null){
 		CheckBox cb = (CheckBox) v.findViewById(R.id.compare_list_checkbox);
-		if (option != null){
-			if (s.getOption() == Search.COURSE) {
-				option.setText(R.string.course);
-			}else if (s.getOption() == Search.INSTITUTION) {
-				option.setText(R.string.institution);
-			}
-		}
-
-		if(year != null){
-			year.setText(Integer.toString(s.getYear()));
-		}
-
-		if(indicator != null){
-			indicator.setText(s.getIndicator().getName());
-		}
-
-		if( firstValue != null ) {
-			firstValue.setText(Integer.toString(s.getMinValue()));
-		}
-
-		if( secondValue != null ) {
-			int max = s.getMaxValue();
-
-			if( max == -1 ) {
-				secondValue.setText(R.string.maximum);
-			} else {
-				secondValue.setText(Integer.toString(max));	
-			}
-		}
-		
-		if( searchDate != null ) {
-			searchDate.setText(SimpleDateFormat.getDateTimeInstance().format(s.getDate()));
-		}
+		cb.setText(i.getAcronym());
 	}
 
 	return v;
