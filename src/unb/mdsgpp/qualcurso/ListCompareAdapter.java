@@ -25,23 +25,21 @@ public class ListCompareAdapter extends ArrayAdapter<Institution>{
 	
 	@Override
 	public View getView(int position, View contextView, ViewGroup parent){
-		View v = contextView;
+		View currentView = contextView;
 
-		if(v == null){
+		if(currentView == null){
 			LayoutInflater li;
 			li = LayoutInflater.from(getContext());
-			v = li.inflate(R.layout.compare_list_item, null);
+			currentView = li.inflate(R.layout.compare_choose_list_item, null);
 		}
 
-	Institution i = getItem(position);
+		Institution i = getItem(position);
 
-	if(i != null){
-		CheckBox cb = (CheckBox) v.findViewById(R.id.compare_list_checkbox);
-		cb.setText(i.getAcronym());
+		if(i != null){
+			CheckBox cb = (CheckBox) currentView.findViewById(R.id.compate_institution_checkbox);
+			cb.setText(i.getAcronym());
+		}
+
+		return currentView;
 	}
-
-	return v;
-	}
-
-	
 }
