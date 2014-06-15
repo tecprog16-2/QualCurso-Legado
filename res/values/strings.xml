@@ -81,5 +81,6 @@
 	<string name="title_text_compare">Comparar Instituições</string>
 	<string name="choose_the_evaluation_year">Ano da avaliação:</string>
 	<string name="select_a_course">Selecione um curso</string>
+	<string name="select_a_year">Selecione um ano</string>
 
 </resources>

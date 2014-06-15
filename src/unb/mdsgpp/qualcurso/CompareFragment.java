@@ -13,10 +13,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -31,6 +33,7 @@ public class CompareFragment extends Fragment{
 	private Spinner yearSpinner = null;
 	private AutoCompleteTextView autoCompleteField = null;
 	private ListView institutionList = null;
+	private Button compareButton = null;
 
 	private int selectedYar;
 	private Course selectedCourse;
@@ -71,15 +74,13 @@ public class CompareFragment extends Fragment{
 			}
 		}
 
-
 		// bound variables with layout objects
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.compare_year);
 		this.autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		this.institutionList = (ListView) rootView.findViewById(R.id.institutionList);
-
+		this.compareButton = (Button) rootView.findViewById(R.id.compare_button);
 
 		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, Course.getAll()));
-
 
 		// Set objects events
 		this.yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -87,6 +88,8 @@ public class CompareFragment extends Fragment{
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				if( yearSpinner.getSelectedItemPosition() != 0)
 					selectedYar = Integer.parseInt(yearSpinner.getSelectedItem().toString());
+				else
+					selectedYar = 0;
 			}
 
 			@Override
@@ -109,6 +112,14 @@ public class CompareFragment extends Fragment{
 			}
 		});
 
+		this.compareButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if( selectedYar == 0 )
+					displayToastMessage(getResources().getString(R.string.select_a_year));
+			}
+		});
+
 		return rootView;
 	}
 
@@ -118,17 +129,19 @@ public class CompareFragment extends Fragment{
 
 	public void updateList() {
 		ListCompareAdapter compareAdapterList = new ListCompareAdapter(this.getActivity().getApplicationContext(), R.layout.compare_show_list_item);
-		
+
 		if( this.selectedCourse != null ) {
 			ArrayList<Institution> courseInstitutions = this.selectedCourse.getInstitutions();
 			compareAdapterList.addAll(courseInstitutions);
 
 			this.institutionList.setAdapter(compareAdapterList);
 		} else {
-			String textMenssage = getResources().getString(R.string.select_a_course);
-
-			Toast toast = Toast.makeText(this.getActivity().getApplicationContext(), textMenssage, Toast.LENGTH_SHORT);
-			toast.show();
+			displayToastMessage(getResources().getString(R.string.select_a_course));
 		}
+	}
+
+	private void displayToastMessage(String textMenssage) {
+		Toast toast = Toast.makeText(this.getActivity().getApplicationContext(), textMenssage, Toast.LENGTH_SHORT);
+		toast.show();
 	}
 }
