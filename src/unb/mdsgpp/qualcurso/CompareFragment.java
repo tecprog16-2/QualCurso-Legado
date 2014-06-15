@@ -6,6 +6,7 @@ import java.util.HashMap;
 import helpers.Indicator;
 import models.Course;
 import models.GenericBeanDAO;
+import models.Institution;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -29,8 +30,11 @@ public class CompareFragment extends Fragment{
 
 	private Spinner yearSpinner = null;
 	private AutoCompleteTextView autoCompleteField = null;
-	private Course currentSelection = null;
 	private ListView institutionList = null;
+
+	private int selectedYar;
+	private Course selectedCourse;
+	private Institution [] selectedInstitutions = new Institution[2];
 
 	public CompareFragment(){
 		super();
@@ -80,15 +84,14 @@ public class CompareFragment extends Fragment{
 		// Set objects events
 		this.yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				if( yearSpinner.getSelectedItemPosition() != 0)
+					selectedYar = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-
+				selectedYar = 0;
 			}
 		});
 
@@ -110,33 +113,22 @@ public class CompareFragment extends Fragment{
 	}
 
 	public void setCurrentSelection(Course currentSelection) {
-		this.currentSelection = currentSelection;
+		this.selectedCourse = currentSelection;
 	}
 
 	public void updateList() {
-		final ArrayList<String> fields = new ArrayList<String>();
-		fields.add("id_institution");
-		fields.add("id_course");
-		fields.add("year");
-		int year;
+		ListCompareAdapter compareAdapterList = new ListCompareAdapter(this.getActivity().getApplicationContext(), R.layout.compare_show_list_item);
+		
+		if( this.selectedCourse != null ) {
+			ArrayList<Institution> courseInstitutions = this.selectedCourse.getInstitutions();
+			compareAdapterList.addAll(courseInstitutions);
 
-		if (yearSpinner.getSelectedItemPosition() != 0) {
-			year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
+			this.institutionList.setAdapter(compareAdapterList);
 		} else {
-			yearSpinner
-					.setSelection(yearSpinner.getAdapter().getCount() - 1);
-			year = Integer.parseInt(yearSpinner.getAdapter()
-					.getItem(yearSpinner.getAdapter().getCount() - 1)
-					.toString());
+			String textMenssage = getResources().getString(R.string.select_a_course);
+
+			Toast toast = Toast.makeText(this.getActivity().getApplicationContext(), textMenssage, Toast.LENGTH_SHORT);
+			toast.show();
 		}
-
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		ListAdapter adapter = new ListAdapter(getActivity()
-				.getApplicationContext(), R.layout.list_item,
-				gDB.selectOrdered(fields, fields.get(0), "id_course ="
-						+ this.currentSelection.getId() + " AND year ="
-						+ year, "id_institution", true));
-
-		institutionList.setAdapter(adapter);
 	}
 }
