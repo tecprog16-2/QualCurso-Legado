@@ -26,7 +26,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class CompareFragment extends Fragment{
+public class CompareFragment extends Fragment {
 	BeanListCallbacks beanCallbacks;
 	private static final String COURSE = "course";
 
@@ -35,14 +35,14 @@ public class CompareFragment extends Fragment{
 	private ListView institutionList = null;
 	private Button compareButton = null;
 
-	private int selectedYar;
+	private int selectedYear;
 	private Course selectedCourse;
-	private Institution [] selectedInstitutions = new Institution[2];
+	private Institution[] selectedInstitutions = new Institution[2];
 
-	public CompareFragment(){
+	public CompareFragment() {
 		super();
 	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -58,8 +58,8 @@ public class CompareFragment extends Fragment{
 	public void onDetach() {
 		super.onDetach();
 		beanCallbacks = null;
-	} 
-	
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState){
@@ -81,20 +81,28 @@ public class CompareFragment extends Fragment{
 		this.compareButton = (Button) rootView.findViewById(R.id.compare_button);
 
 		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, Course.getAll()));
-
+/*
+		OnClickListener listener = new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		}; */
 		// Set objects events
 		this.yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				if( yearSpinner.getSelectedItemPosition() != 0)
-					selectedYar = Integer.parseInt(yearSpinner.getSelectedItem().toString());
+					selectedYear = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 				else
-					selectedYar = 0;
+					selectedYear = 0;
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				selectedYar = 0;
+				selectedYear = 0;
 			}
 		});
 
@@ -115,9 +123,13 @@ public class CompareFragment extends Fragment{
 		this.compareButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if( selectedYar == 0 )
+				if( selectedYear == 0 )
 					displayToastMessage(getResources().getString(R.string.select_a_year));
+				if( (selectedYear != 0)  && (autoCompleteField == null)){
+					displayToastMessage(getResources().getString(R.string.select_a_course));
+				}
 			}
+
 		});
 
 		return rootView;
@@ -128,20 +140,26 @@ public class CompareFragment extends Fragment{
 	}
 
 	public void updateList() {
-		ListCompareAdapter compareAdapterList = new ListCompareAdapter(this.getActivity().getApplicationContext(), R.layout.compare_show_list_item);
+		ListCompareAdapter compareAdapterList = new ListCompareAdapter(this
+				.getActivity().getApplicationContext(),
+				R.layout.compare_show_list_item);
 
-		if( this.selectedCourse != null ) {
-			ArrayList<Institution> courseInstitutions = this.selectedCourse.getInstitutions();
+		if (this.selectedCourse != null) {
+			ArrayList<Institution> courseInstitutions = this.selectedCourse
+					.getInstitutions();
 			compareAdapterList.addAll(courseInstitutions);
 
 			this.institutionList.setAdapter(compareAdapterList);
 		} else {
-			displayToastMessage(getResources().getString(R.string.select_a_course));
+			displayToastMessage(getResources().getString(
+					R.string.select_a_course));
 		}
 	}
 
 	private void displayToastMessage(String textMenssage) {
-		Toast toast = Toast.makeText(this.getActivity().getApplicationContext(), textMenssage, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(
+				this.getActivity().getApplicationContext(), textMenssage,
+				Toast.LENGTH_SHORT);
 		toast.show();
 	}
 }

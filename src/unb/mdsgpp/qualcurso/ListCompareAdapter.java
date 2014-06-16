@@ -36,7 +36,7 @@ public class ListCompareAdapter extends ArrayAdapter<Institution>{
 		Institution i = getItem(position);
 
 		if(i != null){
-			CheckBox cb = (CheckBox) currentView.findViewById(R.id.compate_institution_checkbox);
+			CheckBox cb = (CheckBox) currentView.findViewById(R.id.compare_institution_checkbox);
 			cb.setText(i.getAcronym());
 		}
 
