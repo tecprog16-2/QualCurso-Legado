@@ -121,7 +121,7 @@ public class CompareFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			}
 		});
-/*
+
 		this.compareButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -130,19 +130,8 @@ public class CompareFragment extends Fragment {
 				if( (selectedYear != 0)  && (autoCompleteField.getText().length() == 0)){
 					displayToastMessage(getResources().getString(R.string.select_a_course));
 				}
-				int count=0;
-
-						long [] checkedItensIds = institutionList.getCheckedItemIds();
-						
-						if( checkedItensIds.length == 2 ) {
-							compareAdapterList.getView((int)checkedItensIds[0], R.layout.compare_show_list_item, );
-						}
-				
-				
 			}
-
-		});*/
-
+		});
 
 		return rootView;
 	}
@@ -153,8 +142,7 @@ public class CompareFragment extends Fragment {
 	    	selectedInstitutions.add((Institution)((CheckBox)view).getTag());
 	    }
 	}
-	
-	
+
 	
 	public void setCurrentSelection(Course currentSelection) {
 		this.selectedCourse = currentSelection;
