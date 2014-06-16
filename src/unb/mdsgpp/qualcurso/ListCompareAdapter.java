@@ -6,6 +6,7 @@ import java.util.List;
 import models.Institution;
 import models.Search;
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class ListCompareAdapter extends ArrayAdapter<Institution>{
 		if(i != null){
 			CheckBox cb = (CheckBox) currentView.findViewById(R.id.compare_institution_checkbox);
 			cb.setText(i.getAcronym());
+			cb.setTag(i);
+		
 		}
 
 		return currentView;

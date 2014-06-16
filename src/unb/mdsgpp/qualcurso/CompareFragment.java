@@ -34,10 +34,12 @@ public class CompareFragment extends Fragment {
 	private AutoCompleteTextView autoCompleteField = null;
 	private ListView institutionList = null;
 	private Button compareButton = null;
-
+	private CheckBox checkbox = null;
+	private ListCompareAdapter compareAdapterList = null;
+	
 	private int selectedYear;
 	private Course selectedCourse;
-	private Institution[] selectedInstitutions = new Institution[2];
+	private ArrayList<Institution> selectedInstitutions = new ArrayList<Institution>();
 
 	public CompareFragment() {
 		super();
@@ -79,9 +81,9 @@ public class CompareFragment extends Fragment {
 		this.autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		this.institutionList = (ListView) rootView.findViewById(R.id.institutionList);
 		this.compareButton = (Button) rootView.findViewById(R.id.compare_button);
-
+		
 		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, Course.getAll()));
-/*
+/*		
 		OnClickListener listener = new OnClickListener() {
 			
 			@Override
@@ -119,28 +121,47 @@ public class CompareFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			}
 		});
-
+/*
 		this.compareButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if( selectedYear == 0 )
 					displayToastMessage(getResources().getString(R.string.select_a_year));
-				if( (selectedYear != 0)  && (autoCompleteField == null)){
+				if( (selectedYear != 0)  && (autoCompleteField.getText().length() == 0)){
 					displayToastMessage(getResources().getString(R.string.select_a_course));
 				}
+				int count=0;
+
+						long [] checkedItensIds = institutionList.getCheckedItemIds();
+						
+						if( checkedItensIds.length == 2 ) {
+							compareAdapterList.getView((int)checkedItensIds[0], R.layout.compare_show_list_item, );
+						}
+				
+				
 			}
 
-		});
+		});*/
+
 
 		return rootView;
 	}
-
+	public void onCheckboxClicked(View view){
+		
+	    boolean checked = ((CheckBox) view).isChecked();
+	    if(checked){
+	    	selectedInstitutions.add((Institution)((CheckBox)view).getTag());
+	    }
+	}
+	
+	
+	
 	public void setCurrentSelection(Course currentSelection) {
 		this.selectedCourse = currentSelection;
 	}
 
 	public void updateList() {
-		ListCompareAdapter compareAdapterList = new ListCompareAdapter(this
+		compareAdapterList = new ListCompareAdapter(this
 				.getActivity().getApplicationContext(),
 				R.layout.compare_show_list_item);
 
