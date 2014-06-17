@@ -82,6 +82,8 @@ public class CompareFragment extends Fragment {
 		this.institutionList = (ListView) rootView.findViewById(R.id.institutionList);
 		this.compareButton = (Button) rootView.findViewById(R.id.compare_button);
 		
+        this.checkbox = (CheckBox)rootView.findViewById(R.id.compare_institution_checkbox); 
+
 		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, Course.getAll()));
 /*		
 		OnClickListener listener = new OnClickListener() {
@@ -136,7 +138,7 @@ public class CompareFragment extends Fragment {
 		return rootView;
 	}
 	public void onCheckboxClicked(View view){
-		
+
 	    boolean checked = ((CheckBox) view).isChecked();
 	    if(checked){
 	    	selectedInstitutions.add((Institution)((CheckBox)view).getTag());
