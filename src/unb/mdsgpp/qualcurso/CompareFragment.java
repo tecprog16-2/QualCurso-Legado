@@ -20,13 +20,15 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class CompareFragment extends Fragment {
+public class CompareFragment extends Fragment implements CheckBoxListCallbacks{
 	BeanListCallbacks beanCallbacks;
 	private static final String COURSE = "course";
 
@@ -81,6 +83,7 @@ public class CompareFragment extends Fragment {
 		this.autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		this.institutionList = (ListView) rootView.findViewById(R.id.institutionList);
 		this.compareButton = (Button) rootView.findViewById(R.id.compare_button);
+	
 		
         this.checkbox = (CheckBox)rootView.findViewById(R.id.compare_institution_checkbox); 
 
@@ -121,8 +124,19 @@ public class CompareFragment extends Fragment {
 		this.institutionList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				CheckBox checkbox = (CheckBox)parent.getItemAtPosition(position);
+				boolean isChecked = checkbox.isChecked();
+				if(isChecked){
+					selectedInstitutions.remove(((Institution)checkbox.getTag()));
+					checkbox.setChecked(!isChecked);	
+				}else{
+					selectedInstitutions.add((Institution)checkbox.getTag());
+					checkbox.setChecked(isChecked);
+				}
+				displayToastMessage(selectedInstitutions.toString());
 			}
 		});
+		
 
 		this.compareButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -137,13 +151,6 @@ public class CompareFragment extends Fragment {
 
 		return rootView;
 	}
-	public void onCheckboxClicked(View view){
-
-	    boolean checked = ((CheckBox) view).isChecked();
-	    if(checked){
-	    	selectedInstitutions.add((Institution)((CheckBox)view).getTag());
-	    }
-	}
 
 	
 	public void setCurrentSelection(Course currentSelection) {
@@ -151,14 +158,13 @@ public class CompareFragment extends Fragment {
 	}
 
 	public void updateList() {
-		compareAdapterList = new ListCompareAdapter(this
-				.getActivity().getApplicationContext(),
-				R.layout.compare_show_list_item);
+		
 
 		if (this.selectedCourse != null) {
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
 					.getInstitutions();
-			compareAdapterList.addAll(courseInstitutions);
+			compareAdapterList = new ListCompareAdapter(this.getActivity().getApplicationContext(),
+					R.layout.compare_show_list_item,courseInstitutions, this);
 
 			this.institutionList.setAdapter(compareAdapterList);
 		} else {
@@ -172,5 +178,24 @@ public class CompareFragment extends Fragment {
 				this.getActivity().getApplicationContext(), textMenssage,
 				Toast.LENGTH_SHORT);
 		toast.show();
+	}
+	
+
+	@Override
+	public void onCheckedItem(CheckBox checkBox) {
+		// TODO Auto-generated method stub
+		Institution institution = ((Institution)checkBox.getTag(ListCompareAdapter.INSTITUTION));
+		if(!selectedInstitutions.contains(institution)){
+			selectedInstitutions.add(institution);
+		}
+	}
+
+	@Override
+	public void onUnchekedItem(CheckBox checkBox) {
+		// TODO Auto-generated method stub
+		Institution institution = ((Institution)checkBox.getTag(ListCompareAdapter.INSTITUTION));
+		if(selectedInstitutions.contains(institution)){
+			selectedInstitutions.remove(institution);
+		}
 	}
 }
