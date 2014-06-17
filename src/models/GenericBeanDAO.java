@@ -38,6 +38,25 @@ public class GenericBeanDAO extends DataBase{
 		return beans;
 	}
 	
+	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table, int year)
+			throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> beans = new ArrayList<Bean>();
+		String sql = "SELECT c.* FROM " + table + " as c, " + "evaluation"
+				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
+				+ "AND ci.id_" + table + " = c._id AND ci.year = ?";
+		Cursor cs = this.database.rawQuery(sql, new String[]{bean.get(bean.fieldsList().get(0)),Integer.toString(year)});
+		while (cs.moveToNext()) {
+			Bean object = init(table);
+			for (String s : object.fieldsList()) {
+				object.set(s, cs.getString(cs.getColumnIndex(s)));
+			}
+			beans.add(object);
+		}
+		this.closeConnection();
+		return beans;
+	}
+	
 	public ArrayList<Bean> selectFromFields(Bean bean, ArrayList<String> fields)
 			throws SQLException {
 		this.openConnection();

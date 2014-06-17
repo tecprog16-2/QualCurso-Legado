@@ -9,5 +9,7 @@
     <color name="gainsboro">#D9D9F3</color>
     <color name="light_blue">#33B5E5</color>
     <color name="cyan_blue">#0099CC</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
 
 </resources>

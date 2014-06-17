@@ -132,12 +132,12 @@ public class MainActivity extends ActionBarActivity implements
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								new CompareFragment()).commit();
-				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof CompareFragment)){
+								new CompareChooseFragment()).commit();
+				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof CompareChooseFragment)){
 					fragmentManager
 						.beginTransaction()
 						.replace(R.id.container,
-								new CompareFragment()).commit();
+								new CompareChooseFragment()).commit();
 				}
 				drawerPosition = 4;
 				break;

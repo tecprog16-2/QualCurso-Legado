@@ -42,7 +42,7 @@
 	    		android:textStyle="normal" 
 	    		/>
             <FrameLayout
-                android:background="@color/black"
+                android:background="@color/dark_gray"
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="0.1"

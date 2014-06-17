@@ -102,6 +102,16 @@ public class Institution extends Bean implements Parcelable {
 		return courses;
 	}
 	
+	public ArrayList<Course> getCourses(int year) throws 
+			SQLException {
+		ArrayList<Course> courses = new ArrayList<Course>();
+		GenericBeanDAO gDB = new GenericBeanDAO();
+		for (Bean b : gDB.selectBeanRelationship(this, "course", year)) {
+			courses.add((Course) b);
+		}
+		return courses;
+	}
+	
 	
 
 	public static ArrayList<Institution> getWhere(String field, String value,
