@@ -82,5 +82,6 @@
 	<string name="choose_the_evaluation_year">Ano da avaliação:</string>
 	<string name="select_a_course">Selecione um curso</string>
 	<string name="select_a_year">Selecione um ano</string>
+	<string name="compare_show_better_institutions_results">Total de melhores resuldados:</string>
 
 </resources>
