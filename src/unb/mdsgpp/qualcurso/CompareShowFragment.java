@@ -27,6 +27,12 @@ public class CompareShowFragment extends Fragment{
 	private static String ID_EVALUATION_A = "idEvaluationA";
 	private static String ID_EVALUATION_B = "idEvaluationB";
 	BeanListCallbacks beanCallbacks;
+
+	private TextView compareFirstInstitutionBetterResults;
+	private TextView compareSecondInstitutionBetterResults;
+
+	private int totalBetterEvaluationInstitutionA;
+	private int totalBetterEvaluationInstitutionB;
 	
 	
 	public CompareShowFragment() {
@@ -48,40 +54,58 @@ public class CompareShowFragment extends Fragment{
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.compare_show_fragment, container,
-				false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.compare_show_fragment, container, false);
+
 		TextView courseNameTextView = (TextView) rootView.findViewById(R.id.compare_course_name);
 		TextView firstAcronymTextView = (TextView) rootView.findViewById(R.id.compare_first_institution_acronym);
 		TextView secondAcronymTextView = (TextView) rootView.findViewById(R.id.compare_second_institution_acronym);
+
 		Evaluation evaluationA = Evaluation.get(getArguments().getInt(ID_EVALUATION_A));
 		Evaluation evaluationB = Evaluation.get(getArguments().getInt(ID_EVALUATION_B));
+
 		Course course = Course.get(evaluationA.getIdCourse());
+
 		Institution institutionA = Institution.get(evaluationA.getIdInstitution());
 		Institution institutionB = Institution.get(evaluationB.getIdInstitution());
+
 		courseNameTextView.setText(course.getName());
 		firstAcronymTextView.setText(institutionA.getAcronym());
 		secondAcronymTextView.setText(institutionB.getAcronym());
+
+		this.compareFirstInstitutionBetterResults = (TextView) rootView.findViewById(R.id.compare_first_institution_better_results);
+		this.compareSecondInstitutionBetterResults = (TextView) rootView.findViewById(R.id.compare_second_institution_better_results);
+
+		this.totalBetterEvaluationInstitutionA = 0;
+		this.totalBetterEvaluationInstitutionB = 0;
+
 		ListView compareIndicatorList = (ListView) rootView.findViewById(R.id.compare_indicator_list);
 		compareIndicatorList.setAdapter(new CompareListAdapter(getActivity().getApplicationContext()
 				, R.layout.compare_show_list_item, getListItems(evaluationA, evaluationB)));
+
+		this.setBetterInstitutionsValues();
+
 		super.onCreateView(inflater, container, savedInstanceState);
 		return rootView;
 	}
-	
-	
+
+
 	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluationA, Evaluation evaluationB){
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
+
 		Book bookA = Book.get(evaluationA.getIdBooks());
 		Book bookB = Book.get(evaluationB.getIdBooks());
+
 		Article articleA = Article.get(evaluationA.getIdArticles());
 		Article articleB = Article.get(evaluationB.getIdArticles());
+
 		Bean beanA = null;
 		Bean beanB = null;
+
 		for(Indicator i : indicators){
 			HashMap<String, String> hashMap = new HashMap<String, String>();
+
 			if(evaluationA.fieldsList().contains(i.getValue())){
 				beanA = evaluationA;
 				beanB = evaluationB;
@@ -92,17 +116,35 @@ public class CompareShowFragment extends Fragment{
 				beanA = articleA;
 				beanB = articleB;
 			}
+
 			if(beanA!=null){
 				hashMap.put(CompareListAdapter.INDICATOR_VALUE, i.getValue());
 				hashMap.put(CompareListAdapter.FIRST_VALUE, beanA.get(i.getValue()));
 				hashMap.put(CompareListAdapter.SECOND_VALUE, beanB.get(i.getValue()));
 				hashList.add(hashMap);
+
+				this.incrementBetterValues(beanA.get(i.getValue()), beanB.get(i.getValue()));
 			}
 		}
+
 		return hashList;
 	}
-	
-	
+
+	private void incrementBetterValues(String evaluationValueA, String evaluationValueB) {
+		int valueA = Integer.parseInt(evaluationValueA);
+		int valueB = Integer.parseInt(evaluationValueB);
+
+		if( valueA > valueB )
+			this.totalBetterEvaluationInstitutionA += 1;
+		else if( valueB > valueA )
+			this.totalBetterEvaluationInstitutionB += 1;
+	}
+
+	private void setBetterInstitutionsValues() {
+		this.compareFirstInstitutionBetterResults.setText(Integer.toString(this.totalBetterEvaluationInstitutionA));
+		this.compareSecondInstitutionBetterResults.setText(Integer.toString(this.totalBetterEvaluationInstitutionB));
+	}
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
