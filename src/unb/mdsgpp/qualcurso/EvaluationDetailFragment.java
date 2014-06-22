@@ -1,6 +1,12 @@
 package unb.mdsgpp.qualcurso;
 
+import helpers.Indicator;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import models.Article;
+import models.Bean;
 import models.Book;
 import models.Course;
 import models.Evaluation;
@@ -11,6 +17,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class EvaluationDetailFragment extends Fragment{
@@ -57,59 +64,34 @@ public class EvaluationDetailFragment extends Fragment{
 				"\n"+getString(R.string.course)+": " + Course.get(getArguments().getInt(ID_COURSE)).getName() +
 				"\n"+getString(R.string.modality)+": " + evaluation.getModality());
 		
-		TextView textView3 = (TextView) rootView
-				.findViewById(R.id.indicator1);
-		textView3.setText("" + evaluation.getMasterDegreeStartYear());
-		
-		TextView textView4 = (TextView) rootView
-				.findViewById(R.id.indicator2);
-		textView4.setText("" + evaluation.getDoctorateStartYear());
-		
-		TextView textView5 = (TextView) rootView
-				.findViewById(R.id.indicator3);
-		textView5.setText("" + evaluation.getTriennialEvaluation());
-		
-		TextView textView6 = (TextView) rootView
-				.findViewById(R.id.indicator4);
-		textView6.setText("" + evaluation.getPermanentTeachers());
-		
-		TextView textView7 = (TextView) rootView
-				.findViewById(R.id.indicator5);
-		textView7.setText("" + evaluation.getTheses());
-		
-		TextView textView8 = (TextView) rootView
-				.findViewById(R.id.indicator6);
-		textView8.setText("" + evaluation.getDissertations());
-		
-		TextView textView9 = (TextView) rootView
-				.findViewById(R.id.indicator7);
-		textView9.setText("" + evaluation.getArtisticProduction());
-		Book book = Book.get(evaluation.getIdBooks());
-		TextView textView10 = (TextView) rootView
-				.findViewById(R.id.indicator8);
-		textView10.setText("" + book.getChapters());
-		
-		TextView textView11 = (TextView) rootView
-				.findViewById(R.id.indicator9);
-		textView11.setText("" + book.getIntegralText());
-		
-		TextView textView12 = (TextView) rootView
-				.findViewById(R.id.indicator10);
-		textView12.setText("" + book.getCollections());
-		
-		TextView textView13 = (TextView) rootView
-				.findViewById(R.id.indicator11);
-		textView13.setText("" + book.getEntries());
-		Article article = Article.get(evaluation.getIdArticles());
-		TextView textView14 = (TextView) rootView
-				.findViewById(R.id.indicator12);
-		textView14.setText("" + article.getPublishedJournals());
-		
-		TextView textView15 = (TextView) rootView
-				.findViewById(R.id.indicator13);
-		textView15.setText("" + article.getPublishedConferenceProceedings());
+		ListView indicatorList = (ListView) rootView.findViewById(R.id.indicator_list);
+		indicatorList.setAdapter(new IndicatorListAdapter(getActivity().getApplicationContext(), R.layout.evaluation_list_item, getListItems(evaluation)));
 		
 		return rootView;
+	}
+	
+	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation){
+		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
+		ArrayList<Indicator> indicators = Indicator.getIndicators();
+		Book book = Book.get(evaluation.getIdBooks());
+		Article article = Article.get(evaluation.getIdArticles());
+		Bean bean = null;
+		for(Indicator i : indicators){
+			HashMap<String, String> hashMap = new HashMap<String, String>();
+			if(evaluation.fieldsList().contains(i.getValue())){
+				bean = evaluation;
+			}else if(book.fieldsList().contains(i.getValue())){
+				bean = book;
+			}else if(article.fieldsList().contains(i.getValue())) {
+				bean = article;
+			}
+			if(bean!=null){
+				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, i.getValue());
+				hashMap.put(IndicatorListAdapter.VALUE, bean.get(i.getValue()));
+				hashList.add(hashMap);
+			}
+		}
+		return hashList;
 	}
 	
 	@Override

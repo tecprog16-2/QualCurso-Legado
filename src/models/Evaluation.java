@@ -199,7 +199,7 @@ public class Evaluation extends Bean {
 		simplefields.add("id_course");
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		ArrayList<Bean> restricted = gDB.selectFromFields(result,fields);
-		if(restricted !=null){
+		if(restricted.size() != 0){
 			result = (Evaluation)restricted.get(0);
 		}else{
 			ArrayList<Bean> beans = gDB.selectFromFields(result, simplefields);
