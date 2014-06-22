@@ -102,10 +102,9 @@ public class CompareShowFragment extends Fragment{
 
 		Bean beanA = null;
 		Bean beanB = null;
-
+		
 		for(Indicator i : indicators){
 			HashMap<String, String> hashMap = new HashMap<String, String>();
-
 			if(evaluationA.fieldsList().contains(i.getValue())){
 				beanA = evaluationA;
 				beanB = evaluationB;
@@ -121,9 +120,17 @@ public class CompareShowFragment extends Fragment{
 				hashMap.put(CompareListAdapter.INDICATOR_VALUE, i.getValue());
 				hashMap.put(CompareListAdapter.FIRST_VALUE, beanA.get(i.getValue()));
 				hashMap.put(CompareListAdapter.SECOND_VALUE, beanB.get(i.getValue()));
+				
+				if(i.getValue().equals(new Evaluation().fieldsList().get(5))){
+					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "true");
+				}else if (i.getValue().equals(new Evaluation().fieldsList().get(6))){
+					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "true");
+				}else{
+					this.incrementBetterValues(beanA.get(i.getValue()), beanB.get(i.getValue()));
+					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "false");
+				}
 				hashList.add(hashMap);
-
-				this.incrementBetterValues(beanA.get(i.getValue()), beanB.get(i.getValue()));
+			
 			}
 		}
 
@@ -160,9 +167,6 @@ public class CompareShowFragment extends Fragment{
         super.onDetach();
         beanCallbacks = null;
     }
-	
-	private ActionBar getActionBar() {
-        return ((ActionBarActivity) getActivity()).getSupportActionBar();
-    }
+
 
 }
