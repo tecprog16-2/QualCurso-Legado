@@ -227,7 +227,6 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onSearchBeanSelected(Search search, Parcelable bean) {
 		if(bean instanceof Institution){
-			System.out.println("teste");
 			onBeanListItemSelected(CourseListFragment.newInstance(((Institution)bean).getId(),
 					search.getYear(),
 					Institution.getCoursesByEvaluationFilter(((Institution)bean).getId(),search)));

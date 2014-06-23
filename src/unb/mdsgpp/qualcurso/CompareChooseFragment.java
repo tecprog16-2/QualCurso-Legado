@@ -138,10 +138,7 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 					R.layout.compare_choose_list_item,courseInstitutions, this);
 
 			this.institutionList.setAdapter(compareAdapterList);
-		} else {
-			displayToastMessage(getResources().getString(
-					R.string.select_a_course));
-		}
+		} 
 	}
 
 	private void displayToastMessage(String textMenssage) {
