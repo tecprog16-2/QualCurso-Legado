@@ -39,7 +39,6 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 	private Button compareButton = null;
 	private CheckBox checkbox = null;
 	private ListCompareAdapter compareAdapterList = null;
-	
 	private int selectedYear;
 	private Course selectedCourse;
 	private ArrayList<Institution> selectedInstitutions = new ArrayList<Institution>();
@@ -83,14 +82,27 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.compare_year);
 		this.autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		this.institutionList = (ListView) rootView.findViewById(R.id.institutionList);
-	
-		
         this.checkbox = (CheckBox)rootView.findViewById(R.id.compare_institution_checkbox); 
 
 		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, Course.getAll()));
-		
 		// Set objects events
-		this.yearSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
+		this.autoCompleteField.setOnItemClickListener(getAutoCompleteListener());
+		return rootView;
+	}
+	
+	public OnItemClickListener getAutoCompleteListener(){
+		return new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+				setCurrentSelection((Course) parent.getItemAtPosition(position));
+				updateList();
+			}
+		};
+	}
+	
+	public OnItemSelectedListener getYearSpinnerListener(){
+		return new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				if(selectedCourse!=null){
@@ -102,17 +114,7 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 			public void onNothingSelected(AdapterView<?> arg0) {
 				
 			}
-		});
-
-		this.autoCompleteField.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-				setCurrentSelection((Course) parent.getItemAtPosition(position));
-				updateList();
-			}
-		});
-
-		return rootView;
+		};
 	}
 
 	
