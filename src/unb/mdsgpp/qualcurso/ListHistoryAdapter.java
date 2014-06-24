@@ -12,71 +12,69 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ListHistoryAdapter extends ArrayAdapter<Search>{
-	public ListHistoryAdapter(Context context, int textViewResourceId){
-		super(context, textViewResourceId);
+public class ListHistoryAdapter extends ArrayAdapter<Search> {
+
+	public ListHistoryAdapter(Context context, int resource, List<Search> items) {
+		super(context, resource, items);
 	}
 
-	public ListHistoryAdapter(Context context, int resource, List<Search> items){
-		super(context,resource, items);
-	}
+	TextView option = null;
+	TextView year = null;
+	TextView indicator = null;
+	TextView firstValue = null;
+	TextView secondValue = null;
+	TextView searchDate = null;
 
 	@Override
-	public View getView(int position, View contextView, ViewGroup parent){
+	public View getView(int position, View contextView, ViewGroup parent) {
 		View v = contextView;
-
-		if(v == null){
+		if (v == null) {
 			LayoutInflater li;
 			li = LayoutInflater.from(getContext());
 			v = li.inflate(R.layout.history_list_item, null);
 		}
-
-	Search s = getItem(position);
-
-	if(s != null){
-		TextView option = (TextView) v.findViewById(R.id.option);
-		TextView year = (TextView) v.findViewById(R.id.year);
-		TextView indicator = (TextView) v.findViewById(R.id.indicator);
-		TextView firstValue = (TextView) v.findViewById(R.id.firstValue);
-		TextView secondValue = (TextView) v.findViewById(R.id.secondValue);
-		TextView searchDate = (TextView) v.findViewById(R.id.searchDate);
-
-		if (option != null){
-			if (s.getOption() == Search.COURSE) {
-				option.setText(R.string.course);
-			}else if (s.getOption() == Search.INSTITUTION) {
-				option.setText(R.string.institution);
-			}
+		Search s = getItem(position);
+		if (s != null) {
+			option = (TextView) v.findViewById(R.id.option);
+			year = (TextView) v.findViewById(R.id.year);
+			indicator = (TextView) v.findViewById(R.id.indicator);
+			firstValue = (TextView) v.findViewById(R.id.firstValue);
+			secondValue = (TextView) v.findViewById(R.id.secondValue);
+			searchDate = (TextView) v.findViewById(R.id.searchDate);
+			setListRow(s);
 		}
+		return v;
+	}
 
-		if(year != null){
-			year.setText(Integer.toString(s.getYear()));
+	public void setListRow(Search s) {
+		if (s.getOption() == Search.COURSE) {
+			setItem(option, R.string.course);
+		} else if (s.getOption() == Search.INSTITUTION) {
+			setItem(option, R.string.institution);
 		}
-
-		if(indicator != null){
-			indicator.setText(s.getIndicator().getName());
+		setItem(year, Integer.toString(s.getYear()));
+		setItem(indicator, s.getIndicator().getName());
+		setItem(firstValue, Integer.toString(s.getMinValue()));
+		int max = s.getMaxValue();
+		if (max == -1) {
+			setItem(secondValue, R.string.maximum);
+		} else {
+			setItem(secondValue, Integer.toString(max));
 		}
+		setItem(searchDate,
+				SimpleDateFormat.getDateTimeInstance().format(s.getDate()));
+	}
 
-		if( firstValue != null ) {
-			firstValue.setText(Integer.toString(s.getMinValue()));
-		}
-
-		if( secondValue != null ) {
-			int max = s.getMaxValue();
-
-			if( max == -1 ) {
-				secondValue.setText(R.string.maximum);
-			} else {
-				secondValue.setText(Integer.toString(max));	
-			}
-		}
-		
-		if( searchDate != null ) {
-			searchDate.setText(SimpleDateFormat.getDateTimeInstance().format(s.getDate()));
+	public void setItem(TextView view, String data) {
+		if (view != null) {
+			view.setText(data);
 		}
 	}
 
-	return v;
+	public void setItem(TextView view, int resId) {
+		if (view != null) {
+			view.setText(resId);
+		}
 	}
-	
+
 }
