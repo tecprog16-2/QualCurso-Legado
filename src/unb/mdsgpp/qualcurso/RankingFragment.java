@@ -91,53 +91,31 @@ public class RankingFragment extends Fragment {
 				getActivity().getApplicationContext(),
 				R.layout.simple_textview, Indicator.getIndicators()));
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.year);
-		this.filterFieldSpinner
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-					@Override
-					public void onItemSelected(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3) {
-						setFilterField(((Indicator) arg0
-								.getItemAtPosition(arg2)).getValue());
-						if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
-							updateList();
-						}
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0) {
-						// TODO Auto-generated method stub
-
-					}
-				});
-
-		this.yearSpinner
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-					@Override
-					public void onItemSelected(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3) {
-						if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
-							updateList();
-						}
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0) {
-						// TODO Auto-generated method stub
-
-					}
-				});
-		this.evaluationList = (ListView) rootView
-				.findViewById(R.id.evaluationList);
-
+		this.filterFieldSpinner.setOnItemSelectedListener(getFilterFieldSpinnerListener());
+		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
+		this.evaluationList = (ListView) rootView.findViewById(R.id.evaluationList);
 		ArrayList<Course> courses = Course.getAll();
-		AutoCompleteTextView autoCompleteField = (AutoCompleteTextView) rootView
+		autoCompleteField = (AutoCompleteTextView) rootView
 				.findViewById(R.id.autoCompleteTextView);
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity()
 				.getApplicationContext(), R.layout.custom_textview, courses));
+		autoCompleteField.setOnItemClickListener(getAutoCompleteListener());
+		evaluationList.setOnItemClickListener(getEvaluationListListener());
+		if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+			updateList();
+		}
+		return rootView;
+	}
 
-		OnItemClickListener listener = new OnItemClickListener() {
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(COURSE, this.currentSelection);
+		outState.putString(FILTER_FIELD, this.filterField);
+		super.onSaveInstanceState(outState);
+	}
+	
+	public OnItemClickListener getAutoCompleteListener(){
+		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long rowId) {
@@ -146,8 +124,10 @@ public class RankingFragment extends Fragment {
 
 			}
 		};
-		autoCompleteField.setOnItemClickListener(listener);
-		evaluationList.setOnItemClickListener(new OnItemClickListener() {
+	}
+	
+	public OnItemClickListener getEvaluationListListener(){
+		return new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -164,18 +144,73 @@ public class RankingFragment extends Fragment {
 										.getItemAtPosition(position))
 										.get("year"))));
 			}
-		});
-		if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
-			updateList();
-		}
-		return rootView;
+		};
 	}
+	
+	public OnItemSelectedListener getFilterFieldSpinnerListener(){
+		return new OnItemSelectedListener() {
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		outState.putParcelable(COURSE, this.currentSelection);
-		outState.putString(FILTER_FIELD, this.filterField);
-		super.onSaveInstanceState(outState);
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				setFilterField(((Indicator) arg0
+						.getItemAtPosition(arg2)).getValue());
+				if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+					updateList();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		
+	}
+	
+	public OnItemSelectedListener getYearSpinnerListener(){
+		return new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+					updateList();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+	}
+	
+	public ArrayList<String> getListFields(){
+		ArrayList<String> fields = new ArrayList<String>();
+		fields.add(this.filterField);
+		fields.add("id_institution");
+		fields.add("id_course");
+		fields.add("acronym");
+		fields.add("year");
+		return fields;
+	}
+	
+	public int getYear(){
+		int year = 0;
+		if (yearSpinner.getSelectedItemPosition() != 0) {
+			year = Integer.parseInt(yearSpinner.getSelectedItem()
+					.toString());
+		} else {
+			yearSpinner
+					.setSelection(yearSpinner.getAdapter().getCount() - 1);
+			year = Integer.parseInt(yearSpinner.getAdapter()
+					.getItem(yearSpinner.getAdapter().getCount() - 1)
+					.toString());
+		}
+		return year;
 	}
 
 	public void setFilterField(String filterField) {
@@ -185,28 +220,18 @@ public class RankingFragment extends Fragment {
 	public void setCurrentSelection(Course currentSelection) {
 		this.currentSelection = currentSelection;
 	}
+	
+	private void displayToastMessage(String textMenssage) {
+		Toast toast = Toast.makeText(
+				this.getActivity().getApplicationContext(), textMenssage,
+				Toast.LENGTH_SHORT);
+		toast.show();
+	}
 
 	public void updateList() {
 		if (this.filterField != Indicator.DEFAULT_INDICATOR) {
-			final ArrayList<String> fields = new ArrayList<String>();
-			fields.add(this.filterField);
-			fields.add("id_institution");
-			fields.add("id_course");
-			fields.add("acronym");
-			fields.add("year");
-			int year;
-
-			if (yearSpinner.getSelectedItemPosition() != 0) {
-				year = Integer.parseInt(yearSpinner.getSelectedItem()
-						.toString());
-			} else {
-				yearSpinner
-						.setSelection(yearSpinner.getAdapter().getCount() - 1);
-				year = Integer.parseInt(yearSpinner.getAdapter()
-						.getItem(yearSpinner.getAdapter().getCount() - 1)
-						.toString());
-			}
-
+			final ArrayList<String> fields = getListFields();
+			int year = getYear();
 			GenericBeanDAO gDB = new GenericBeanDAO();
 			ListAdapter adapter = new ListAdapter(getActivity()
 					.getApplicationContext(), R.layout.list_item,
@@ -215,14 +240,9 @@ public class RankingFragment extends Fragment {
 							+ year, "id_institution", true));
 			evaluationList.setAdapter(adapter);
 		} else {
-			Context c = getActivity().getApplicationContext();
 			String emptySearchFilter = getResources().getString(
 					R.string.empty_search_filter);
-
-			Toast toast = Toast.makeText(c, emptySearchFilter,
-					Toast.LENGTH_SHORT);
-			toast.setGravity(0, 20, 50);
-			toast.show();
+			displayToastMessage(emptySearchFilter);
 		}
 	}
 
