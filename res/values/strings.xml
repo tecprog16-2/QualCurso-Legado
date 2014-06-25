@@ -28,6 +28,8 @@
     <string name="articles">Quantidade de artigos publicados:</string>
     <string name="works">Quantidade de trabalhos publicados:</string>
     <string name="empty_search_filter">Escolha um indicador</string>
+	<string name="exit">Sair</string>
+	<string name="about">Sobre</string>
 
     <string name="between">Entre:</string>
     <string name="max">Máx</string>

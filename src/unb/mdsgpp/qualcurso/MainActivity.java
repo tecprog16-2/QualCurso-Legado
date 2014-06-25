@@ -196,13 +196,30 @@ public class MainActivity extends ActionBarActivity implements
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+
+		switch(item.getItemId()) {
+			case R.id.action_settings:
+				return true;
+			case R.id.action_about:
+				aboutApplication();
+				return true;
+			case R.id.action_exit:
+				closeApplication();
+				return true;
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void closeApplication() {
+		finish();
+		System.exit(1);
+	}
+	
+	private void aboutApplication() {
+		
+	}
+	
 	@Override
 	public void onBeanListItemSelected(Fragment fragment) {
 		// update the main content by replacing fragments
