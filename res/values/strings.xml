@@ -83,5 +83,5 @@
 	<string name="select_a_course">Selecione um curso</string>
 	<string name="select_a_year">Selecione um ano</string>
 	<string name="compare_show_better_institutions_results">Total de melhores resuldados:</string>
-
+	<string name="empty_histoty_search_result">Esta busca resulta em uma lista vazia</string>
 </resources>
