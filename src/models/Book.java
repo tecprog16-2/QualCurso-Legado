@@ -82,7 +82,7 @@ public class Book extends Bean {
 		Book type = new Book();
 		ArrayList<Book> result = new ArrayList<Book>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectAllBeans(type)) {
+		for (Bean b : gDB.selectAllBeans(type,null)) {
 			result.add((Book) b);
 		}
 		return result;
@@ -115,7 +115,7 @@ public class Book extends Bean {
 		Book type = new Book();
 		ArrayList<Book> result = new ArrayList<Book>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like)) {
+		for (Bean b : gDB.selectBeanWhere(type, field, value, like, null)) {
 			result.add((Book) b);
 		}
 		return result;

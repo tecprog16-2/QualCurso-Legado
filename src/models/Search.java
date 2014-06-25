@@ -109,7 +109,7 @@ public class Search extends Bean{
 		Search type = new Search();
 		ArrayList<Search> result = new ArrayList<Search>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-			for (Bean b : gDB.selectAllBeans(type)) {
+			for (Bean b : gDB.selectAllBeans(type,null)) {
 				result.add((Search) b);
 			}
 			return result;
@@ -139,7 +139,7 @@ public class Search extends Bean{
 		Search type = new Search();
 		ArrayList<Search> result = new ArrayList<Search>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like)) {
+		for (Bean b : gDB.selectBeanWhere(type, field, value, like,null)) {
 			result.add((Search) b);
 		}
 		return result;

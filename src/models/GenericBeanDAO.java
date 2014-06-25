@@ -19,13 +19,16 @@ public class GenericBeanDAO extends DataBase{
 		
 	}
 	
-	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table)
+	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table, String orderField)
 			throws SQLException {
 		this.openConnection();
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT c.* FROM " + table + " as c, " + bean.relationship
 				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
 				+ "AND ci.id_" + table + " = c._id";
+		if(orderField != null){
+			sql+=" ORDER BY "+orderField;
+		}
 		Cursor cs = this.database.rawQuery(sql, new String[]{bean.get(bean.fieldsList().get(0))});
 		while (cs.moveToNext()) {
 			Bean object = init(table);
@@ -38,13 +41,16 @@ public class GenericBeanDAO extends DataBase{
 		return beans;
 	}
 	
-	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table, int year)
+	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table, int year, String orderField)
 			throws SQLException {
 		this.openConnection();
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT c.* FROM " + table + " as c, " + "evaluation"
 				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
 				+ "AND ci.id_" + table + " = c._id AND ci.year = ?";
+		if(orderField != null){
+			sql+=" ORDER BY "+orderField;
+		}
 		Cursor cs = this.database.rawQuery(sql, new String[]{bean.get(bean.fieldsList().get(0)),Integer.toString(year)});
 		while (cs.moveToNext()) {
 			Bean object = init(table);
@@ -57,7 +63,7 @@ public class GenericBeanDAO extends DataBase{
 		return beans;
 	}
 	
-	public ArrayList<Bean> selectFromFields(Bean bean, ArrayList<String> fields)
+	public ArrayList<Bean> selectFromFields(Bean bean, ArrayList<String> fields, String orderField)
 			throws SQLException {
 		this.openConnection();
 		ArrayList<Bean> beans = new ArrayList<Bean>();
@@ -69,6 +75,9 @@ public class GenericBeanDAO extends DataBase{
 			values.add(bean.get(s));
 		}
 		sql = sql.substring(0, sql.length() - 3);
+		if(orderField != null){
+			sql+=" ORDER BY "+orderField;
+		}
 		String[] strings = new String[values.size()];
 		strings = values.toArray(strings);
 		Cursor cs;//= this.database.rawQuery(sql,strings);
@@ -159,10 +168,10 @@ public class GenericBeanDAO extends DataBase{
 		return result;
 	}
 
-	public ArrayList<Bean> selectAllBeans(Bean type) throws SQLException {
+	public ArrayList<Bean> selectAllBeans(Bean type, String orderField) throws SQLException {
 		this.openConnection();
 		ArrayList<Bean> beans = new ArrayList<Bean>();
-		Cursor cs = this.database.query(type.identifier, null, null, null, null, null, null);
+		Cursor cs = this.database.query(type.identifier, null, null, null, null, null, orderField);
 		while (cs.moveToNext()) {
 			Bean bean = init(type.identifier);
 			for (String s : type.fieldsList()) {
@@ -282,7 +291,7 @@ public class GenericBeanDAO extends DataBase{
 	}
 
 	public ArrayList<Bean> selectBeanWhere(Bean type, String field,
-			String value, boolean use_like) throws SQLException {
+			String value, boolean use_like, String orderField) throws SQLException {
 		this.openConnection();
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT * FROM " + type.identifier + " WHERE ";
@@ -291,12 +300,12 @@ public class GenericBeanDAO extends DataBase{
 			cs =this.database.query(type.identifier, null, 
 					field+" = ?",
 					new String[]{value},
-					null, null, null);
+					null, null, orderField);
 		else
 			cs =this.database.query(type.identifier, null, 
 					field+" LIKE ?",
 					new String[]{"%"+value+"%"},
-					null, null, null);
+					null, null, orderField);
 
 		while (cs.moveToNext()) {
 			Bean bean = init(type.identifier);
