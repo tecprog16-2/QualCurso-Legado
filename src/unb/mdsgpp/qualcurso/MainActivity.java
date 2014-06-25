@@ -32,16 +32,20 @@ public class MainActivity extends ActionBarActivity implements
 	private int drawerPosition = 10;
 	public static String DRAWER_POSITION = "drawerPosition";
 
+	public static String CURRENT_TITLE = "currentTitle";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		if(savedInstanceState != null){
 			drawerPosition = savedInstanceState.getInt(DRAWER_POSITION);
+			mTitle = savedInstanceState.getCharSequence(CURRENT_TITLE);
+		}else{
+			mTitle = getTitle();
 		}
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
-		mTitle = getTitle();
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
@@ -58,6 +62,7 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt(DRAWER_POSITION, drawerPosition);
+		outState.putCharSequence(CURRENT_TITLE, mTitle);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -65,107 +70,62 @@ public class MainActivity extends ActionBarActivity implements
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		if(position == drawerPosition){
-			
-		}else{
-			switch (position) {
+		//fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.container)).addToBackStack(null).commit();
+		ActionBar actionBar = getSupportActionBar();	
+		Fragment fragment = null;
+		switch (position) {
 			case 0:
-				if(fragmentManager.findFragmentById(R.id.container) == null){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new TabsFragment()).commit();
-				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof TabsFragment)){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-							new TabsFragment()).commit();
-				}
+				mTitle = getString(R.string.title_section1);
+				actionBar.setTitle(R.string.title_section1);
+				fragment = new TabsFragment();
 				drawerPosition = 0;
 			break;
 			case 1:
-				if(fragmentManager.findFragmentById(R.id.container) == null){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new SearchByIndicatorFragment()).commit();
-				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof SearchListFragment)){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new SearchByIndicatorFragment()).commit();
-				}
+				mTitle = getString(R.string.title_section2);
+				actionBar.setTitle(R.string.title_section2);
+				fragment = new SearchByIndicatorFragment();
 				drawerPosition = 1;
 				break;
 			case 2:
-				if(fragmentManager.findFragmentById(R.id.container) == null){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new RankingFragment()).commit();
-				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof RankingFragment)){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new RankingFragment()).commit();
-				}
+				mTitle = getString(R.string.title_section3);
+				actionBar.setTitle(R.string.title_section3);
+				fragment = new RankingFragment();
 				drawerPosition = 2;
-			
 				break;
 			case 3:
-				if(fragmentManager.findFragmentById(R.id.container) == null){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new HistoryFragment()).commit();
-				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof HistoryFragment)){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new HistoryFragment()).commit();
-				}
+				mTitle = getString(R.string.title_section4);
+				actionBar.setTitle(R.string.title_section4);
+				fragment = new HistoryFragment();
 				drawerPosition = 3;
 				break;
-
 			case 4:
-				if(fragmentManager.findFragmentById(R.id.container) == null){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new CompareChooseFragment()).commit();
-				}else if(!(fragmentManager.findFragmentById(R.id.container) instanceof CompareChooseFragment)){
-					fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								new CompareChooseFragment()).commit();
-				}
+				mTitle = getString(R.string.title_section5);
+				actionBar.setTitle(R.string.title_section5);
+				fragment = new CompareChooseFragment();
 				drawerPosition = 4;
 				break;
 
 			default:
+				fragment = null;
 				break;
+			}		
+		if(fragment != null){
+			if(fragment instanceof TabsFragment){
+				fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+				fragmentManager
+				.beginTransaction()
+				.replace(R.id.container,fragment).commit();
+			}else{
+				fragmentManager
+				.beginTransaction()
+				.replace(R.id.container,fragment).addToBackStack(null).commit();
 			}
 		}
-		
 	}
 
 	public void onSectionAttached(int number) {
 		switch (number) {
-		case 1:
-			mTitle = getString(R.string.title_section1);
-			break;
-		case 2:
-			mTitle = getString(R.string.title_section2);
-			break;
-		case 3:
-			mTitle = getString(R.string.title_section3);
-			break;
-		case 4:
-			mTitle = getString(R.string.title_section4);
-			break;
-		case 5:
-			mTitle = getString(R.string.title_section5);
-			break;
+		//Nothing
 		}
 	}
 	
