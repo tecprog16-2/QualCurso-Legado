@@ -1,12 +1,9 @@
 package unb.mdsgpp.qualcurso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import helpers.Indicator;
 import models.Course;
 import models.Evaluation;
-import models.GenericBeanDAO;
 import models.Institution;
 import android.app.Activity;
 import android.content.Context;
@@ -14,15 +11,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -87,20 +82,22 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, Course.getAll()));
 		// Set objects events
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
-		this.autoCompleteField.setOnItemClickListener(getAutoCompleteListener());
+		this.autoCompleteField.setOnItemClickListener(getAutoCompleteListener(rootView));
 		return rootView;
 	}
 	
-	public OnItemClickListener getAutoCompleteListener(){
+	public OnItemClickListener getAutoCompleteListener(final View rootView){
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
 				setCurrentSelection((Course) parent.getItemAtPosition(position));
 				updateList();
+
+				hideKeyboard(rootView);
 			}
 		};
 	}
-	
+
 	public OnItemSelectedListener getYearSpinnerListener(){
 		return new OnItemSelectedListener() {
 			@Override
@@ -112,12 +109,11 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				
 			}
 		};
 	}
 
-	
+
 	public void setCurrentSelection(Course currentSelection) {
 		this.selectedCourse = currentSelection;
 	}
@@ -142,14 +138,6 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 			this.institutionList.setAdapter(compareAdapterList);
 		} 
 	}
-
-	private void displayToastMessage(String textMenssage) {
-		Toast toast = Toast.makeText(
-				this.getActivity().getApplicationContext(), textMenssage,
-				Toast.LENGTH_SHORT);
-		toast.show();
-	}
-	
 
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
@@ -176,9 +164,14 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 	public void onUnchekedItem(CheckBox checkBox) {
 		// TODO Auto-generated method stub
 		Institution institution = ((Institution)checkBox.getTag(ListCompareAdapter.INSTITUTION));
+
 		if(selectedInstitutions.contains(institution)){
 			selectedInstitutions.remove(institution);
-			System.out.println(selectedInstitutions.toString());
 		}
+	}
+
+	private void hideKeyboard(View view) {
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 }
