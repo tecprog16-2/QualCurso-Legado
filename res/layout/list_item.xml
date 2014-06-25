@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
      		android:layout_height="30dp"
-      		android:scaleType="centerCrop"
+      		android:scaleType="centerInside"
       		android:contentDescription="@string/trophyImage"/>
 
         <TextView
