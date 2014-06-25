@@ -1,6 +1,5 @@
 package unb.mdsgpp.qualcurso;
 
-import models.Bean;
 import models.Course;
 import models.Institution;
 import models.Search;
@@ -177,9 +176,9 @@ public class MainActivity extends ActionBarActivity implements
 	}
 	
 	private void aboutApplication() {
-		
+		onBeanListItemSelected(AboutFragment.newInstance());
 	}
-	
+
 	@Override
 	public void onBeanListItemSelected(Fragment fragment) {
 		// update the main content by replacing fragments
@@ -190,7 +189,7 @@ public class MainActivity extends ActionBarActivity implements
 						.replace(R.id.container,
 								fragment).addToBackStack(null).commit();
 	}
-	
+
 	@Override
 	public void onBeanListItemSelected(Fragment fragment, int container) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
@@ -213,8 +212,4 @@ public class MainActivity extends ActionBarActivity implements
 					Course.getInstitutionsByEvaluationFilter(((Course)bean).getId(),search)));
 		}		
 	}
-
-
 }
-
-	
