@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/QCBackgroundPortrait" 
     android:orientation="vertical" >
 
     <ScrollView
@@ -27,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/label_dimension"
                 android:gravity="center"
-                android:text="@string/about_studens_text" />
+                android:textSize="@dimen/medium_text"
+                android:text="@string/about_app_text" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -35,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/label_dimension"
                 android:gravity="center"
-                android:text="@string/about_app_text" />
+                android:textSize="@dimen/medium_text"
+                android:text="@string/about_studens_text" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -48,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/medium_text"
                     android:text="@string/about_gpp_studens_title" />
 
                 <TextView
@@ -55,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/medium_text"
                     android:text="@string/about_gpp_studens_text" />
             </LinearLayout>
 
@@ -69,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/medium_text"
                     android:text="@string/about_mds_studens_title" />
 
                 <TextView
@@ -76,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/medium_text"
                     android:text="@string/about_mds_studens_text" />
             </LinearLayout>
         </LinearLayout>
