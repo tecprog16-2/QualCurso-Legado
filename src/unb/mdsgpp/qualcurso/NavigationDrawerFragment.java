@@ -69,14 +69,21 @@ public class NavigationDrawerFragment extends Fragment {
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
-
+        boolean changed = true;
         if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+        	if(mCurrentSelectedPosition != savedInstanceState.getInt(STATE_SELECTED_POSITION)){
+        		mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+        		changed = true;
+        	}else{
+        		changed = false;
+        	}
             mFromSavedInstanceState = true;
         }
 
         // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
+        if(changed){
+        	selectItem(mCurrentSelectedPosition);
+        }
     }
 
     @Override
@@ -105,6 +112,8 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section1),
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
+                        getString(R.string.title_section4),
+                        getString(R.string.title_section5),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -189,16 +198,22 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
+        	if(position != mCurrentSelectedPosition){
+        		mDrawerListView.setItemChecked(position, true);
+        	}
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
+        	if(position != mCurrentSelectedPosition){
+            	mCallbacks.onNavigationDrawerItemSelected(position);
+    		}else if(mCurrentSelectedPosition == 0){
+    			mCallbacks.onNavigationDrawerItemSelected(position);
+    		}
         }
+        mCurrentSelectedPosition = position;
     }
 
     @Override

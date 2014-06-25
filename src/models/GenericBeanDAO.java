@@ -4,6 +4,7 @@ package models;
 import android.database.SQLException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
@@ -26,6 +27,25 @@ public class GenericBeanDAO extends DataBase{
 				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
 				+ "AND ci.id_" + table + " = c._id";
 		Cursor cs = this.database.rawQuery(sql, new String[]{bean.get(bean.fieldsList().get(0))});
+		while (cs.moveToNext()) {
+			Bean object = init(table);
+			for (String s : object.fieldsList()) {
+				object.set(s, cs.getString(cs.getColumnIndex(s)));
+			}
+			beans.add(object);
+		}
+		this.closeConnection();
+		return beans;
+	}
+	
+	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table, int year)
+			throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> beans = new ArrayList<Bean>();
+		String sql = "SELECT c.* FROM " + table + " as c, " + "evaluation"
+				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
+				+ "AND ci.id_" + table + " = c._id AND ci.year = ?";
+		Cursor cs = this.database.rawQuery(sql, new String[]{bean.get(bean.fieldsList().get(0)),Integer.toString(year)});
 		while (cs.moveToNext()) {
 			Bean object = init(table);
 			for (String s : object.fieldsList()) {
@@ -171,6 +191,22 @@ public class GenericBeanDAO extends DataBase{
 		this.closeConnection();
 		return result;
 	}
+	
+	
+	public ArrayList<Bean> runSql(Bean type, String sql) throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> result = new ArrayList<Bean>();
+		Cursor cs = this.database.rawQuery(sql, null);
+		while (cs.moveToNext()) {
+			Bean bean = init(type.identifier);
+			for (String s : type.fieldsList()) {
+				bean.set(s, cs.getString(cs.getColumnIndex(s)));
+			}
+			result.add(bean);
+		}
+		this.closeConnection();
+		return result;
+	}
 
 	public Integer countBean(Bean type) throws SQLException {
 		this.openConnection();
@@ -198,6 +234,7 @@ public class GenericBeanDAO extends DataBase{
 
 		if (cs.moveToFirst()) {
 			bean = init(type.identifier);
+
 			for (String s : type.fieldsList()) {
 				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
@@ -205,6 +242,43 @@ public class GenericBeanDAO extends DataBase{
 		this.closeConnection();
 
 		return bean;
+	}
+	
+	public ArrayList<HashMap<String, String>> selectOrdered(ArrayList<String> returnFields, String orderedBy, String condition, String groupBy, boolean desc){
+		String fields = "";
+		for(String s : returnFields){
+			fields+=s+",";
+		}
+		fields = fields.substring(0, fields.length()-1);
+		String sql = "SELECT "+ fields +" FROM course AS c,institution AS i , evaluation AS e, articles AS a, books AS b"
+				+ " WHERE id_institution = i._id AND id_course = c._id AND id_articles = a._id AND id_books = b._id ";
+		if(condition != null){
+			sql+="AND "+condition+" ";
+		}
+		if(groupBy != null){
+			sql+=" GROUP BY "+groupBy;
+		}
+		if(orderedBy != null){
+			sql+=" ORDER BY "+orderedBy;
+		}
+		if(desc){
+			sql+=" DESC";
+		} else {
+			sql+=" ASC";
+		}
+		ArrayList<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
+		this.openConnection();
+		Cursor cs = this.database.rawQuery(sql,null);
+		while (cs.moveToNext()) {
+			HashMap<String, String> hash = new HashMap<String, String>();
+			for(String s : returnFields){
+				hash.put(s, cs.getString(cs.getColumnIndex(s)));
+			}
+			hash.put("order_field", orderedBy);
+			values.add(hash);
+		}
+		this.closeConnection();
+		return values;
 	}
 
 	public ArrayList<Bean> selectBeanWhere(Bean type, String field,
@@ -268,7 +342,11 @@ public class GenericBeanDAO extends DataBase{
 		else if (beanIdentifier.equals("evaluation")) {
 			object = new Evaluation();
 		}
-		
+
+		else if (beanIdentifier.equals("search")) {
+			object = new Search();
+		}
+
 		return object;
 	}
 

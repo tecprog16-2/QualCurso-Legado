@@ -1,5 +1,6 @@
 package unb.mdsgpp.qualcurso;
 
+import models.Institution;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -56,8 +57,8 @@ public class TabsFragment extends Fragment implements OnTabChangeListener {
 
 	private void setupTabs() {
 		mTabHost.setup(); // you must call this before adding your tabs!
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_INSTITUTIONS).setIndicator("Instituições").setContent(R.id.tab_1));
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_COURSES).setIndicator("Cursos").setContent(R.id.tab_2));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_INSTITUTIONS).setIndicator(getString(R.string.institutions)).setContent(R.id.tab_1));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_COURSES).setIndicator(getString(R.string.courses)).setContent(R.id.tab_2));
 	}
 
 	@Override
@@ -78,13 +79,13 @@ public class TabsFragment extends Fragment implements OnTabChangeListener {
 		FragmentManager fm = getFragmentManager();
 		if (fm.findFragmentByTag(tabId) == null) {
 			if(tabId.equalsIgnoreCase(TAB_INSTITUTIONS)){
-				beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance(0), placeholder);
+				beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance(0,2010), placeholder);
 				/*fm.beginTransaction()
 						.replace(placeholder, new InstitutionListFragment() , tabId)
 						.addToBackStack(null)
 						.commit();*/
 			}else if (tabId.equalsIgnoreCase(TAB_COURSES)){
-				beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance(0), placeholder);
+				beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance(0,2010), placeholder);
 				/*fm.beginTransaction()
 				.replace(placeholder, new CourseListFragment() , tabId)
 				.addToBackStack(null)

@@ -10,6 +10,10 @@ public abstract class Bean {
 	
 	public abstract void set(String field, String data);
 	
-	public abstract ArrayList<String> fieldsList(); 
-}
+	public abstract ArrayList<String> fieldsList();
+	
+	public abstract int getId();
+	
+	public abstract void setId(int id);
 
+}

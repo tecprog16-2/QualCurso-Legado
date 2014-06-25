@@ -4,15 +4,12 @@ import android.database.SQLException;
 
 public class DataBaseStructures extends DataBase{
 	
-	
     public DataBaseStructures()  throws SQLException{
         super();
-        
     }
     
 
     public void initDB() throws SQLException{
-
             this.openConnection();
             this.database.execSQL("CREATE TABLE IF NOT EXISTS 'android_metadata' (locale TEXT)");
             this.database.execSQL("INSERT INTO android_metadata VALUES ('pt_BR')");
@@ -22,6 +19,7 @@ public class DataBaseStructures extends DataBase{
             this.buildTableCoursesInstitutions();
             this.buildTableInstitution();
             this.buildTableBooks();
+            this.buildTableSearch();
 
             this.closeConnection();
     }
@@ -35,6 +33,7 @@ public class DataBaseStructures extends DataBase{
         this.database.execSQL("DROP TABLE IF EXISTS 'books'");
         this.database.execSQL("DROP TABLE IF EXISTS 'evaluation'");
         this.database.execSQL("DROP TABLE IF EXISTS 'android_metadata'");
+        this.database.execSQL("DROP TABLE IF EXISTS 'search'");
         this.closeConnection();
     }
 
@@ -101,6 +100,18 @@ public class DataBaseStructures extends DataBase{
     		    "'id_articles' INTEGER NOT NULL," +
     		    "'id_books' INTEGER," +
     		    "'artistic_production' INTEGER)";
+    	this.database.execSQL(sql);
+    }
+
+    private void buildTableSearch() throws SQLException {
+    	String sql = "CREATE TABLE IF NOT EXISTS 'search' (" +
+    		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+    			"'date' DATETIME," +
+    			"'year' INTEGER," +
+    			"'option' INTEGER," +
+    			"'indicator' TEXT," +
+    			"'min_value' INTEGER," +
+    			"'max_value' INTEGER)";
     	this.database.execSQL(sql);
     }
 }

@@ -5,15 +5,15 @@
     <string name="title_section1">Avaliações</string>
     <string name="title_section2">Pesquisar</string>
     <string name="title_section3">Ranking</string>
+    <string name="title_section4">Histórico de Pesquisa</string>
+    <string name="title_section5">Comparar Instituições</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-    
     <string name="university">Universidade:</string>
     <string name="general_information">INFORMAÇÕES GERAIS</string>
     <string name="indicator">INDICADORES</string>
-
     <string name="m_start_year">Ano de início do mestrado:</string>
     <string name="d_start_year">Ano de início do doutorado:</string>
     <string name="year_concept">Conceito no ano avaliado:</string>
@@ -27,5 +27,61 @@
     <string name="entries">Quantidade de verbetes e outros publicados:</string>
     <string name="articles">Quantidade de artigos publicados:</string>
     <string name="works">Quantidade de trabalhos publicados:</string>
+    <string name="empty_search_filter">Escolha um indicador</string>
+
+    <string name="between">Entre:</string>
+    <string name="max">Máx</string>
+    <string name="search">Buscar</string>
+    <string name="line">------------------------------------------------</string>
+    
+    <string name="listBy">Listar por:</string>
+
+    <string-array name="list">
+        <item>Opção</item>
+        <item>Curso</item>
+        <item>Instituição</item>
+    </string-array>
+
+    <string-array name="indicator">
+        <item>Indicador</item>
+        <item>Conceito no ano avaliado</item>
+        <item>Ano de inicio de mestrado</item>
+        <item>Ano de inicio do doutorado</item>
+        <item>Média anual de docentes permanentes</item>
+        <item>Total de teses defendidas</item>
+        <item>Total de dissertações defendidas</item>
+        <item>Total de trabalhos artísticos defendidos</item>
+        <item>Quantidade de capítulos de livros publicados</item>
+        <item>Quantidade de textos integrais publicados</item>
+        <item>Quantidade de coletâneas publicadas</item>
+        <item>Quantidade de verbetes e outros publicados</item>
+        <item>Quantidade de artigos publicados</item>
+        <item>Quantidade de trabalhos publicados</item>
+    </string-array>
+    
+    <string-array name="year">
+        <item>Ano</item>
+        <item>2007</item>
+        <item>2010</item>
+    </string-array>
+
+    <string name="course">Curso</string>
+    <string name="institution">Instituição</string>
+    <string name="institutions">Instituições</string>
+    <string name="courses">Cursos</string>
+    <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
+    <string name="modality">MODALIDADE</string>
+    <string name="history">Histórico</string>
+    <string name="search_by">Busca por: </string>
+    <string name="byYear">Ano: </string>
+    <string name="by_indicator">Indicador: </string>
+    <string name="and">e</string>
+	<string name="maximum">Máximo</string>
+	<string name="search_date">Busca realizada em:</string>
+	<string name="title_text_compare">Comparar Instituições</string>
+	<string name="choose_the_evaluation_year">Ano da avaliação:</string>
+	<string name="select_a_course">Selecione um curso</string>
+	<string name="select_a_year">Selecione um ano</string>
+	<string name="compare_show_better_institutions_results">Total de melhores resuldados:</string>
 
 </resources>

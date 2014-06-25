@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".SearchByIndicatorFragment" >
+
+   <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="start"
+        android:layout_weight="1">
+
+        <Spinner
+            android:id="@+id/course_institution"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/listBy"
+            android:layout_toRightOf="@+id/listBy"
+            android:entries="@array/list" />
+
+        <TextView
+            android:id="@+id/listBy"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/between"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="fill"
+            android:text="@string/listBy"
+            android:textSize="@dimen/field_dimension" />
+
+        <CheckBox
+            android:id="@+id/maximum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/between"
+            android:layout_toRightOf="@+id/secondNumber"
+            android:text="@string/max" />
+
+        <Spinner
+            android:id="@+id/field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/listBy"
+            android:layout_alignRight="@+id/buttonSearch"
+            android:layout_below="@+id/course_institution"
+            android:layout_margin="10dp"
+            android:layout_marginTop="7dp"
+            android:entries="@array/indicator" />
+
+        <TextView
+            android:id="@+id/between"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/buttonSearch"
+            android:layout_below="@+id/field"
+            android:layout_marginRight="55dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/between"
+            android:textSize="@dimen/between_dimension" />
+
+        <EditText
+            android:id="@+id/secondNumber"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/between"
+            android:layout_alignBottom="@+id/between"
+            android:layout_alignLeft="@+id/course_institution"
+            android:layout_marginLeft="18dp"
+            android:ems="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/firstNumber"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/between"
+            android:layout_alignBottom="@+id/between"
+            android:layout_alignLeft="@+id/field"
+            android:ems="10"
+            android:inputType="number" >
+
+            <requestFocus />
+        </EditText>
+        
+        <Button
+            android:id="@+id/buttonSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/maximum"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/search" />
+
+        <Spinner
+            android:id="@+id/year"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/maximum"
+            android:entries="@array/year" />
+
+    </RelativeLayout>
+    
+   <FrameLayout 
+       android:id="@+id/search_list"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_gravity="start"
+       android:layout_weight="1"
+       ></FrameLayout>
+
+</LinearLayout>

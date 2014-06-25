@@ -185,19 +185,27 @@ public class Evaluation extends Bean {
 		return result;
 	}
 	
-	public static ArrayList<Evaluation> getFromRelation(int idInstitution, int idCourse){
+	public static Evaluation getFromRelation(int idInstitution, int idCourse, int year){
 		Evaluation result = new Evaluation();
 		result.setIdInstitution(idInstitution);
 		result.setIdCourse(idCourse);
+		result.setYear(year);
+		ArrayList<String> simplefields = new ArrayList<String>();
 		ArrayList<String> fields = new ArrayList<String>();
 		fields.add("id_institution");
 		fields.add("id_course");
-		ArrayList<Evaluation> results = new ArrayList<Evaluation>();
+		fields.add("year");
+		simplefields.add("id_institution");
+		simplefields.add("id_course");
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectFromFields(result,fields)) {
-			results.add((Evaluation) b);
+		ArrayList<Bean> restricted = gDB.selectFromFields(result,fields);
+		if(restricted.size() != 0){
+			result = (Evaluation)restricted.get(0);
+		}else{
+			ArrayList<Bean> beans = gDB.selectFromFields(result, simplefields);
+			result = (Evaluation)beans.get(beans.size()-1);
 		}
-		return results;
+		return result;
 	}
 	
 	public boolean delete() throws  SQLException {
