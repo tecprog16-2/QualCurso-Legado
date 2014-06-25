@@ -119,6 +119,7 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 	}
 
 	public void updateList() {
+		selectedInstitutions = new ArrayList<Institution>();
 		if (yearSpinner.getSelectedItemPosition() != 0) {
 			selectedYear = Integer.parseInt(yearSpinner.getSelectedItem()
 					.toString());
