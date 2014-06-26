@@ -60,7 +60,7 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	
 	public Drawable  getTrophyImage(int position) {
 		Drawable trophy = null;
-		
+
 		switch (position) {
 		case 1:
 			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.gold_trophy);
@@ -69,7 +69,7 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		case 2:
 			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.silver_trophy);
 			break;
-		
+
 		case 3:
 			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.bronze_trophy);
 			break;
@@ -77,7 +77,7 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		default:
 			break;
 		}
-		
+
 		return trophy;
 	}
 }
