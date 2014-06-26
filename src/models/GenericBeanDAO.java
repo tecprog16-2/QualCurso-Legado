@@ -25,7 +25,7 @@ public class GenericBeanDAO extends DataBase{
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT c.* FROM " + table + " as c, " + bean.relationship
 				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
-				+ "AND ci.id_" + table + " = c._id";
+				+ "AND ci.id_" + table + " = c._id GROUP BY c._id";
 		if(orderField != null){
 			sql+=" ORDER BY "+orderField;
 		}
@@ -47,7 +47,7 @@ public class GenericBeanDAO extends DataBase{
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT c.* FROM " + table + " as c, " + "evaluation"
 				+ " as ci " + "WHERE ci.id_" + bean.identifier + "= ? "
-				+ "AND ci.id_" + table + " = c._id AND ci.year = ?";
+				+ "AND ci.id_" + table + " = c._id AND ci.year = ? GROUP BY c._id";
 		if(orderField != null){
 			sql+=" ORDER BY "+orderField;
 		}
