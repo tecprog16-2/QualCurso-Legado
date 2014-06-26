@@ -87,7 +87,8 @@
     <string name="about_app_text">O “Qual Curso?” é um aplicativo Android destinado a auxiliar estudantes a encontrar uma instituição de ensino superior com uma melhor qualificação acadêmica, por meio da reunião de dados e indicadores referentes a avaliações de universidades brasileiras.</string>
 	<string name="about_mds_studens_title">Alunos de MDS:</string>
 	<string name="about_gpp_studens_title">Alunos de GPP:</string>
-	<string name="about_mds_studens_text">André Bernardes\nBrenddon Gontijo\nElaine Meirelles\nFábio Teixeira\nJônnatas Lennon</string>
-	<string name="about_gpp_studens_text">Gabriela Navarro \nYeltsin Suares</string>
+	<string name="about_mds_studens_text">André Bernardes\nBrenddon Gontijo\nElaine Cristina Meirelles\nFábio Teixeira\nJônnatas Lennon</string>
+	<string name="about_gpp_studens_text">Gabriela Navarro\nYeltsin Suares</string>
+	<string name="version_year">Versão 1.0\n©2014\n</string>
 
 </resources>
