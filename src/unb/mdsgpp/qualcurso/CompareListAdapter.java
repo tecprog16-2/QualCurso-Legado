@@ -51,9 +51,6 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			if (indicatorNameTextView != null) {
 				indicatorNameTextView.setText(Indicator.getIndicatorByValue(
 						h.get(this.INDICATOR_VALUE)).getName());
-				indicatorNameTextView.setTextColor(QualCurso
-						.getInstance().getResources()
-						.getColor(R.color.actionbar_title_color));
 			}
 			if (firstIndicatorTextView != null
 					|| secondIndicatorTextView != null) {

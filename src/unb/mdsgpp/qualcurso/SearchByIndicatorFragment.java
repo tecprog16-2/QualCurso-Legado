@@ -70,7 +70,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		listSelectionSpinner = (Spinner) rootView
 				.findViewById(R.id.course_institution);
 		filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
-		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActionBar().getThemedContext(), R.layout.simple_textview,Indicator.getIndicators()));
+		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActionBar().getThemedContext(), R.layout.simple_spinner_item, R.id.spinner_item_text,Indicator.getIndicators()));
 		yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);

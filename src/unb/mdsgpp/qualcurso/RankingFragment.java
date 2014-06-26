@@ -77,7 +77,7 @@ public class RankingFragment extends Fragment {
 		this.filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 		this.filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(
 				getActivity().getApplicationContext(),
-				R.layout.simple_textview, Indicator.getIndicators()));
+				R.layout.simple_spinner_item,R.id.spinner_item_text, Indicator.getIndicators()));
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		this.filterFieldSpinner.setOnItemSelectedListener(getFilterFieldSpinnerListener());
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
