@@ -13,6 +13,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,13 +64,15 @@ public class SearchByIndicatorFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		final Context mContext = getActionBar().getThemedContext();
+		inflater = LayoutInflater.from(mContext);
 		View rootView = inflater.inflate(R.layout.search_fragment, container,
 				false);
 		
 		listSelectionSpinner = (Spinner) rootView
 				.findViewById(R.id.course_institution);
 		filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
-		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActivity().getApplicationContext(), R.layout.simple_textview,Indicator.getIndicators()));
+		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActionBar().getThemedContext(), R.layout.simple_textview,Indicator.getIndicators()));
 		yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
@@ -196,6 +200,10 @@ public class SearchByIndicatorFragment extends Fragment {
 					break;
 				}
 		}
+		
 	}
-
+	
+	private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
 }
