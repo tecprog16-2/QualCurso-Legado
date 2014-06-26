@@ -30,8 +30,6 @@
     <string name="empty_search_filter">Escolha um indicador</string>
 	<string name="exit">Sair</string>
 	<string name="about">Sobre</string>
-
-    <string name="between">Entre:</string>
     <string name="max">Máx</string>
     <string name="search">Buscar</string>
     <string name="line">------------------------------------------------</string>
@@ -89,6 +87,7 @@
 	<string name="empty_histoty_search_result">Esta busca resulta em uma lista vazia</string>
 
 	<string name="trophyImage">trophyImage</string>
+	<string name="between">Entre:</string>
 	
 
 </resources>
