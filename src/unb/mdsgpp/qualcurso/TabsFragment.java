@@ -1,6 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
 import models.Institution;
+import android.R.anim;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -59,6 +61,15 @@ public class TabsFragment extends Fragment implements OnTabChangeListener {
 		mTabHost.setup(); // you must call this before adding your tabs!
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_INSTITUTIONS).setIndicator(getString(R.string.institutions)).setContent(R.id.tab_1));
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_COURSES).setIndicator(getString(R.string.courses)).setContent(R.id.tab_2));
+		TabWidget widget = mTabHost.getTabWidget();
+		for(int i = 0; i < widget.getChildCount(); i++){
+			View v = widget.getChildAt(i);
+			TextView tv = (TextView) v.findViewById(android.R.id.title);
+			if(tv==null){
+				continue;
+			}
+			v.setBackgroundResource(R.drawable.tab_indicator_ab_light_green_acb);
+		}
 	}
 
 	@Override
