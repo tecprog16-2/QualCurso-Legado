@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -31,8 +33,6 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 	private Spinner yearSpinner = null;
 	private AutoCompleteTextView autoCompleteField = null;
 	private ListView institutionList = null;
-	private Button compareButton = null;
-	private CheckBox checkbox = null;
 	private ListCompareAdapter compareAdapterList = null;
 	private int selectedYear;
 	private Course selectedCourse;
@@ -77,9 +77,8 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.compare_year);
 		this.autoCompleteField = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
 		this.institutionList = (ListView) rootView.findViewById(R.id.institutionList);
-        this.checkbox = (CheckBox)rootView.findViewById(R.id.compare_institution_checkbox); 
 
-		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity().getApplicationContext(), R.layout.custom_textview, Course.getAll()));
+		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActionBar().getThemedContext(), R.layout.custom_textview, Course.getAll()));
 		// Set objects events
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
 		this.autoCompleteField.setOnItemClickListener(getAutoCompleteListener(rootView));
@@ -133,7 +132,7 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 		if (this.selectedCourse != null) {
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
 					.getInstitutions(selectedYear);
-			compareAdapterList = new ListCompareAdapter(this.getActivity().getApplicationContext(),
+			compareAdapterList = new ListCompareAdapter(getActionBar().getThemedContext(),
 					R.layout.compare_choose_list_item,courseInstitutions, this);
 
 			this.institutionList.setAdapter(compareAdapterList);
@@ -152,7 +151,6 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 				Evaluation evaluationB = Evaluation.getFromRelation(selectedInstitutions.get(1).getId(), selectedCourse.getId(), selectedYear);
 				beanCallbacks.onBeanListItemSelected(CompareShowFragment.newInstance(evaluationA.getId(), evaluationB.getId()));
 			}
-			System.out.println(selectedInstitutions.toString());
 		}
 	}
 	@Override
@@ -165,7 +163,6 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 	public void onUnchekedItem(CheckBox checkBox) {
 		// TODO Auto-generated method stub
 		Institution institution = ((Institution)checkBox.getTag(ListCompareAdapter.INSTITUTION));
-
 		if(selectedInstitutions.contains(institution)){
 			selectedInstitutions.remove(institution);
 		}
@@ -175,4 +172,8 @@ public class CompareChooseFragment extends Fragment implements CheckBoxListCallb
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
+	
+	private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
 }

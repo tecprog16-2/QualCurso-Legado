@@ -27,12 +27,6 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements OnC
 	private CheckBoxListCallbacks checkBoxCallBacks;
 	private CheckBox cb = null;
 	private ArrayList<Boolean> checkedItems = new ArrayList<Boolean>();
-
-	public ListCompareAdapter(Context context, int textViewResourceId, Fragment callingFragment) {
-		super(context, textViewResourceId);
-		checkedItems = new ArrayList<Boolean>();
-		this.callingFragment = callingFragment;
-	}
 	
 	public ListCompareAdapter(Context context, int resource, List<Institution> item, Fragment callingFragment) {
 		super(context, resource, item);
@@ -45,11 +39,6 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements OnC
 	
 	@Override
 	public View getView(int position, View contextView, ViewGroup parent){
-		if(checkedItems.size()==0){
-			for (int i = 0; i < this.getCount(); i++) {
-				checkedItems.add(false);
-			}
-		}
 		View currentView = contextView;
 		checkBoxCallBacks = (CheckBoxListCallbacks)this.callingFragment;
 		if(currentView == null){

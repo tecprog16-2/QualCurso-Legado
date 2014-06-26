@@ -13,5 +13,8 @@
     <color name="red">#FF0000</color>
     <color name="green">#00FF00</color>
     <color name="light_gray">#D8D8D8</color>
+    <color name="light_green">#7FDB8A</color>
+    <color name="smooth_red">#F25252</color>
+    <color name="medium_gray">#B5AEAE</color>
 
 </resources>

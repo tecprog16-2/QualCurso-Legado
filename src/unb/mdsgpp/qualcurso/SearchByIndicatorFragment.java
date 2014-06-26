@@ -64,8 +64,6 @@ public class SearchByIndicatorFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		final Context mContext = getActionBar().getThemedContext();
-		inflater = LayoutInflater.from(mContext);
 		View rootView = inflater.inflate(R.layout.search_fragment, container,
 				false);
 		
