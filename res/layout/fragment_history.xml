@@ -4,25 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_qc_portrait"
-    android:orientation="vertical" >
-
-	<TextView
-	        android:id="@+id/title"
-	        android:layout_width="match_parent"
-	        android:layout_height="0dp"
-	        android:layout_weight="1"
-	        android:background="@color/medium_green"
-	        android:gravity="center"
-	        android:text="@string/history"
-	        android:textColor="@color/black"
-	        android:textSize="@dimen/historic_dimension"
-	        android:textStyle="normal" />
-	
+    android:orientation="vertical" >	
     <ListView
         android:id="@+id/listHistory"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7" >
+        android:layout_height="match_parent" >
     </ListView>
 
 </LinearLayout>

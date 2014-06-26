@@ -13,6 +13,8 @@ import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
+import android.text.Spanned;
 
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks {
@@ -41,7 +43,8 @@ public class MainActivity extends ActionBarActivity implements
 			drawerPosition = savedInstanceState.getInt(DRAWER_POSITION);
 			mTitle = savedInstanceState.getCharSequence(CURRENT_TITLE);
 		}else{
-			mTitle = getTitle();
+			
+			mTitle = getFormatedTitle(getTitle());
 		}
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
@@ -49,8 +52,12 @@ public class MainActivity extends ActionBarActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-
 		
+	}
+	
+	public CharSequence getFormatedTitle(CharSequence s){
+		int actionBarTitleColor = getResources().getColor(R.color.actionbar_title_color);
+		return Html.fromHtml("<font color='#"+Integer.toHexString(actionBarTitleColor).substring(2)+"'><b>"+s+"</b></font>");
 	}
 	
 	@Override
@@ -72,34 +79,30 @@ public class MainActivity extends ActionBarActivity implements
 		//fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.container)).addToBackStack(null).commit();
 		ActionBar actionBar = getSupportActionBar();	
 		Fragment fragment = null;
+		String formatedTitle = "";
 		switch (position) {
 			case 0:
-				mTitle = getString(R.string.title_section1);
-				actionBar.setTitle(R.string.title_section1);
+				formatedTitle = getString(R.string.title_section1);
 				fragment = new TabsFragment();
 				drawerPosition = 0;
 			break;
 			case 1:
-				mTitle = getString(R.string.title_section2);
-				actionBar.setTitle(R.string.title_section2);
+				formatedTitle = getString(R.string.title_section2);
 				fragment = new SearchByIndicatorFragment();
 				drawerPosition = 1;
 				break;
 			case 2:
-				mTitle = getString(R.string.title_section3);
-				actionBar.setTitle(R.string.title_section3);
+				formatedTitle = getString(R.string.title_section3);
 				fragment = new RankingFragment();
 				drawerPosition = 2;
 				break;
 			case 3:
-				mTitle = getString(R.string.title_section4);
-				actionBar.setTitle(R.string.title_section4);
+				formatedTitle = getString(R.string.title_section4);
 				fragment = new HistoryFragment();
 				drawerPosition = 3;
 				break;
 			case 4:
-				mTitle = getString(R.string.title_section5);
-				actionBar.setTitle(R.string.title_section5);
+				formatedTitle = getString(R.string.title_section5);
 				fragment = new CompareChooseFragment();
 				drawerPosition = 4;
 				break;
@@ -109,6 +112,8 @@ public class MainActivity extends ActionBarActivity implements
 				break;
 			}		
 		if(fragment != null){
+			actionBar.setTitle(getFormatedTitle(formatedTitle));
+			mTitle = getFormatedTitle(formatedTitle);
 			if(fragment instanceof TabsFragment){
 				fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 				fragmentManager
