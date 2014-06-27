@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
@@ -36,9 +39,13 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			TextView rank = (TextView) v.findViewById(R.id.position);
 			TextView institutionName = (TextView) v.findViewById(R.id.university);
 			TextView value = (TextView) v.findViewById(R.id.data);
+			ImageView trophy = (ImageView) v.findViewById(R.id.trophyIcon);
 
         	if (rank != null) {
             	rank.setText(Integer.toString(position+1));
+        	}
+        	if (trophy != null) {
+        		trophy.setImageDrawable(getTrophyImage(position+1));
         	}
         	if (institutionName != null) {
         		institutionName.setText(h.get("acronym"));
@@ -49,5 +56,28 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
     	}
 
     	return v;
+	}
+	
+	public Drawable  getTrophyImage(int position) {
+		Drawable trophy = null;
+
+		switch (position) {
+		case 1:
+			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.gold_trophy);
+			break;
+
+		case 2:
+			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.silver_trophy);
+			break;
+
+		case 3:
+			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.bronze_trophy);
+			break;
+			
+		default:
+			break;
+		}
+
+		return trophy;
 	}
 }

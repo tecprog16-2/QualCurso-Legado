@@ -92,6 +92,7 @@
             android:layout_toLeftOf="@+id/scrollView1"
             android:background="@color/gainsboro"
             android:ems="10"
+            android:padding="10dp"
             android:fontFamily="@string/title_section1"
             android:gravity="left|fill"
             android:textColor="@color/black"

@@ -146,7 +146,7 @@ public class Evaluation extends Bean {
 		Evaluation type = new Evaluation();
 		ArrayList<Evaluation> result = new ArrayList<Evaluation>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectAllBeans(type)) {
+		for (Bean b : gDB.selectAllBeans(type,null)) {
 			result.add((Evaluation) b);
 		}
 		return result;
@@ -179,7 +179,7 @@ public class Evaluation extends Bean {
 		Evaluation type = new Evaluation();
 		ArrayList<Evaluation> result = new ArrayList<Evaluation>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like)) {
+		for (Bean b : gDB.selectBeanWhere(type, field, value, like,null)) {
 			result.add((Evaluation) b);
 		}
 		return result;
@@ -198,11 +198,11 @@ public class Evaluation extends Bean {
 		simplefields.add("id_institution");
 		simplefields.add("id_course");
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		ArrayList<Bean> restricted = gDB.selectFromFields(result,fields);
+		ArrayList<Bean> restricted = gDB.selectFromFields(result,fields,null);
 		if(restricted.size() != 0){
 			result = (Evaluation)restricted.get(0);
 		}else{
-			ArrayList<Bean> beans = gDB.selectFromFields(result, simplefields);
+			ArrayList<Bean> beans = gDB.selectFromFields(result, simplefields,null);
 			result = (Evaluation)beans.get(beans.size()-1);
 		}
 		return result;

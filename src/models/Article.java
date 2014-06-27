@@ -66,7 +66,7 @@ public class Article extends Bean {
 		Article type = new Article();
 		ArrayList<Article> result = new ArrayList<Article>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectAllBeans(type)) {
+		for (Bean b : gDB.selectAllBeans(type,null)) {
 			result.add((Article) b);
 		}
 		return result;
@@ -99,7 +99,7 @@ public class Article extends Bean {
 		Article type = new Article();
 		ArrayList<Article> result = new ArrayList<Article>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like)) {
+		for (Bean b : gDB.selectBeanWhere(type, field, value, like, null)) {
 			result.add((Article) b);
 		}
 		return result;

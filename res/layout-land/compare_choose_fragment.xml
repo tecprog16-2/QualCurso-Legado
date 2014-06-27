@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/qc_bg"
     android:orientation="vertical" >
-    
-	<TextView
-	    android:id="@+id/title_compare"
-	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-	    android:background="@color/medium_green"
-	    android:gravity="center"
-	    android:text="@string/title_text_compare"
-	    android:textColor="@color/black"
-	    android:textSize="@dimen/title_dimension"
-	    android:textStyle="normal" />
 
 	<LinearLayout
 	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1.7"
+	    android:layout_height="100dp"
 	    android:orientation="vertical">
 	    
 	    <LinearLayout
@@ -60,8 +48,7 @@
     <ListView
         android:id="@+id/institutionList"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5" >
+        android:layout_height="wrap_content">
     </ListView>
 
 </LinearLayout>

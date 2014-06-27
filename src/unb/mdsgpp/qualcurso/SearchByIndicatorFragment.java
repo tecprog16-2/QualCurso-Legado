@@ -6,25 +6,21 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import models.Article;
-import models.Book;
 import models.Course;
-import models.Evaluation;
 import models.Institution;
 import models.Search;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -74,7 +70,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		listSelectionSpinner = (Spinner) rootView
 				.findViewById(R.id.course_institution);
 		filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
-		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActivity().getApplicationContext(), R.layout.simple_textview,Indicator.getIndicators()));
+		filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(getActionBar().getThemedContext(), R.layout.simple_spinner_item, R.id.spinner_item_text,Indicator.getIndicators()));
 		yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		maximum = (CheckBox) rootView.findViewById(R.id.maximum);
 		firstNumber = (EditText) rootView.findViewById(R.id.firstNumber);
@@ -131,13 +127,21 @@ public class SearchByIndicatorFragment extends Fragment {
 				}else{
 					max = number2;
 				}
-					updateSearchList(number1, max, year, listSelectionPosition, ((Indicator)filterFieldSpinner.getItemAtPosition(filterFieldSpinner.getSelectedItemPosition())));
-			
-			}
 
+				firstNumber.clearFocus();
+				secondNumber.clearFocus();
+				hideKeyboard(arg0);
+
+				updateSearchList(number1, max, year, listSelectionPosition, ((Indicator)filterFieldSpinner.getItemAtPosition(filterFieldSpinner.getSelectedItemPosition())));
+			}
 		};
 	}
-	
+
+	private void hideKeyboard(View view) {
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+	}
+
 	private void callInstitutionList(int min, int max, int year, Indicator filterField){
 		Calendar c = Calendar.getInstance();
 		Search search = new Search();
@@ -194,6 +198,10 @@ public class SearchByIndicatorFragment extends Fragment {
 					break;
 				}
 		}
+		
 	}
-
+	
+	private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
 }

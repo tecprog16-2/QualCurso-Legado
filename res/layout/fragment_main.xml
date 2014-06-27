@@ -2,21 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/gainsboro"
     android:orientation="vertical"
     tools:context="unb.mdsgpp.qualcurso.EvaluationDetailFragment" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="78dp"  >
+        android:layout_height="78dp" >
 
         <TextView
             android:id="@+id/university"
-            android:layout_width="140dp"
-            android:layout_height="65dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/university_acronym"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:background="@color/medium_green"
             android:ems="10"
             android:fontFamily="@string/title_section1"
@@ -29,11 +27,9 @@
 
         <TextView
             android:id="@+id/university_acronym"
-            android:layout_width="140dp"
-            android:layout_height="65dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/medium_green"
             android:ems="10"
             android:fontFamily="@string/title_section1"
@@ -41,8 +37,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/university_dimension"
             android:textStyle="bold" />
-
-    </RelativeLayout>
+    </LinearLayout>
     
     <TextView
         android:id="@+id/general_information"
@@ -66,10 +61,10 @@
         android:gravity="left|fill"
         android:textColor="@color/black"
         android:textSize="@dimen/subtitle_dimension"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:padding="10dp" />
 
-
-	<TextView
+    <TextView
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -81,11 +76,10 @@
         android:textSize="@dimen/subtitle_dimension"
         android:textStyle="bold" />
 
-	<ListView 
-	    android:id="@+id/indicator_list"
-	    android:layout_height="wrap_content"
-	    android:layout_width="match_parent">
-	    
-	</ListView>
+    <ListView
+        android:id="@+id/indicator_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>

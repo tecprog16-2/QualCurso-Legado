@@ -62,17 +62,17 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 					if (first > second) {
 						firstIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
-								.getColor(R.color.green));
+								.getColor(R.color.light_green));
 						secondIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
-								.getColor(R.color.red));
+								.getColor(R.color.smooth_red));
 					} else if (second > first) {
 						secondIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
-								.getColor(R.color.green));
+								.getColor(R.color.light_green));
 						firstIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
-								.getColor(R.color.red));
+								.getColor(R.color.smooth_red));
 					} else {
 						secondIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()

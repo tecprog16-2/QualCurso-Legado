@@ -5,32 +5,20 @@ import helpers.Indicator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import models.Article;
-import models.Bean;
-import models.Book;
 import models.Course;
-import models.Evaluation;
 import models.GenericBeanDAO;
-import models.Institution;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.database.SQLException;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -89,7 +77,7 @@ public class RankingFragment extends Fragment {
 		this.filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 		this.filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(
 				getActivity().getApplicationContext(),
-				R.layout.simple_textview, Indicator.getIndicators()));
+				R.layout.simple_spinner_item,R.id.spinner_item_text, Indicator.getIndicators()));
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		this.filterFieldSpinner.setOnItemSelectedListener(getFilterFieldSpinnerListener());
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
@@ -99,7 +87,7 @@ public class RankingFragment extends Fragment {
 				.findViewById(R.id.autoCompleteTextView);
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity()
 				.getApplicationContext(), R.layout.custom_textview, courses));
-		autoCompleteField.setOnItemClickListener(getAutoCompleteListener());
+		autoCompleteField.setOnItemClickListener(getAutoCompleteListener(rootView));
 		evaluationList.setOnItemClickListener(getEvaluationListListener());
 		if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
 			updateList();
@@ -114,7 +102,7 @@ public class RankingFragment extends Fragment {
 		super.onSaveInstanceState(outState);
 	}
 	
-	public OnItemClickListener getAutoCompleteListener(){
+	public OnItemClickListener getAutoCompleteListener(final View rootView){
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -122,10 +110,11 @@ public class RankingFragment extends Fragment {
 				setCurrentSelection((Course) parent.getItemAtPosition(position));
 				updateList();
 
+				hideKeyboard(rootView);
 			}
 		};
 	}
-	
+
 	public OnItemClickListener getEvaluationListListener(){
 		return new OnItemClickListener() {
 
@@ -149,7 +138,6 @@ public class RankingFragment extends Fragment {
 	
 	public OnItemSelectedListener getFilterFieldSpinnerListener(){
 		return new OnItemSelectedListener() {
-
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
@@ -163,7 +151,6 @@ public class RankingFragment extends Fragment {
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
-
 			}
 		};
 		
@@ -246,4 +233,8 @@ public class RankingFragment extends Fragment {
 		}
 	}
 
+	private void hideKeyboard(View view) {
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+	}
 }

@@ -65,7 +65,7 @@ public class Institution extends Bean implements Parcelable {
 		Institution type = new Institution();
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectAllBeans(type)) {
+		for (Bean b : gDB.selectAllBeans(type,"acronym")) {
 			result.add((Institution) b);
 		}
 		return result;
@@ -96,7 +96,7 @@ public class Institution extends Bean implements Parcelable {
 			SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanRelationship(this, "course")) {
+		for (Bean b : gDB.selectBeanRelationship(this, "course","name")) {
 			courses.add((Course) b);
 		}
 		return courses;
@@ -106,7 +106,7 @@ public class Institution extends Bean implements Parcelable {
 			SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanRelationship(this, "course", year)) {
+		for (Bean b : gDB.selectBeanRelationship(this, "course", year,"name")) {
 			courses.add((Course) b);
 		}
 		return courses;
@@ -119,7 +119,7 @@ public class Institution extends Bean implements Parcelable {
 		Institution type = new Institution();
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like)) {
+		for (Bean b : gDB.selectBeanWhere(type, field, value, like,"acronym")) {
 			result.add((Institution) b);
 		}
 		return result;

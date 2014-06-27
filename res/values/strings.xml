@@ -28,20 +28,19 @@
     <string name="articles">Quantidade de artigos publicados:</string>
     <string name="works">Quantidade de trabalhos publicados:</string>
     <string name="empty_search_filter">Escolha um indicador</string>
-
+    <string name="exit">Sair</string>
+    <string name="about">Sobre</string>
     <string name="between">Entre:</string>
     <string name="max">Máx</string>
     <string name="search">Buscar</string>
     <string name="line">------------------------------------------------</string>
-    
-    <string name="listBy">Listar por:</string>
+    <string name="listBy">Buscar por:</string>
 
     <string-array name="list">
         <item>Opção</item>
         <item>Curso</item>
         <item>Instituição</item>
     </string-array>
-
     <string-array name="indicator">
         <item>Indicador</item>
         <item>Conceito no ano avaliado</item>
@@ -58,7 +57,6 @@
         <item>Quantidade de artigos publicados</item>
         <item>Quantidade de trabalhos publicados</item>
     </string-array>
-    
     <string-array name="year">
         <item>Ano</item>
         <item>2007</item>
@@ -83,5 +81,14 @@
 	<string name="select_a_course">Selecione um curso</string>
 	<string name="select_a_year">Selecione um ano</string>
 	<string name="compare_show_better_institutions_results">Total de melhores resuldados:</string>
+	<string name="empty_histoty_search_result">Esta busca resulta em uma lista vazia</string>
+	<string name="trophyImage">trophyImage</string>
+    <string name="about_studens_text">Este é um projeto realizado pelos alunos da disciplina de Métodos de Desenvolvimento de Software (MDS) e gerenciado por alunos da disciplina de Gerenciamento de Projetos e Portfólios (GPP), ministrada pelo professor Hilmer Rodrigues Neri na Universidade de Brasília.</string>
+    <string name="about_app_text">O “Qual Curso?” é um aplicativo Android destinado a auxiliar estudantes a encontrar uma instituição de ensino superior com uma melhor qualificação acadêmica, por meio da reunião de dados e indicadores referentes a avaliações de universidades brasileiras.</string>
+	<string name="about_mds_studens_title">Alunos de MDS:</string>
+	<string name="about_gpp_studens_title">Alunos de GPP:</string>
+	<string name="about_mds_studens_text">André Bernardes\nBrenddon Gontijo\nElaine Cristina Meirelles\nFábio Teixeira\nJônnatas Lennon</string>
+	<string name="about_gpp_studens_text">Gabriela Navarro\nYeltsin Suares</string>
+	<string name="version_year">Versão 1.0\n©2014\n</string>
 
 </resources>
