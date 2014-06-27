@@ -34,7 +34,7 @@
     <string name="max">Máx</string>
     <string name="search">Buscar</string>
     <string name="line">------------------------------------------------</string>
-    <string name="listBy">Listar por:</string>
+    <string name="listBy">Buscar por:</string>
 
     <string-array name="list">
         <item>Opção</item>
