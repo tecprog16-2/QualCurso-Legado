@@ -5,6 +5,8 @@ import models.Institution;
 import models.Search;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
@@ -12,12 +14,14 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.text.Spanned;
 
 public class MainActivity extends ActionBarActivity implements
-		NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks {
+		NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks, OnQueryTextListener {
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -35,6 +39,8 @@ public class MainActivity extends ActionBarActivity implements
 
 	public static String CURRENT_TITLE = "currentTitle";
 
+	private SearchView mSearchView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -150,9 +156,21 @@ public class MainActivity extends ActionBarActivity implements
 			// decide what to show in the action bar.
 			getMenuInflater().inflate(R.menu.main, menu);
 			restoreActionBar();
+			//if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof TabsFragment){
+			//	getMenuInflater().inflate(R.menu.search_menu, menu);
+			//}
+			//MenuItem searchItem = menu.findItem(R.id.action_search);
+			//if(searchItem != null){
+			//	mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+			//	setupSearchView(searchItem);
+			//}
 			return true;
 		}
 		return super.onCreateOptionsMenu(menu);
+	}
+	private void setupSearchView(MenuItem searchItem){
+		searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM|MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		mSearchView.setOnQueryTextListener(this);
 	}
 
 	@Override
@@ -214,5 +232,16 @@ public class MainActivity extends ActionBarActivity implements
 					search.getYear(),
 					Course.getInstitutionsByEvaluationFilter(((Course)bean).getId(),search)));
 		}		
+	}
+
+	@Override
+	public boolean onQueryTextChange(String arg0) {
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
