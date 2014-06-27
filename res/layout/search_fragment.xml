@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/qc_bg"
+    android:background="@color/weak_gray"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".SearchByIndicatorFragment" >
@@ -112,6 +112,8 @@
     </RelativeLayout>
 
     <FrameLayout
+        
+    android:background="@drawable/qc_bg"
         android:id="@+id/search_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

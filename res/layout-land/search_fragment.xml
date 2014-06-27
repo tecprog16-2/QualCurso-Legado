@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_weight="1"
-            android:background="#E3E2E2" >
+            android:background="@color/weak_gray" >
 
             <LinearLayout
                 android:id="@+id/linearLayout1"

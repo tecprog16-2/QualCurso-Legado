@@ -16,5 +16,6 @@
     <color name="light_green">#7FDB8A</color>
     <color name="smooth_red">#F25252</color>
     <color name="medium_gray">#B5AEAE</color>
+    <color name="weak_gray">#dedddd</color>
 
 </resources>
